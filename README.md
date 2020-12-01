@@ -1,11 +1,10 @@
 # JavaQuest
-Java Quest is a small RPG written in Java since 23.04.2013!
+Java Quest is a small RPG written in Java. This Game was mostly written during school days (Around Summer 2013). Since then, nothing big changed. At the moment the goal is "Clean Code".
 
 This project currently uses the libraries of [SuM](https://www.mg-werl.de/sum/).
 In the future these will be abandoned. A change to JavaFX is planned.
 
 ## ToDo
-CLEAN CODE!!!
 ### Coop Mode:
 * Two players must solve levels together. One player plays with `W` `A` `S` `D` the other with `8` `4` `5` `6`.
 * The two players are always in separate rooms, but still have to help each other (like in portal 2)
@@ -39,7 +38,7 @@ If you continue at the edge, you get an error => it's because of the distance be
 
 ## Licence
 ### Images
-Some pictures are from "Twemoji".
+Some pictures are from [Twemoji](https://twemoji.twitter.com/).
 
 Copyright 2020 Twitter, Inc and other contributors
 
