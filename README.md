@@ -5,6 +5,7 @@ This project currently uses the libraries of [SuM](https://www.mg-werl.de/sum/).
 In the future these will be abandoned. A change to JavaFX is planned.
 
 ## ToDo
+CLEAN CODE!!!
 ### Coop Mode:
 * Two players must solve levels together. One player plays with `W` `A` `S` `D` the other with `8` `4` `5` `6`.
 * The two players are always in separate rooms, but still have to help each other (like in portal 2)
