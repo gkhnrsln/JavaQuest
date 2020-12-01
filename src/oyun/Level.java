@@ -1,4 +1,5 @@
 package oyun;
+
 /**
  * @author G. Arslan
  */
@@ -31,7 +32,7 @@ public class Level<T> {
 	}
 
 	public void wall(int x, int y) {
-		feld[x][y] = new Wall(x,y);
+		feld[x][y] = new Wall(x, y);
 	}
 
 	public void box(int x, int y) {
@@ -187,7 +188,7 @@ public class Level<T> {
 
 			for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
 				for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
-					if (sfeld[j][i] == 1 ){
+					if (sfeld[j][i] == 1) {
 						wall(i, j);
 					}
 				}

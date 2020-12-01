@@ -1,23 +1,31 @@
 package objects;
 
 import enums.Variables;
-/**
- * @author G. Arslan
- */
-/* MAN KANN DRAUF */
-public class Stairs extends Objekte {
-	private int level;
 
+/**
+ * 
+ * @author G. Arslan
+ *
+ */
+public class Stairs extends Objekte {
+	private int lvl;
+
+	/**
+	 * 
+	 * @param x Position X
+	 * @param y Position Y
+	 * @param l Level
+	 */
 	public Stairs(int x, int y, int l) {
 		super(x, y, Variables.IMG_STAIRS);
-		setLevel(l);
+		setLvl(l);
 	}
 
-	public int getLevel() {
-		return level;
+	public int getLvl() {
+		return lvl;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
 	}
 }

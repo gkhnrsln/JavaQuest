@@ -4,7 +4,7 @@ import enums.Variables;
 /**
  * @author G. Arslan
  */
-public class Princess extends Objekte {
+public class Princess extends Person {
 	public Princess(int x, int y) {
 		super(x, y, Variables.IMG_PRINCESS);
 	}

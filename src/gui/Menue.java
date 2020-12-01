@@ -8,7 +8,7 @@ import enums.Variables;
  * @author G. Arslan
  */
 public class Menue {
-	//System language for Game
+	/** System language for Game */
 	private String lang = System.getProperty("user.language");
 	private String steps;
 	private String swords;
@@ -47,17 +47,32 @@ public class Menue {
 		
 	}
 	
-	/* clear text */
+	/** clear text */
 	public void ctxt() {
 		getLblText().setzeInhalt("");
 	}
 
-	/* output */
+	/** output */
 	public void ausgabe(String t) {
 		JOptionPane.showMessageDialog(null, t);
 	}
 
-	/* input (int) */
+
+	public String cmdSwords() {
+		if (lang.equals("de")) 
+			return Variables.DE_TXT_CMD_SWORDS;
+		else
+			return Variables.EN_TXT_CMD_SWORDS;
+	}
+	
+	public String cmdKeys() {
+		if (lang.equals("de")) 
+			return Variables.DE_TXT_CMD_KEYS;
+		else
+			return Variables.EN_TXT_CMD_KEYS;
+	}
+	
+	/** input (int) */
 	public int eingabeInt(String t) {
 		return Integer.parseInt(JOptionPane.showInputDialog(t));
 	}
@@ -85,7 +100,7 @@ public class Menue {
 		*/
 	}
 
-	/* get set */
+	/** get set */
 	public void setLblTime(Etikett lblTime) {
 		this.lblTime = lblTime;
 	}

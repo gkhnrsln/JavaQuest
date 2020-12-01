@@ -4,7 +4,7 @@ import enums.Variables;
 /**
  * @author G. Arslan
  */
-public class Opa extends Objekte {
+public class Opa extends Person {
 	public Opa(int x, int y) {
 		super(x, y, Variables.IMG_OPA);
 	}
