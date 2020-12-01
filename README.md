@@ -1,9 +1,12 @@
 # JavaQuest
 Java Quest is a small RPG written in Java since 23.04.2013!
 
+This project currently uses the libraries of [SuM](https://www.mg-werl.de/sum/).
+In the future these will be abandoned. A change to JavaFX is planned.
+
 ## ToDo
 ### Coop Mode:
-* Two players must solve levels together. One player plays with [W][A][S][D] the other with [8][4][5][6]
+* Two players must solve levels together. One player plays with `W` `A` `S` `D` the other with `8` `4` `5` `6`.
 * The two players are always in separate rooms, but still have to help each other (like in portal 2)
 * At the end both players meet again in the same room and the game is over.
 
@@ -31,7 +34,7 @@ If you continue at the edge, you get an error => it's because of the distance be
   + Move blocks (into holes or something).
   + Add green, blue and yellow balls.
   + Level with logical operators
-  + control is different (S = D, W = A, A = W, D = S)
+  + control is different (`S` = `D`, `W` = `A`, `A` = `W`, `D` = `S`)
 
 ## Licence
 ### Images
