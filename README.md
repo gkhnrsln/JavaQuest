@@ -19,7 +19,7 @@ Level 3
 ## ToDo
 ### Coop Mode:
 * Two players must solve levels together. One player plays with `W` `A` `S` `D` the other with `8` `4` `5` `6`.
-* The two players are always in separate rooms, but still have to help each other (like in portal 2)
+* Both players are always in separate rooms, but still have to help each other (like Portal 2).
 * At the end both players meet again in the same room and the game is over.
 
 ## Classic Mode:
