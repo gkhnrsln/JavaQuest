@@ -1,10 +1,11 @@
-package objects;
+package objects.villain;
 
 import enums.Variables;
+import objects.Villain;
 /**
  * @author G. Arslan
  */
-public class Gegner extends Objekte {
+public class Gegner extends Villain {
 	private static String [] txt = new String[]{
 			Variables.DE_TXT_GEGNER_001
 			};

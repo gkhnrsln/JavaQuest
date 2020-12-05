@@ -5,20 +5,13 @@ package oyun;
  */
 import enums.Variables;
 import objects.Box;
-import objects.Button;
-import objects.Gegner;
-import objects.Lock;
+import objects.villain.*;
 import objects.Objekte;
-import objects.Opa;
-import objects.Portal;
-import objects.Princess;
+import objects.npc.*;
 import objects.Stairs;
-import objects.Wall;
-import objects.Wand;
-import objects.items.Key;
-import objects.items.Masterkey;
-import objects.items.Money;
-import objects.items.Sword;
+import objects.obstacles.*;
+import objects.items.*;
+import objects.switches.*;
 import sum.strukturen.Liste;
 
 public class Level<T> {
@@ -116,7 +109,7 @@ public class Level<T> {
 	public void generateLvl(int lvl) {
 		if (lvl == 1) {
 			int[][] sfeld = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-					{ 1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 1, 0, 0, 0, 0, 0, 5, 1, 0, 7, 0, 1 },
+					{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 5, 1, 0, 7, 0, 1 },
 					{ 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
 					{ 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1 },
 					{ 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },

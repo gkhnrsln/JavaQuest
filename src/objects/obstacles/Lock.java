@@ -1,10 +1,11 @@
-package objects;
+package objects.obstacles;
 
 import enums.Variables;
+import objects.Obstacle;
 /**
  * @author G. Arslan
  */
-public class Lock extends Objekte {
+public class Lock extends Obstacle {
 	int wert;
 
 	public Lock(int x, int y) {

@@ -23,66 +23,66 @@ public class Variables {
 	public static final int FIELD_LENGTH_Y = 17;
 	// ------------------------IMAGES-------------------------------------------
 	/** {@value #IMG_BG} */
-	public static final String IMG_BG = "img/bg.gif";
+	public static final String IMG_BG = "resources/img/bg.gif";
 	/** {@value #IMG_PLAYER_UP} */
-	public static final String IMG_PLAYER_UP = "img/spieler_up.png";
+	public static final String IMG_PLAYER_UP = "resources/img/spieler_up.png";
 	/** {@value #IMG_PLAYER_LEFT} */
-	public static final String IMG_PLAYER_LEFT = "img/spieler_left.png";
+	public static final String IMG_PLAYER_LEFT = "resources/img/spieler_left.png";
 	/** {@value #IMG_PLAYER_DOWN} */
-	public static final String IMG_PLAYER_DOWN = "img/spieler_down.png";
+	public static final String IMG_PLAYER_DOWN = "resources/img/spieler_down.png";
 	/** {@value #IMG_PLAYER_RIGHT} */
-	public static final String IMG_PLAYER_RIGHT = "img/spieler_right.png";
+	public static final String IMG_PLAYER_RIGHT = "resources/img/spieler_right.png";
 	/** {@value #IMG_PLAYER_SWORD} */
-	public static final String IMG_PLAYER_SWORD = "img/spieler_sword.png";
+	public static final String IMG_PLAYER_SWORD = "resources/img/spieler_sword.png";
 	/** {@value #IMG_PLAYER_MONEY} */
-	public static final String IMG_PLAYER_MONEY = "img/spieler_money.png";
+	public static final String IMG_PLAYER_MONEY = "resources/img/spieler_money.png";
 	/** {@value #IMG_PLAYER_CHEAT} */
-	public static final String IMG_PLAYER_CHEAT = "img/spieler_cheat.png";
+	public static final String IMG_PLAYER_CHEAT = "resources/img/spieler_cheat.png";
 	/** {@value #IMG_PRINCESS} */
-	public static final String IMG_PRINCESS = "img/princess.png";
+	public static final String IMG_PRINCESS = "resources/img/princess.png";
 	/** {@value #IMG_MON_1} */
-	public static final String IMG_MON_1 = "img/mon1.png";
+	public static final String IMG_MON_1 = "resources/img/mon1.png";
 	/** {@value #IMG_MON_2} */
-	public static final String IMG_MON_2 = "img/mon2.png";
+	public static final String IMG_MON_2 = "resources/img/mon2.png";
 	/** {@value #IMG_MON_3} */
-	public static final String IMG_MON_3 = "img/mon3.png";
+	public static final String IMG_MON_3 = "resources/img/mon3.png";
 	/** {@value #IMG_BUTTON} */
-	public static final String IMG_BUTTON = "img/button.png";
+	public static final String IMG_BUTTON = "resources/img/button.png";
 	/** {@value #IMG_OPA} */
-	public static final String IMG_OPA = "img/opa.png";
+	public static final String IMG_OPA = "resources/img/opa.png";
 	/** {@value #IMG_BOX} */
-	public static final String IMG_BOX = "img/box.png";
+	public static final String IMG_BOX = "resources/img/box.png";
 	/** {@value #IMG_LOCK_1} */
-	public static final String IMG_LOCK_1 = "img/lock1.png";
+	public static final String IMG_LOCK_1 = "resources/img/lock1.png";
 	/** {@value #IMG_LOCK_2} */
-	public static final String IMG_LOCK_2 = "img/lock2.png";
+	public static final String IMG_LOCK_2 = "resources/img/lock2.png";
 	/** {@value #IMG_STAIRS} */
-	public static final String IMG_STAIRS = "img/stairs.png";
+	public static final String IMG_STAIRS = "resources/img/stairs.png";
 	/** {@value #IMG_WALL} */
-	public static final String IMG_WALL = "img/wall.png";
+	public static final String IMG_WALL = "resources/img/wall.png";
 	/** {@value #IMG_WALL} */
-	public static final String IMG_INV_WALL = "img/invisibleWall.png";
+	public static final String IMG_INV_WALL = "resources/img/invisibleWall.png";
 	/** {@value #IMG_PORTAL} */
-	public static final String IMG_PORTAL = "img/portal.png";
+	public static final String IMG_PORTAL = "resources/img/portal.png";
 	/** {@value #IMG_SWORD} */
-	public static final String IMG_SWORD = "img/sword.png";
+	public static final String IMG_SWORD = "resources/img/sword.png";
 	/** {@value #IMG_MONEY} */
-	public static final String IMG_MONEY = "img/money.png";
+	public static final String IMG_MONEY = "resources/img/money.png";
 	/** {@value #IMG_KEY} */
-	public static final String IMG_KEY = "img/key.png";
+	public static final String IMG_KEY = "resources/img/key.png";
 	/** {@value #IMG_MKEY} */
-	public static final String IMG_MKEY = "img/masterkey.png";
+	public static final String IMG_MKEY = "resources/img/masterkey.png";
 	// ------------------------SOUNDFILES--------------------------------------
 	/** {@value #SND_PRINCESS} */
-	public static final String SND_PRINCESS = "princess.wav";
+	public static final String SND_PRINCESS = "resources/wav/princess.wav";
 	/** {@value #SND_MASTERKEY} */
-	public static final String SND_MASTERKEY = "masterkey.wav";
+	public static final String SND_MASTERKEY = "resources/wav/masterkey.wav";
 	/** {@value #SND_OBSTACLE} */
-	public static final String SND_OBSTACLE = "obstacle.wav";
+	public static final String SND_OBSTACLE = "resources/wav/obstacle.wav";
 	/** {@value #SND_MONEY} */
-	public static final String SND_MONEY = "money.wav";
+	public static final String SND_MONEY = "resources/wav/money.wav";
 	/** {@value #SND_TEXT} */
-	public static final String SND_TEXT = "text.wav";
+	public static final String SND_TEXT = "resources/wav/text.wav";
 	// ------------------------MENUE-------------------------------------------
 	/** {@value #LBL_MKEYS} */
 	public static final String LBL_MKEYS = "MASTERKEYS";

@@ -1,9 +1,8 @@
-package oyun;
+package objects;
 /**
  * @author G. Arslan
  */
 import enums.Variables;
-import objects.Objekte;
 
 public class Player extends Objekte {
 	private boolean isCheat = false;

@@ -1,15 +1,22 @@
-package objects;
+package objects.npc;
 
 import enums.Variables;
+import objects.NPC;
 /**
  * @author G. Arslan
  */
-public class Opa extends Person {
+public class Opa extends NPC {
+	private static int masterkey = 1;
+	/**
+	 * Constructor of opa.
+	 * @param x Position (x coordinate).
+	 * @param y Position (y coordinate).
+	 */
 	public Opa(int x, int y) {
 		super(x, y, Variables.IMG_OPA);
 	}
-	private static int masterkey = 1;
 	
+	/** Messages from Opa. */
 	private static String [] txt = new String[]{
 			Variables.DE_TXT_OPA_001,
 			Variables.DE_TXT_OPA_002,
@@ -17,6 +24,7 @@ public class Opa extends Person {
 			Variables.DE_TXT_OPA_004	
 	};
 	
+	//getter setter
 	public void setMasterkey(int masterkey) {
 		Opa.masterkey = masterkey;
 	}
