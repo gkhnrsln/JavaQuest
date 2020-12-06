@@ -25,7 +25,7 @@ public class Opa extends NPC {
 	};
 	
 	//getter setter
-	public void setMasterkey(int masterkey) {
+	public static void setMasterkey(int masterkey) {
 		Opa.masterkey = masterkey;
 	}
 

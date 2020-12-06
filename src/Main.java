@@ -3,6 +3,7 @@ import javax.swing.JOptionPane;
 import enums.Variables;
 import gui.Menue;
 import objects.Box;
+import objects.NPC;
 import objects.villain.*;
 import objects.Objekte;
 import objects.Obstacle;
@@ -87,58 +88,7 @@ public class Main extends EBAnwendung {
 		lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] = null;
 	}
 
-	/**
-	 * Here it is checked if the box can be moved further (i.e. if there are no
-	 * obstacles).
-	 * 
-	 * @param c
-	 * @param r
-	 */
-	public void checkKisteHindernis(char c, int r) {
-		switch (c) {
-			case 'y':
-				y = r;
-				break;
-			case 'x':
-				x = r;
-				break;
-			default:
-				break;
-		}
 
-		if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Box
-				&& lvl.getFeld()[player.getPosx() + (x * 2)][player.getPosy() + (y * 2)] instanceof Button) {
-			lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveDown();
-			lvl.getFeld()[18][14].verstecke();
-			lvl.getFeld()[18][14] = null;
-			lvl.getFeld()[player.getPosx()][player.getPosy() + (y * 2)] = lvl.getFeld()[player.getPosx()][player.getPosy() + y];
-			lvl.getFeld()[player.getPosx()][player.getPosy() + y] = null;
-		}
-
-		if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Box
-				&& !(lvl.getFeld()[player.getPosx() + (x * 2)][player.getPosy() + (y * 2)] instanceof Objekte)) {
-			if (c == 'x') {
-				if (r == 1)
-					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveRight();
-				else if (r == -1)
-					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveLeft();
-
-			} else if (c == 'y') {
-				if (r == -1)
-					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveUp();
-				else if (r == 1) {
-					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveDown();
-					/*
-					 * if(lvl.getFeld()[player.get_posx()+x][player.get_posy()+2] instanceof Schalter){
-					 * lvl.getFeld()[18][14].verstecke(); lvl.getFeld()[18][14] = null; }
-					 */
-
-				}
-			}
-			lvl.getFeld()[player.getPosx() + (x * 2)][player.getPosy() + (y * 2)] = lvl.getFeld()[player.getPosx() + x][player.getPosy() + y];
-			lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] = null;
-		}
-	}
 	
 	//
 	public void move(char c) {
@@ -147,29 +97,30 @@ public class Main extends EBAnwendung {
 				//load img, player shows up
 				player.ladeBild(Variables.IMG_PLAYER_UP);
 				y--;
-				y2 = y-1;
-				checkKisteHindernis('y', -1);
+				y2 = y - 1;
+				checkBoxObstacle('y', -1);
 				break;
 			case 'a':
 				player.ladeBild(Variables.IMG_PLAYER_LEFT);
 				x--;
-				x2 = x-1;
-				checkKisteHindernis('x', -1);
+				x2 = x - 1;
+				checkBoxObstacle('x', -1);
 				break;
 			case 's':
 				player.ladeBild(Variables.IMG_PLAYER_DOWN);
 				y++;
-				y2 = y+1;
-				//no sword, no fight
-				if (lvl.getFeld()[player.getPosx()][player.getPosy() + y] instanceof Gegner && player.getSwords() < 1)
+				y2 = y + 1;
+				//no weapon, no fight
+				if (isPlayerInFrontOf("Villain") && player.getSwords() < 1) {
 					m.getLblText().setzeInhalt(Gegner.getTxt()[0]);
-				checkKisteHindernis('y', 1);
+				}
+				checkBoxObstacle('y', 1);
 				break;
 			case 'd':
 				player.ladeBild(Variables.IMG_PLAYER_RIGHT);
 				x++;
-				x2 = x+1;
-				checkKisteHindernis('x', 1);
+				x2 = x + 1;
+				checkBoxObstacle('x', 1);
 				break;
 			default:
 				break;
@@ -202,56 +153,60 @@ public class Main extends EBAnwendung {
 				break;
 		}
 	}
-	
 	/**
-	 * if Player is in front of Box
-	 * @return true, if Player is in front of Box
+	 * If Player is in front of an specified object.
+	 * @param object specified object
+	 * @return true, if Player is in front of a specified object
 	 */
-	public boolean isPlayerInFrontOfBox() {
-		return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Box;
+	public boolean isPlayerInFrontOf(String object) {
+		if (object.equals("Button")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Button;
+		} else if (object.equals("Box")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Box;
+		} else if (object.equals("Sword")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Sword;
+		} else if (object.equals("Money")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Money;
+		} else if (object.equals("Princess")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Princess;
+		} else if (object.equals("Lock")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Lock;
+		} else if (object.equals("Opa")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Opa;
+		} else if (object.equals("NPC")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof NPC;
+		} else if (object.equals("Key")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Key;
+		} else if (object.equals("Masterkey")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Masterkey;
+		} else if (object.equals("Villain")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Villain;
+		}  else if (object.equals("Obstacle")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Obstacle && !player.getIsCheat();
+		} else if (object.equals("Stairs")) {
+			return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Stairs;
+		} else {
+			return false;
+		}
+		
 	}
 	/**
-	 * if Player is in front of Button, hidden Area is then accesible
-	 * @return true, if Player is in front of Button
-	 */
-	public boolean isPlayerInFrontOfButton() {
-		return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Button;
-	}
-	/**
-	 * if Player is in front of Villain
-	 * @return true, if Player is in front of Villain
-	 */
-	public boolean isPlayerInFrontOfVillain() {
-		return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Villain;
-	}
-	/**
-	 * if Player is in front of Obstacle, Cheat not activated.
-	 * @return true, if Player is in front of Obstacle
-	 */
-	public boolean isPlayerInFrontOfObstacle() {
-		return lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Obstacle && !player.getIsCheat();
-	}
-	/**
-	 * if Player is in front of a person, like Princess/Opa
+	 * If Player is in front of a person, like Princess/Opa
 	 * @return true, if Player is in front of a person
 	 */
 	public void playerInFrontOfPerson() {
-		
-		if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Princess) {
+		if (isPlayerInFrontOf("Princess")) {
 			playSound(Variables.SND_PRINCESS);
 			m.getLblText().setzeInhalt(Princess.getTxt()[0]);
-
-		} else if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Opa) {
+		} else if (isPlayerInFrontOf("Opa")) {
 			playSound(Variables.SND_PRINCESS);
 			m.getLblText().setzeInhalt(Opa.getTxt()[3]);
-		
 		}
-		
 	}
 	
 	/** If player is on stairs. */
 	private void isPlayerOnStairs() {
-		if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Stairs) {
+		if (isPlayerInFrontOf("Stairs")) {
 			int newLvl = ((Stairs) lvl.getFeld()[player.getPosx() + x][player.getPosy() + y]).getLvl();
 			for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
 				for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
@@ -278,8 +233,57 @@ public class Main extends EBAnwendung {
 	}
 	
 	/**
+	 * Here it is checked if the box can be moved further (i.e. if there are no
+	 * obstacles).
+	 * 
+	 * @param c
+	 * @param r
+	 */
+	public void checkBoxObstacle(char c, int r) {
+		switch (c) {
+			case 'y':
+				y = r;
+				break;
+			case 'x':
+				x = r;
+				break;
+			default:
+				break;
+		}
+
+		if (isPlayerInFrontOf("Box") && lvl.getFeld()[player.getPosx() + (x * 2)][player.getPosy() + (y * 2)] instanceof Button) {
+			lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveDown();
+			lvl.getFeld()[18][14].verstecke();
+			lvl.getFeld()[18][14] = null;
+			lvl.getFeld()[player.getPosx()][player.getPosy() + (y * 2)] = lvl.getFeld()[player.getPosx()][player.getPosy() + y];
+			lvl.getFeld()[player.getPosx()][player.getPosy() + y] = null;
+		}
+
+		if (isPlayerInFrontOf("Box") && !(lvl.getFeld()[player.getPosx() + (x * 2)][player.getPosy() + (y * 2)] instanceof Objekte)) {
+			if (c == 'x') {
+				if (r == 1) {
+					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveRight();
+				} else if (r == -1) {
+					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveLeft();
+				}
+			} else if (c == 'y') {
+				if (r == -1) {
+					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveUp();
+				} else if (r == 1) {
+					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveDown();
+					/*
+					 * if(lvl.getFeld()[player.get_posx()+x][player.get_posy()+2] instanceof Schalter){
+					 * lvl.getFeld()[18][14].verstecke(); lvl.getFeld()[18][14] = null; }
+					 */
+				}
+			}
+			lvl.getFeld()[player.getPosx() + (x * 2)][player.getPosy() + (y * 2)] = lvl.getFeld()[player.getPosx() + x][player.getPosy() + y];
+			lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] = null;
+		}
+	}
+	
+	/**
 	 * Handle Movement of player
-	 * TODO: too complex
 	 * @param c Which key is pressed?
 	 */
 	@Override
@@ -295,30 +299,28 @@ public class Main extends EBAnwendung {
 		move(c);
 		commands(c);
 
-		if (isPlayerInFrontOfButton()) {
+		if (isPlayerInFrontOf("Button")) {
 			lvl.getFeld()[18][14].zeige();
 		}
 		
-		if (isPlayerInFrontOfObstacle()) {
+		if (isPlayerInFrontOf("Obstacle")) {
 			playSound(Variables.SND_OBSTACLE);
 		}
 		
 		playerInFrontOfPerson();
 
 		if (c == 'w') {
-			if (lvl.getFeld()[player.getPosx()][player.getPosy() + y] instanceof Opa
-					&& ((Opa) lvl.getFeld()[player.getPosx()][player.getPosy() + y]).getMasterkey() == 0) {
+			if (isPlayerInFrontOf("Opa") && Opa.getMasterkey() == 0) {
 				playSound(Variables.SND_TEXT);
 				m.getLblText().setzeInhalt(Opa.getTxt()[2]);
-			} else if (lvl.getFeld()[player.getPosx()][player.getPosy() + y] instanceof Opa) {
+			} else if (isPlayerInFrontOf("Opa")) {
 				if (player.getMoney() < 450) {
 					playSound(Variables.SND_TEXT);
 					m.getLblText().setzeInhalt(Opa.getTxt()[0]);
 				} else {
 					lvl.getListe().haengeAn(new Visited(player.getPosx(), player.getPosy() + y, lvl.getLvl()));
 					player.setMoney(player.getMoney() - 450);
-
-					((Opa) lvl.getFeld()[player.getPosx()][player.getPosy() + y]).setMasterkey(Opa.getMasterkey() - 1);
+					Opa.setMasterkey(Opa.getMasterkey() - 1);
 					m.getLblMoney().setzeInhalt(m.getMoney() + player.getMoney());
 					player.setMasterkeys(player.getMasterkeys() + 1);
 					m.getLblMasterkeys().setzeInhalt(m.getMasterkeys() + player.getMasterkeys());
@@ -328,45 +330,42 @@ public class Main extends EBAnwendung {
 		}
 
 		// not bulletproofed
-		if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Lock && player.getKeys() > 1
-				|| isPlayerInFrontOfVillain() && player.getSwords() > 0
-				|| lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Lock && player.getKeys() > 2
-				|| lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Lock && player.getMasterkeys() > 0
-				|| lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Money
-				|| lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Sword
-				|| lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Key
-				|| lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Masterkey
-				|| lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Lock && player.getKeys() > 0) {
-			
-			if (isPlayerInFrontOfVillain()) {
+		if (isPlayerInFrontOf("Lock") && player.getKeys() > 1
+				|| isPlayerInFrontOf("Villain") && player.getSwords() > 0
+				|| isPlayerInFrontOf("Lock") && player.getKeys() > 2
+				|| isPlayerInFrontOf("Lock") && player.getMasterkeys() > 0
+				|| isPlayerInFrontOf("Money") || isPlayerInFrontOf("Sword")
+				|| isPlayerInFrontOf("Key") || isPlayerInFrontOf("Masterkey")
+				|| isPlayerInFrontOf("Lock") && player.getKeys() > 0) {
+			if (isPlayerInFrontOf("Villain")) {
 				player.setSwords(player.getSwords() - 1);
 				m.getLblSwords().setzeInhalt(m.getSwords() + player.getSwords());
-			} else if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Money) {
+			} else if (isPlayerInFrontOf("Money")) {
 				playSound(Variables.SND_MONEY);
 				player.ladeBild(Variables.IMG_PLAYER_MONEY);
 				player.setMoney(player.getMoney() + ((Money) lvl.getFeld()[player.getPosx() + x][player.getPosy() + y]).value);
 				m.getLblMoney().setzeInhalt(m.getMoney() + player.getMoney());
-			} else if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Sword) {
+			} else if (isPlayerInFrontOf("Sword")) {
 				//add sword to items
 				player.setSwords(player.getSwords() + 1);
 				//change image from Player
 				player.ladeBild(Variables.IMG_PLAYER_SWORD);
 				//refresh Menue
 				m.getLblSwords().setzeInhalt(m.getSwords() + player.getSwords());
-			} else if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Key) {
+			} else if (isPlayerInFrontOf("Key")) {
 				//add key to items
 				player.setKeys(player.getKeys() + 1);
 				//refresh Menue
 				m.getLblKeys().setzeInhalt(m.getKeys() + player.getKeys());
-			} else if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Lock) {
+			} else if (isPlayerInFrontOf("Lock")) {
 				//remove key from items
 				player.setKeys(player.getKeys() - 1);
 				m.getLblKeys().setzeInhalt(m.getKeys() + player.getKeys());
-			} else if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Masterkey) {
+			} else if (isPlayerInFrontOf("Masterkey")) {
 				playSound(Variables.SND_TEXT);
 				player.setMasterkeys(player.getMasterkeys() + 1);
 				m.getLblMasterkeys().setzeInhalt(m.getMasterkeys() + player.getMasterkeys());
-			} else if (lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Lock && player.getMasterkeys() > 0) {
+			} else if (isPlayerInFrontOf("Lock") && player.getMasterkeys() > 0) {
 				player.setMasterkeys(player.getMasterkeys() - 1);
 				m.getLblMasterkeys().setzeInhalt(m.getMasterkeys() + player.getMasterkeys());
 			}
@@ -394,10 +393,11 @@ public class Main extends EBAnwendung {
 		isPlayerOnPortal();
 
 		//move Player Sprite
-		if (player.getIsCheat() || !(isPlayerInFrontOfBox()
+		if (player.getIsCheat() || !(isPlayerInFrontOf("Box")
 				&& (lvl.getFeld()[player.getPosx() + x2][player.getPosy() + y2] instanceof Obstacle))
-				&& !(lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] instanceof Obstacle)
-				&& !(isPlayerInFrontOfVillain())) {
+				&& !(isPlayerInFrontOf("NPC"))
+				&& !(isPlayerInFrontOf("Obstacle"))
+				&& !(isPlayerInFrontOf("Villain"))) {
 			switch (c) {
 				case 'w':
 					player.moveUp();
