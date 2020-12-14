@@ -6,7 +6,7 @@ In the future these will be abandoned. A change to JavaFX is planned.
 
 Level 1
 
-![Level 1](https://master.tus.io/files/c00b2a7488c5bcc9d65c75053dc84af3+9JFbKZ8Sl4dFUGu1JHSZV0EIFkXSolQjx.TNhD3QDxQ8dpHqAztXRFk7FxLk2h67W1KlrXD4kDSgYFG57Psf7N0LHMVMocB926eamt88AtNxqhXSb2br7QzkR3WGJWAq) 
+![Level 1](https://i.imgur.com/GJTODLH.png) 
 
 Level 2
 
