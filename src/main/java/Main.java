@@ -102,8 +102,6 @@ public class Main extends EBAnwendung {
 		lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] = null;
 	}
 
-
-	
 	//
 	public void move(char c) {
 		switch (c) {
@@ -224,8 +222,9 @@ public class Main extends EBAnwendung {
 			int newLvl = ((Stairs) lvl.getFeld()[player.getPosx() + x][player.getPosy() + y]).getLvl();
 			for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
 				for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
-					if (lvl.getFeld()[i][j] != null)
+					if (lvl.getFeld()[i][j] != null) {
 						lvl.getFeld()[i][j].verstecke();
+					}
 					lvl.getFeld()[i][j] = null;
 				}
 			}
@@ -440,6 +439,5 @@ public class Main extends EBAnwendung {
 				m.getLblSteps().setzeInhalt("");
 			}
 		}
-
 	}
 }
