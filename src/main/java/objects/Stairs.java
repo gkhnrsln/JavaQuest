@@ -23,19 +23,20 @@ public class Stairs extends Objekte {
 
 	/**
 	 * 
-	 * @param x Position X
-	 * @param y Position Y
-	 * @param l Level
+	 * @param x Position X, from Level lvl
+	 * @param y Position Y, from Level lvl
+	 * @param lvl Sets Destination Level
 	 */
-	public Stairs(int x, int y, int l) {
+	public Stairs(int x, int y, int lvl) {
 		super(x, y, Variables.IMG_STAIRS);
-		setLvl(l);
+		setLvl(lvl);
 	}
 
+	//getter setter
 	public int getLvl() {
 		return lvl;
 	}
-
+	
 	public void setLvl(int lvl) {
 		this.lvl = lvl;
 	}

@@ -93,8 +93,7 @@ public class Main extends EBAnwendung {
 			default:
 				break;
 		}
-
-		lvl.getListe().haengeAn(new Visited(player.getPosx() + x, player.getPosy() + y, lvl.getLvl()));
+		lvl.getList().add(new Visited(player.getPosx() + x, player.getPosy() + y, lvl.getLvl()));
 		//hide image from playground
 		lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].verstecke();
 		//remove object from field
@@ -325,7 +324,7 @@ public class Main extends EBAnwendung {
 					playSound(Variables.SND_TEXT);
 					m.getLblText().setzeInhalt(Opa.getTxt()[0]);
 				} else {
-					lvl.getListe().haengeAn(new Visited(player.getPosx(), player.getPosy() + y, lvl.getLvl()));
+					lvl.getList().add(new Visited(player.getPosx(), player.getPosy() + y, lvl.getLvl()));
 					player.setMoney(player.getMoney() - 450);
 					Opa.setMasterkey(Opa.getMasterkey() - 1);
 					m.getLblMoney().setzeInhalt(m.getMoney() + player.getMoney());

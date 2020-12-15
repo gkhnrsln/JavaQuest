@@ -17,16 +17,16 @@
 package main.java.oyun;
 
 public class Visited {
-	// Level
-	protected int l;
-	// Position X
+	/** Level */
+	protected int lvl;
+	/** Position X */
 	protected int x;
-	// Position Y
+	/** Position Y */
 	protected int y;
 
-	public Visited(int x1, int y1, int l1) {
-		x = x1;
-		y = y1;
-		l = l1;
+	public Visited(int x, int y, int lvl) {
+		this.x = x;
+		this.y = y;
+		this.lvl = lvl;
 	}
 }
