@@ -157,8 +157,7 @@ public class Main extends EBAnwendung {
 				} else if (strCmd.equals("keys")) {
 					player.setKeys(m.eingabeInt(m.cmdKeys()));
 					m.getLblKeys().setzeInhalt(player.getKeys());
-				} else if (strCmd.equals("highscore"))
-					m.hiscore();
+				}
 				break;
 			default:
 				break;
@@ -283,10 +282,6 @@ public class Main extends EBAnwendung {
 					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveUp();
 				} else if (r == 1) {
 					lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].moveDown();
-					/*
-					 * if(lvl.getFeld()[player.get_posx()+x][player.get_posy()+2] instanceof Schalter){
-					 * lvl.getFeld()[18][14].verstecke(); lvl.getFeld()[18][14] = null; }
-					 */
 				}
 			}
 			lvl.getFeld()[player.getPosx() + (x * 2)][player.getPosy() + (y * 2)] = lvl.getFeld()[player.getPosx() + x][player.getPosy() + y];

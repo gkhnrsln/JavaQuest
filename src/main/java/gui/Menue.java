@@ -30,10 +30,8 @@ public class Menue {
 	private String money;
 	private String keys;
 	private String masterkeys;
-	private String time;
 	
 	/* Labels and their positions */
-	private Etikett lblTime = new Etikett(600, 0, 100, 50, null);
 	private Etikett lblSteps = new Etikett(600, 575, 100, 50, getSteps());
 	private Etikett lblSwords = new Etikett(600, 590, 100, 50, getSwords());
 	private Etikett lblMoney = new Etikett(600, 605, 400, 50, getMoney());
@@ -57,7 +55,6 @@ public class Menue {
 			setMoney(Variables.EN_LBL_MONEY + ": ");
 			setKeys(Variables.EN_LBL_KEYS + ": ");
 		}
-		setTime("TIME: " + timer.minute() + ":" + timer.sekunde());
 		setMasterkeys(Variables.LBL_MKEYS + ": ");
 		
 	}
@@ -71,7 +68,6 @@ public class Menue {
 	public void ausgabe(String t) {
 		JOptionPane.showMessageDialog(null, t);
 	}
-
 
 	public String cmdSwords() {
 		if (lang.equals("de")) 
@@ -105,21 +101,8 @@ public class Menue {
 		else
 			return Variables.EN_TXT_COMMAND;
 	}
-	
-	public void hiscore() {
-		/*
-		if (lang.equals("de")) 
-			ausgabe("Highscore:\n[Herfel] = 1234 Schritte\n[Lycon] = 9999 Schritte\n");
-		else
-			ausgabe("Highscore:\n[Herfel] = 1234 Steps\n[Lycon] = 9999 Steps\n");
-		*/
-	}
 
 	/** get set */
-	public void setLblTime(Etikett lblTime) {
-		this.lblTime = lblTime;
-	}
-	
 	public void setLang(String lang) {
 		this.lang = lang;
 	}
@@ -190,10 +173,6 @@ public class Menue {
 
 	public void setMoney(String money) {
 		this.money = money;
-	}
-	
-	public void setTime(String time) {
-		this.time = time;
 	}
 
 	public String getKeys() {
