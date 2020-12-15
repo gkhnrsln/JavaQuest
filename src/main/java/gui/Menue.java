@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 
 import main.java.enums.Variables;
 import sum.komponenten.Etikett;
-import sum.werkzeuge.Uhr;
 
 public class Menue {
 	/** System language for Game */
@@ -39,10 +38,7 @@ public class Menue {
 	private Etikett lblMasterkeys = new Etikett(600, 635, 100, 50, getMasterkeys());
 	private Etikett lblText = new Etikett(300, 580, 250, 50, null);
 	
-	Uhr timer = new Uhr();
-
 	public Menue() {
-		timer.starte();
 		if (lang.equals("de")) {
 			setSteps(Variables.DE_LBL_STEPS + ": ");
 			setSwords(Variables.DE_LBL_SWORDS + ": ");

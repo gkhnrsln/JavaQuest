@@ -18,7 +18,7 @@ package main.java.objects;
 
 public abstract class NPC extends Objekte {
 
-	public NPC(int x, int y, String datei) {
+	protected NPC(int x, int y, String datei) {
 		super(x, y, datei);
 	}
 

@@ -93,10 +93,11 @@ public class Main extends EBAnwendung {
 			default:
 				break;
 		}
+		//add new visited field to list
 		lvl.getList().add(new Visited(player.getPosx() + x, player.getPosy() + y, lvl.getLvl()));
-		//hide image from playground
+		//hide image from gamefield
 		lvl.getFeld()[player.getPosx() + x][player.getPosy() + y].verstecke();
-		//remove object from field
+		//remove object from gamefield
 		lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] = null;
 	}
 
@@ -138,7 +139,7 @@ public class Main extends EBAnwendung {
 	}
 	
 	/**
-	 * 
+	 * For fast Testing Ingame.
 	 * @param c
 	 */
 	public void commands(char c) {
@@ -197,7 +198,6 @@ public class Main extends EBAnwendung {
 		} else {
 			return false;
 		}
-		
 	}
 	/**
 	 * If Player is in front of a person, like Princess/Opa
@@ -335,7 +335,6 @@ public class Main extends EBAnwendung {
 			}
 		}
 
-		// not bulletproofed
 		if (isPlayerInFrontOf("Lock") && player.getKeys() > 1
 				|| isPlayerInFrontOf("Villain") && player.getSwords() > 0
 				|| isPlayerInFrontOf("Lock") && player.getKeys() > 2

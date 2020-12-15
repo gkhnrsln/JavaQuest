@@ -28,7 +28,7 @@ public abstract class Objekte extends Bild {
 	 * @param y Position (y coordinate).
 	 * @param file Filename of the image.
 	 */
-	public Objekte(int x, int y, String file) {
+	protected Objekte(int x, int y, String file) {
 		super(x * 34, y * 34, 34, 34, file);
 	}
 	/**
