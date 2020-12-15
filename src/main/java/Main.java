@@ -27,7 +27,6 @@ import main.java.objects.Obstacle;
 import main.java.objects.Stairs;
 import main.java.objects.Villain;
 import main.java.objects.Player;
-
 import main.java.objects.switches.*;
 import main.java.objects.npc.*;
 import main.java.objects.obstacles.*;
