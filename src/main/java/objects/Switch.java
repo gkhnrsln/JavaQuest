@@ -17,6 +17,8 @@
 package main.java.objects;
 
 public abstract class Switch extends Objekte {
+	private static final long serialVersionUID = 1154643866894496254L;
+
 	public Switch(int x, int y, String file) {
 		super(x, y, file);
 	}

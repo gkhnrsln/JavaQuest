@@ -16,6 +16,7 @@
 
 package main.java.oyun;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,8 @@ import main.java.objects.obstacles.*;
 import main.java.objects.items.*;
 import main.java.objects.switches.*;
 
-public class Level<T> {
+public class Level<T> implements Serializable {
+	private static final long serialVersionUID = -5285864879474325429L;
 	/** GameField */
 	private Objekte[][] feld = new Objekte[Variables.FIELD_LENGTH_X][Variables.FIELD_LENGTH_Y];
 	/** List for visited fields */

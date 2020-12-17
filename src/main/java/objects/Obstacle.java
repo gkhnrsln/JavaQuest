@@ -17,6 +17,7 @@
 package main.java.objects;
 
 public abstract class Obstacle extends Objekte {
+	private static final long serialVersionUID = -8809059823025203794L;
 
 	protected Obstacle(int x, int y, String file) {
 		super(x, y, file);

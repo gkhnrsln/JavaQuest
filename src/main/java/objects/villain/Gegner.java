@@ -20,7 +20,8 @@ import main.java.enums.Variables;
 import main.java.objects.Villain;
 
 public class Gegner extends Villain {
-	private static String [] txt = new String[]{
+	private static final long serialVersionUID = 4520669837808280437L;
+	private static String[] txt = new String[] {
 			Variables.DE_TXT_GEGNER_001
 			};
 	

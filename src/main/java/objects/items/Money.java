@@ -19,10 +19,19 @@ package main.java.objects.items;
 import main.java.enums.Variables;
 
 public class Money extends Items {
-	public int value;
+	private static final long serialVersionUID = 43776595159763730L;
+	/** Value of Money */
+	private int value = 0;
 
-	public Money(int x, int y, int z) {
+	public Money(int x, int y, int value) {
 		super(x, y, Variables.IMG_MONEY);
-		value = z;
+		setValue(value);
+	}
+	//getter setter
+	public int getValue() {
+		return value;
+	}
+	public void setValue(int value) {
+		this.value = value;
 	}
 }

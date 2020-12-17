@@ -20,6 +20,7 @@ import main.java.enums.Variables;
 import main.java.objects.Obstacle;
 
 public class Lock extends Obstacle {
+	private static final long serialVersionUID = 7550701273363704195L;
 	int wert;
 
 	public Lock(int x, int y) {

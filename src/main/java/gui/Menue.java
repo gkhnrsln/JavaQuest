@@ -16,12 +16,15 @@
 
 package main.java.gui;
 
+import java.io.Serializable;
+
 import javax.swing.JOptionPane;
 
 import main.java.enums.Variables;
 import sum.komponenten.Etikett;
 
-public class Menue {
+public class Menue implements Serializable {
+	private static final long serialVersionUID = 2357879403419817644L;
 	/** System language for Game */
 	private String lang = System.getProperty("user.language");
 	private String steps;

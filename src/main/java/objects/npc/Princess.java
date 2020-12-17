@@ -20,8 +20,11 @@ import main.java.enums.Variables;
 import main.java.objects.NPC;
 
 public class Princess extends NPC {
+	private static final long serialVersionUID = 5550205420365493945L;
+
 	/**
 	 * Constructor of princess.
+	 * 
 	 * @param x Position (x coordinate).
 	 * @param y Position (y coordinate).
 	 */

@@ -19,6 +19,7 @@ package main.java.objects;
 import main.java.enums.Variables;
 
 public class Stairs extends Objekte {
+	private static final long serialVersionUID = 6695837635306162543L;
 	private int lvl;
 
 	/**

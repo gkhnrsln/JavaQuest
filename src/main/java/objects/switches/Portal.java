@@ -20,6 +20,7 @@ import main.java.enums.Variables;
 import main.java.objects.Switch;
 
 public class Portal extends Switch {
+	private static final long serialVersionUID = 1865564520296574785L;
 	private int posx;
 	private int posy;
 

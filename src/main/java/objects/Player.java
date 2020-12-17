@@ -19,6 +19,7 @@ package main.java.objects;
 import main.java.enums.Variables;
 
 public class Player extends Objekte {
+	private static final long serialVersionUID = -4986780372336177606L;
 	private boolean isCheat = false;
 	private int cheatc = 0;
 	/** Amount Keys from Player. */
@@ -40,6 +41,9 @@ public class Player extends Objekte {
 		super(posx, posy, Variables.IMG_PLAYER_DOWN);
 	}
 
+	
+
+	//getter setter
 	public void setIsCheat(boolean isCheat) {
 		this.isCheat = isCheat;
 	}

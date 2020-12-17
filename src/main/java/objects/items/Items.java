@@ -19,6 +19,8 @@ package main.java.objects.items;
 import main.java.objects.Objekte;
 
 public class Items extends Objekte{
+	private static final long serialVersionUID = -7883735804633227127L;
+
 	public Items(int x, int y, String datei) {
 		super(x, y, datei);
 	}

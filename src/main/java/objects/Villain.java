@@ -17,6 +17,8 @@
 package main.java.objects;
 
 public abstract class Villain extends Objekte {
+	private static final long serialVersionUID = 5415563097971413891L;
+
 	public Villain(int x, int y, String file) {
 		super(x, y, file);
 	}

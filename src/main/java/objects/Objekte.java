@@ -16,16 +16,15 @@
 
 package main.java.objects;
 
-import main.java.gui.Menue;
 import sum.multimedia.Bild;
 
 public abstract class Objekte extends Bild {
-	Menue m = new Menue();
-	
+	private static final long serialVersionUID = -6656414981925978089L;
 	/**
 	 * Constructor for new objects.
-	 * @param x Position (x coordinate).
-	 * @param y Position (y coordinate).
+	 * 
+	 * @param x    Position (x coordinate).
+	 * @param y    Position (y coordinate).
 	 * @param file Filename of the image.
 	 */
 	protected Objekte(int x, int y, String file) {

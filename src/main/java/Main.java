@@ -14,7 +14,6 @@ package main.java;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 import javax.swing.JOptionPane;
 
 import main.java.enums.Variables;
@@ -40,19 +39,23 @@ import sum.multimedia.Bild;
 import sum.multimedia.Ton;
 
 public class Main extends EBAnwendung {
-	
-	private Menue m = new Menue();
+	private static final long serialVersionUID = -4178757415498909666L;
+	/** Menue */
+	private Menue m;
+	/** Level */
 	private Level<Visited> lvl = new Level<>();
 	/** Background Image of Map */
 	private Bild bg = new Bild(0, 0, 0, 0, Variables.IMG_BG);
-	private Player player = new Player();
-
-	//distance from player
-	private static int x = 0;
-	private static int y = 0;
-	//distance from player +1
-	private static int x2 = 0;
-	private static int y2 = 0;
+	/** Player */
+	private Player player;
+	/** x-axis distance from player */
+	private int x = 0;
+	/** y-axis distance from player */
+	private int y = 0;
+	/** x-axis distance from player +1 */
+	private int x2 = 0;
+	/** y-axis distance from player +1 */
+	private int y2 = 0;
 	
 	/** main */
 	public static void main(String[] args) {
@@ -62,18 +65,20 @@ public class Main extends EBAnwendung {
 	public Main() {
 		super(Variables.WINDOW_WIDTH, Variables.WINDOW_HEIGHT, true);
 		lvl.setFeld(lvl.ladeL(lvl.getLvl()));
+		m = new Menue();
+		player = new Player();
 		fuehreAus();
 	}
 
 	/**
 	 * Plays a .wav-File.
-	 * @param file Filename
+	 * @param file Filename of the .wav-File
 	 */
 	public void playSound(String file) {
 		Ton sound = new Ton();
-		//load Sound
+		//load sound
 		sound.ladeTon(file);
-		//play Sound
+		//play sound
 		sound.spieleTon();
 	}
 
@@ -101,7 +106,9 @@ public class Main extends EBAnwendung {
 		lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] = null;
 	}
 
-	//
+	/** ... 
+	 * @param c 
+	 */
 	public void move(char c) {
 		switch (c) {
 			case 'w':
@@ -348,7 +355,7 @@ public class Main extends EBAnwendung {
 			} else if (isPlayerInFrontOf("Money")) {
 				playSound(Variables.SND_MONEY);
 				player.ladeBild(Variables.IMG_PLAYER_MONEY);
-				player.setMoney(player.getMoney() + ((Money) lvl.getFeld()[player.getPosx() + x][player.getPosy() + y]).value);
+				player.setMoney(player.getMoney() + ((Money) lvl.getFeld()[player.getPosx() + x][player.getPosy() + y]).getValue());
 				m.getLblMoney().setzeInhalt(m.getMoney() + player.getMoney());
 			} else if (isPlayerInFrontOf("Sword")) {
 				//add sword to items

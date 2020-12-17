@@ -20,6 +20,8 @@ import main.java.enums.Variables;
 import main.java.objects.Obstacle;
 
 public class Wall extends Obstacle {
+	private static final long serialVersionUID = 5510186950072515228L;
+
 	public Wall(int x, int y) {
 		super(x, y, Variables.IMG_WALL);
 	}

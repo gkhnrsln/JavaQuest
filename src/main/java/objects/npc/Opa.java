@@ -20,6 +20,7 @@ import main.java.enums.Variables;
 import main.java.objects.NPC;
 
 public class Opa extends NPC {
+	private static final long serialVersionUID = 5642323314026519582L;
 	private static int masterkey = 1;
 	/**
 	 * Constructor of opa.
