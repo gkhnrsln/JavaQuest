@@ -64,9 +64,9 @@ public class Main extends EBAnwendung {
 	
 	public Main() {
 		super(Variables.WINDOW_WIDTH, Variables.WINDOW_HEIGHT, true);
-		lvl.setFeld(lvl.ladeL(lvl.getLvl()));
-		m = new Menue();
 		player = new Player();
+		m = new Menue();
+		lvl.setFeld(lvl.ladeL(lvl.getLvl()));
 		fuehreAus();
 	}
 
@@ -223,15 +223,20 @@ public class Main extends EBAnwendung {
 	/** If player is on stairs. */
 	private void isPlayerOnStairs() {
 		if (isPlayerInFrontOf("Stairs")) {
+			//set lvl destination
 			int newLvl = ((Stairs) lvl.getFeld()[player.getPosx() + x][player.getPosy() + y]).getLvl();
+			//clear gamefield
 			for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
 				for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
 					if (lvl.getFeld()[i][j] != null) {
+						//hide image of object from gamefield
 						lvl.getFeld()[i][j].verstecke();
 					}
+					//remove object from gamefield
 					lvl.getFeld()[i][j] = null;
 				}
 			}
+			//load new gamefield from another level
 			lvl.setFeld(lvl.ladeL(newLvl));
 		}
 	}
@@ -254,9 +259,10 @@ public class Main extends EBAnwendung {
 	 * obstacles).
 	 * 
 	 * @param c
-	 * @param r
+	 * @param r 
 	 */
 	public void checkBoxObstacle(char c, int r) {
+		
 		switch (c) {
 			case 'y':
 				y = r;
