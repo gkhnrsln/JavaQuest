@@ -22,5 +22,4 @@ public abstract class NPC extends Objekte {
 	protected NPC(int x, int y, String datei) {
 		super(x, y, datei);
 	}
-
 }

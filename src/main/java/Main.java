@@ -44,7 +44,7 @@ public class Main extends EBAnwendung {
 	private Menue m;
 	/** Level */
 	private Level<Visited> lvl = new Level<>();
-	/** Background Image of Map */
+	/** Background image of map */
 	private Bild bg = new Bild(0, 0, 0, 0, Variables.IMG_BG);
 	/** Player */
 	private Player player;
@@ -106,7 +106,7 @@ public class Main extends EBAnwendung {
 		lvl.getFeld()[player.getPosx() + x][player.getPosy() + y] = null;
 	}
 
-	/** ... 
+	/** ...
 	 * @param c 
 	 */
 	public void move(char c) {
@@ -207,7 +207,7 @@ public class Main extends EBAnwendung {
 		}
 	}
 	/**
-	 * If Player is in front of a person, like Princess/Opa
+	 * If Player is in front of a person, like Princess/Opa.
 	 * @return true, if Player is in front of a person
 	 */
 	public void playerInFrontOfPerson() {
@@ -362,12 +362,12 @@ public class Main extends EBAnwendung {
 				player.setSwords(player.getSwords() + 1);
 				//change image from Player
 				player.ladeBild(Variables.IMG_PLAYER_SWORD);
-				//refresh Menue
+				//refresh menue
 				m.getLblSwords().setzeInhalt(m.getSwords() + player.getSwords());
 			} else if (isPlayerInFrontOf("Key")) {
 				//add key to items
 				player.setKeys(player.getKeys() + 1);
-				//refresh Menue
+				//refresh menue
 				m.getLblKeys().setzeInhalt(m.getKeys() + player.getKeys());
 			} else if (isPlayerInFrontOf("Lock")) {
 				//remove key from items
@@ -404,7 +404,7 @@ public class Main extends EBAnwendung {
 		isPlayerOnStairs();
 		isPlayerOnPortal();
 
-		//move Player Sprite
+		//move Player image
 		if (player.getIsCheat() || !(isPlayerInFrontOf("Box")
 				&& (lvl.getFeld()[player.getPosx() + x2][player.getPosy() + y2] instanceof Obstacle))
 				&& !(isPlayerInFrontOf("NPC"))
