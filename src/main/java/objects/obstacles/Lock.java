@@ -21,7 +21,6 @@ import main.java.objects.Obstacle;
 
 public class Lock extends Obstacle {
 	private static final long serialVersionUID = 7550701273363704195L;
-	int wert;
 
 	public Lock(int x, int y) {
 		super(x, y, Variables.IMG_LOCK_1);
@@ -29,6 +28,5 @@ public class Lock extends Obstacle {
 
 	public Lock(int x, int y, int z) {
 		super(x, y, Variables.IMG_LOCK_2);
-		wert = z;
 	}
 }

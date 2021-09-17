@@ -19,7 +19,7 @@ package main.java.objects;
 public abstract class NPC extends Objekte {
 	private static final long serialVersionUID = -3241207664661298332L;
 
-	protected NPC(int x, int y, String datei) {
-		super(x, y, datei);
+	protected NPC(int x, int y, String file) {
+		super(x, y, file);
 	}
 }

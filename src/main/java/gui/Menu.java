@@ -20,29 +20,42 @@ import java.io.Serializable;
 
 import javax.swing.JOptionPane;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.enums.Variables;
 import sum.komponenten.Etikett;
 
-public class Menue implements Serializable {
+public class Menu implements Serializable {
 	private static final long serialVersionUID = 2357879403419817644L;
-	/** System language for Game */
-	private String lang = System.getProperty("user.language");
+	@Getter @Setter
+	private String gameLang = System.getProperty("user.language");
+	@Getter @Setter
 	private String steps;
+	@Getter @Setter
 	private String swords;
+	@Getter @Setter
 	private String money;
+	@Getter @Setter
 	private String keys;
+	@Getter @Setter
 	private String masterkeys;
 	
 	/* Labels and their positions */
+	@Getter @Setter
 	private Etikett lblSteps = new Etikett(600, 575, 100, 50, getSteps());
+	@Getter @Setter
 	private Etikett lblSwords = new Etikett(600, 590, 100, 50, getSwords());
+	@Getter @Setter
 	private Etikett lblMoney = new Etikett(600, 605, 400, 50, getMoney());
+	@Getter @Setter
 	private Etikett lblKeys = new Etikett(600, 620, 100, 50, getKeys());
+	@Getter @Setter
 	private Etikett lblMasterkeys = new Etikett(600, 635, 100, 50, getMasterkeys());
+	@Getter @Setter
 	private Etikett lblText = new Etikett(300, 580, 250, 50, null);
 	
-	public Menue() {
-		if (lang.equals("de")) {
+	public Menu() {
+		if (gameLang.equals("de")) {
 			setSteps(Variables.DE_LBL_STEPS + ": ");
 			setSwords(Variables.DE_LBL_SWORDS + ": ");
 			setMoney(Variables.DE_LBL_MONEY + ": ");
@@ -59,142 +72,44 @@ public class Menue implements Serializable {
 	}
 	
 	/** clear text */
-	public void ctxt() {
+	public void clearText() {
 		getLblText().setzeInhalt("");
 	}
 
-	/** output */
-	public void ausgabe(String t) {
+	public void output(String t) {
 		JOptionPane.showMessageDialog(null, t);
 	}
 
 	public String cmdSwords() {
-		if (lang.equals("de")) 
+		if (gameLang.equals("de"))
 			return Variables.DE_TXT_CMD_SWORDS;
 		else
 			return Variables.EN_TXT_CMD_SWORDS;
 	}
 	
 	public String cmdKeys() {
-		if (lang.equals("de")) 
+		if (gameLang.equals("de"))
 			return Variables.DE_TXT_CMD_KEYS;
 		else
 			return Variables.EN_TXT_CMD_KEYS;
 	}
-	
+
 	/** input (int) */
-	public int eingabeInt(String t) {
+	public int inputInt(String t) {
 		return Integer.parseInt(JOptionPane.showInputDialog(t));
 	}
 
 	public void info() {
-		if (lang.equals("de")) 
-			ausgabe(Variables.DE_CONTROLLS);
+		if (gameLang.equals("de"))
+			output(Variables.DE_CONTROLLS);
 		else
-			ausgabe(Variables.EN_CONTROLLS);	
+			output(Variables.EN_CONTROLLS);
 	}
 	
 	public String cmd() {
-		if (lang.equals("de")) 
+		if (gameLang.equals("de"))
 			return Variables.DE_TXT_COMMAND;
 		else
 			return Variables.EN_TXT_COMMAND;
-	}
-
-	/** get set */
-	public void setLang(String lang) {
-		this.lang = lang;
-	}
-
-	public String getLang() {
-		return lang;
-	}
-
-	public Etikett getLblSteps() {
-		return lblSteps;
-	}
-
-	public void setLblSteps(Etikett lblSteps) {
-		this.lblSteps = lblSteps;
-	}
-
-	public Etikett getLblSwords() {
-		return lblSwords;
-	}
-
-	public void setLblSwords(Etikett lblSwords) {
-		this.lblSwords = lblSwords;
-	}
-
-	public Etikett getLblMoney() {
-		return lblMoney;
-	}
-
-	public void setLblMoney(Etikett lblMoney) {
-		this.lblMoney = lblMoney;
-	}
-
-	public Etikett getLblKeys() {
-		return lblKeys;
-	}
-
-	public void setLblKeys(Etikett lblKeys) {
-		this.lblKeys = lblKeys;
-	}
-
-	public Etikett getLblMasterkeys() {
-		return lblMasterkeys;
-	}
-
-	public void setLblMasterkeys(Etikett lblMasterkeys) {
-		this.lblMasterkeys = lblMasterkeys;
-	}
-
-	public String getSteps() {
-		return steps;
-	}
-
-	public void setSteps(String steps) {
-		this.steps = steps;
-	}
-
-	public String getSwords() {
-		return swords;
-	}
-
-	public void setSwords(String swords) {
-		this.swords = swords;
-	}
-
-	public String getMoney() {
-		return money;
-	}
-
-	public void setMoney(String money) {
-		this.money = money;
-	}
-
-	public String getKeys() {
-		return keys;
-	}
-
-	public void setKeys(String keys) {
-		this.keys = keys;
-	}
-
-	public String getMasterkeys() {
-		return masterkeys;
-	}
-
-	public void setMasterkeys(String masterkeys) {
-		this.masterkeys = masterkeys;
-	}
-
-	public Etikett getLblText() {
-		return lblText;
-	}
-
-	public void setLblText(Etikett lblText) {
-		this.lblText = lblText;
 	}
 }

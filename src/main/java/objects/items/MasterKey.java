@@ -19,10 +19,10 @@ package main.java.objects.items;
 import main.java.enums.Variables;
 import main.java.objects.Objekte;
 
-public class Masterkey extends Objekte {
+public class MasterKey extends Objekte {
 	private static final long serialVersionUID = -8619428589097136287L;
 
-	public Masterkey(int x, int y) {
+	public MasterKey(int x, int y) {
 		super(x, y, Variables.IMG_MKEY);
 	}
 }

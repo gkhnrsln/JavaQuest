@@ -16,10 +16,13 @@
 
 package main.java.objects;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.enums.Variables;
 
 public class Stairs extends Objekte {
 	private static final long serialVersionUID = 6695837635306162543L;
+	@Getter @Setter
 	private int lvl;
 
 	/**
@@ -31,14 +34,5 @@ public class Stairs extends Objekte {
 	public Stairs(int x, int y, int lvl) {
 		super(x, y, Variables.IMG_STAIRS);
 		setLvl(lvl);
-	}
-
-	//getter setter
-	public int getLvl() {
-		return lvl;
-	}
-	
-	public void setLvl(int lvl) {
-		this.lvl = lvl;
 	}
 }

@@ -16,22 +16,17 @@
 
 package main.java.objects.items;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.enums.Variables;
 
 public class Money extends Items {
 	private static final long serialVersionUID = 43776595159763730L;
-	/** Value of Money */
+	@Getter @Setter
 	private int value = 0;
 
 	public Money(int x, int y, int value) {
 		super(x, y, Variables.IMG_MONEY);
 		setValue(value);
-	}
-	//getter setter
-	public int getValue() {
-		return value;
-	}
-	public void setValue(int value) {
-		this.value = value;
 	}
 }

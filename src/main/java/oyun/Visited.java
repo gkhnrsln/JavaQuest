@@ -24,6 +24,12 @@ public class Visited {
 	/** Position Y */
 	protected int y;
 
+	/**
+	 *
+	 * @param x, x coordinate
+	 * @param y, y coordinate
+	 * @param lvl, Level
+	 */
 	public Visited(int x, int y, int lvl) {
 		this.x = x;
 		this.y = y;

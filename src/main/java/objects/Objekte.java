@@ -19,7 +19,6 @@ package main.java.objects;
 import sum.multimedia.Bild;
 
 public abstract class Objekte extends Bild {
-	private static final long serialVersionUID = -6656414981925978089L;
 	/**
 	 * Constructor for new objects.
 	 * 

@@ -16,22 +16,12 @@
 
 package main.java.objects.villain;
 
-import main.java.enums.Variables;
 import main.java.objects.Villain;
 
 public class Gegner extends Villain {
 	private static final long serialVersionUID = 4520669837808280437L;
-	private static String[] txt = new String[] {
-			Variables.DE_TXT_GEGNER_001
-			};
 	
 	public Gegner(int x, int y, String bild) {
 		super(x, y, bild);
-	}
-	public static String [] getTxt() {
-		return txt;
-	}
-	public static void setTxt(String [] txt) {
-		Gegner.txt = txt;
 	}
 }

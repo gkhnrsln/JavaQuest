@@ -16,13 +16,17 @@
 
 package main.java.objects.switches;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.enums.Variables;
 import main.java.objects.Switch;
 
 public class Portal extends Switch {
 	private static final long serialVersionUID = 1865564520296574785L;
-	private int posx;
-	private int posy;
+	@Getter @Setter
+	private int posX;
+	@Getter @Setter
+	private int posY;
 
 	/**
 	 * Constructor of princess.
@@ -33,25 +37,7 @@ public class Portal extends Switch {
 	 */
 	public Portal(int x, int y, int x2, int y2) {
 		super(x, y, Variables.IMG_PORTAL);
-		setPosx(x2);
-		setPosy(y2);
-	}
-
-	//getter setter
-	
-	public int getPosx() {
-		return posx;
-	}
-
-	public void setPosx(int posx) {
-		this.posx = posx;
-	}
-
-	public int getPosy() {
-		return posy;
-	}
-
-	public void setPosy(int posy) {
-		this.posy = posy;
+		setPosX(x2);
+		setPosY(y2);
 	}
 }

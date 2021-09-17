@@ -16,115 +16,45 @@
 
 package main.java.objects;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.enums.Variables;
 
 public class Player extends Objekte {
 	private static final long serialVersionUID = -4986780372336177606L;
+	@Getter @Setter
 	private boolean isCheat = false;
+	@Getter @Setter
 	private int cheatc = 0;
-	/** Amount Keys from Player. */
+	@Getter @Setter
 	private int keys = 0;
-	/** Amount Masterkeys from Player. */
+	@Getter @Setter
 	private int masterkeys = 0;
-	/** Amount Money from Player. */
+	@Getter @Setter
 	private int money = 0;
-	/** Amount Steps from Player. */
+	@Getter @Setter
 	private int steps = 0;
-	/** Amount Swords from Player. */
+	@Getter @Setter
 	private int swords = 0;
-	/** X Position from Player on GameField. */
-	private static int posx = Variables.PLAYER_POS_X;
-	/** Y Position from Player on GameField. */
-	private static int posy = Variables.PLAYER_POS_Y;
+
+	@Getter @Setter
+	private static int posX = Variables.PLAYER_POS_X; // X Position from Player on GameField.
+
+	@Getter @Setter
+	private static int posY = Variables.PLAYER_POS_Y; // Y Position from Player on GameField.
 
 	public Player() {
-		super(posx, posy, Variables.IMG_PLAYER_DOWN);
-	}
-
-	
-
-	//getter setter
-	public void setIsCheat(boolean isCheat) {
-		this.isCheat = isCheat;
-	}
-
-	public void setCheatc(int cheatc) {
-		this.cheatc = cheatc;
-	}
-
-	public void setKeys(int keys) {
-		this.keys = keys;
-	}
-
-	public void setMasterkeys(int masterkeys) {
-		this.masterkeys = masterkeys;
-	}
-
-	public void setMoney(int money) {
-		this.money = money;
-	}
-
-	public void setSteps(int steps) {
-		this.steps = steps;
-	}
-
-	public void setSwords(int swords) {
-		this.swords = swords;
-	}
-
-	public boolean getIsCheat() {
-		return isCheat;
-	}
-
-	public int getCheatc() {
-		return cheatc;
-	}
-
-	public int getKeys() {
-		return keys;
-	}
-
-	public int getMasterkeys() {
-		return masterkeys;
-	}
-
-	public int getMoney() {
-		return money;
-	}
-
-	public int getSteps() {
-		return steps;
-	}
-
-	public int getSwords() {
-		return swords;
+		super(posX, posY, Variables.IMG_PLAYER_DOWN);
 	}
 
 	public void cheatmode() {
 		if (!isCheat) {
-			setIsCheat(true);
+			setCheat(true);
 			ladeBild(Variables.IMG_PLAYER_CHEAT);
 			setCheatc(+1);
 		} else {
-			setIsCheat(false);
+			setCheat(false);
 			ladeBild(Variables.IMG_PLAYER_DOWN);
 		}
 	}
-
-	public int getPosx() {
-		return posx;
-	}
-
-	public void setPosx(int posx) {
-		Player.posx = posx;
-	}
-
-	public int getPosy() {
-		return posy;
-	}
-
-	public void setPosy(int posy) {
-		Player.posy = posy;
-	}
-	
 }

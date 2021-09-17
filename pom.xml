@@ -3,7 +3,27 @@
   <groupId>com.garslan.javaquest</groupId>
   <artifactId>JavaQuest</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>JavaQuest</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <name>JavaQuest</name>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

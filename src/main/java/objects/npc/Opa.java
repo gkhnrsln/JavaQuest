@@ -16,12 +16,15 @@
 
 package main.java.objects.npc;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.enums.Variables;
 import main.java.objects.NPC;
 
 public class Opa extends NPC {
 	private static final long serialVersionUID = 5642323314026519582L;
-	private static int masterkey = 1;
+	@Getter @Setter
+	private static int masterkey;
 	/**
 	 * Constructor of opa.
 	 * @param x Position (x coordinate).
@@ -29,30 +32,6 @@ public class Opa extends NPC {
 	 */
 	public Opa(int x, int y) {
 		super(x, y, Variables.IMG_OPA);
-	}
-	
-	/** Messages from Opa. */
-	private static String [] txt = new String[]{
-			Variables.DE_TXT_OPA_001,
-			Variables.DE_TXT_OPA_002,
-			Variables.DE_TXT_OPA_003,
-			Variables.DE_TXT_OPA_004	
-	};
-	
-	//getter setter
-	public static void setMasterkey(int masterkey) {
-		Opa.masterkey = masterkey;
-	}
-
-	public static int getMasterkey() {
-		return masterkey;
-	}
-
-	public static String [] getTxt() {
-		return txt;
-	}
-
-	public static void setTxt(String [] txt) {
-		Opa.txt = txt;
+		masterkey = 1;
 	}
 }
