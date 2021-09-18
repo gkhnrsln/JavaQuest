@@ -16,7 +16,10 @@
 
 package main.java.oyun;
 
-import sum.multimedia.Ton;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 
 public class Sound {
 	/**
@@ -24,10 +27,13 @@ public class Sound {
 	 * @param file Filename of the .wav-File
 	 */
 	public static void playSound(String file) {
-		Ton sound = new Ton();
-		//load sound
-		sound.ladeTon(file);
-		//play sound
-		sound.spieleTon();
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(file).getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception e) {
+			System.err.println(".wav File not found");
+		}
 	}
 }
