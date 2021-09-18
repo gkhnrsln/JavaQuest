@@ -54,7 +54,10 @@ public class Main extends EBAnwendung {
 		super(Variables.WINDOW_WIDTH, Variables.WINDOW_HEIGHT, true);
 		Bild bg = new Bild(0, 0, 0, 0, Variables.IMG_BG); //Background image of map
 		player = new Player();
+
 		m = new Menu();
+		m.listenTo(player);
+
 		lvl.setFeld(lvl.ladeL(lvl.getLvl()));
 		fuehreAus();
 	}
@@ -104,7 +107,7 @@ public class Main extends EBAnwendung {
 				y2 = y + 1;
 				//no weapon, no fight
 				if (isPlayerInFrontOf("Villain") && player.getSwords() < 1) {
-					m.talking(Variables.DE_TXT_GEGNER_001);
+					m.text(Variables.DE_TXT_GEGNER_001);
 				}
 				checkBoxObstacle('y', 1);
 				break;
@@ -128,15 +131,13 @@ public class Main extends EBAnwendung {
 				String strCmd = JOptionPane.showInputDialog(m.cmd());
 				switch (strCmd) {
 					case "glitch":
-						player.cheatmode();
+						player.cheatMode();
 						break;
 					case "swords":
 						player.setSwords(m.inputInt(m.cmdSwords()));
-						m.getLblSwords().setzeInhalt(m.getSwords() + player.getSwords());
 						break;
 					case "keys":
 						player.setKeys(m.inputInt(m.cmdKeys()));
-						m.getLblKeys().setzeInhalt(player.getKeys());
 						break;
 					default:
 						break;
@@ -187,10 +188,10 @@ public class Main extends EBAnwendung {
 	public void playerInFrontOfPerson() {
 		if (isPlayerInFrontOf("Princess")) {
 			Sound.playSound(Variables.SND_PRINCESS);
-			m.talking(Variables.DE_TXT_PRINCESS_001);
+			m.text(Variables.DE_TXT_PRINCESS_001);
 		} else if (isPlayerInFrontOf("Opa")) {
 			Sound.playSound(Variables.SND_PRINCESS);
-			m.talking(Variables.DE_TXT_OPA_004);
+			m.text(Variables.DE_TXT_OPA_004);
 		}
 	}
 
@@ -280,7 +281,7 @@ public class Main extends EBAnwendung {
 	 */
 	@Override
 	public void bearbeiteTaste(char c) {
-		m.clearText();
+		m.text("");
 		//distance from player
 		x = 0;
 		y = 0;
@@ -304,19 +305,17 @@ public class Main extends EBAnwendung {
 		if (c == 'w') {
 			if (isPlayerInFrontOf("Opa") && Opa.getMasterkey() == 0) {
 				Sound.playSound(Variables.SND_TEXT);
-				m.talking(Variables.DE_TXT_OPA_003);
+				m.text(Variables.DE_TXT_OPA_003);
 			} else if (isPlayerInFrontOf("Opa")) {
 				if (player.getMoney() < 450) {
 					Sound.playSound(Variables.SND_TEXT);
-					m.talking(Variables.DE_TXT_OPA_001);
+					m.text(Variables.DE_TXT_OPA_001);
 				} else {
 					lvl.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, lvl.getLvl()));
 					player.setMoney(player.getMoney() - 450);
 					Opa.setMasterkey(Opa.getMasterkey() - 1);
-					m.refreshMoney(player);
-					player.setMasterkeys(player.getMasterkeys() + 1);
-					m.refreshMasterKeys(player);
-					m.talking(Variables.DE_TXT_OPA_002);
+					player.setMasterKeys(player.getMasterKeys() + 1);
+					m.text(Variables.DE_TXT_OPA_002);
 				}
 			}
 		}
@@ -324,39 +323,32 @@ public class Main extends EBAnwendung {
 		if (isPlayerInFrontOf("Lock") && player.getKeys() > 1
 				|| isPlayerInFrontOf("Villain") && player.getSwords() > 0
 				|| isPlayerInFrontOf("Lock") && player.getKeys() > 2
-				|| isPlayerInFrontOf("Lock") && player.getMasterkeys() > 0
+				|| isPlayerInFrontOf("Lock") && player.getMasterKeys() > 0
 				|| isPlayerInFrontOf("Money") || isPlayerInFrontOf("Sword")
 				|| isPlayerInFrontOf("Key") || isPlayerInFrontOf("Masterkey")
 				|| isPlayerInFrontOf("Lock") && player.getKeys() > 0) {
 			if (isPlayerInFrontOf("Villain")) {
 				player.setSwords(player.getSwords() - 1);
-				m.refreshSwords(player);
 			} else if (isPlayerInFrontOf("Money")) {
 				Sound.playSound(Variables.SND_MONEY);
 				player.ladeBild(Variables.IMG_PLAYER_MONEY);
 				player.setMoney(player.getMoney() + ((Money) lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
-				m.refreshMoney(player);
 			} else if (isPlayerInFrontOf("Sword")) {
 				//add sword to items
 				player.setSwords(player.getSwords() + 1);
 				//change image from Player
 				player.ladeBild(Variables.IMG_PLAYER_SWORD);
-				m.refreshSwords(player);
 			} else if (isPlayerInFrontOf("Key")) {
 				//add key to items
 				player.setKeys(player.getKeys() + 1);
-				m.refreshKeys(player);
 			} else if (isPlayerInFrontOf("Lock")) {
 				//remove key from items
 				player.setKeys(player.getKeys() - 1);
-				m.refreshKeys(player);
 			} else if (isPlayerInFrontOf("Masterkey")) {
 				Sound.playSound(Variables.SND_TEXT);
-				player.setMasterkeys(player.getMasterkeys() + 1);
-				m.refreshMasterKeys(player);
-			} else if (isPlayerInFrontOf("Lock") && player.getMasterkeys() > 0) {
-				player.setMasterkeys(player.getMasterkeys() - 1);
-				m.refreshMasterKeys(player);
+				player.setMasterKeys(player.getMasterKeys() + 1);
+			} else if (isPlayerInFrontOf("Lock") && player.getMasterKeys() > 0) {
+				player.setMasterKeys(player.getMasterKeys() - 1);
 			}
 
 			switch (c) {
@@ -407,8 +399,7 @@ public class Main extends EBAnwendung {
 				default:
 					break;
 			}
-			
-			m.refreshSteps(player);
+			player.setSteps(Player.getCheatc() < 1 ? Player.getSteps() + 1: -1);
+			}
 		}
-	}
 }

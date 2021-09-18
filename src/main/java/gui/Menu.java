@@ -16,6 +16,8 @@
 
 package main.java.gui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
 import javax.swing.JOptionPane;
@@ -29,7 +31,7 @@ import sum.komponenten.Etikett;
 public class Menu implements Serializable {
 	private static final long serialVersionUID = 2357879403419817644L;
 	@Getter @Setter
-	private String gameLang = System.getProperty("user.language");
+	private String gameLang;
 	@Getter @Setter
 	private String steps;
 	@Getter @Setter
@@ -39,42 +41,73 @@ public class Menu implements Serializable {
 	@Getter @Setter
 	private String keys;
 	@Getter @Setter
-	private String masterkeys;
-	
+	private String masterKeys;
 	/* Labels and their positions */
 	@Getter @Setter
-	private Etikett lblSteps = new Etikett(600, 575, 100, 50, getSteps());
+	private Etikett lblSteps;
 	@Getter @Setter
-	private Etikett lblSwords = new Etikett(600, 590, 100, 50, getSwords());
+	private Etikett lblSwords;
 	@Getter @Setter
-	private Etikett lblMoney = new Etikett(600, 605, 400, 50, getMoney());
+	private Etikett lblMoney;
 	@Getter @Setter
-	private Etikett lblKeys = new Etikett(600, 620, 100, 50, getKeys());
+	private Etikett lblKeys;
 	@Getter @Setter
-	private Etikett lblMasterkeys = new Etikett(600, 635, 100, 50, getMasterkeys());
+	private Etikett lblMasterKeys;
 	@Getter @Setter
-	private Etikett lblText = new Etikett(300, 580, 250, 50, null);
-	
+	private Etikett lblText;
+
 	public Menu() {
+		initializeMenu();
+	}
+	private void initializeMenu() {
+		gameLang = System.getProperty("user.language");
+
 		if (gameLang.equals("de")) {
-			setSteps(Variables.DE_LBL_STEPS + ": ");
-			setSwords(Variables.DE_LBL_SWORDS + ": ");
-			setMoney(Variables.DE_LBL_MONEY + ": ");
-			setKeys(Variables.DE_LBL_KEYS + ": ");
+			steps = Variables.DE_LBL_STEPS + ": ";
+			swords = Variables.DE_LBL_SWORDS + ": " ;
+			money = Variables.DE_LBL_MONEY + ": ";
+			keys = Variables.DE_LBL_KEYS + ": ";
 		}
 		else {
-			setSteps(Variables.EN_LBL_STEPS + ": ");
-			setSwords(Variables.EN_LBL_SWORDS + ": ");
-			setMoney(Variables.EN_LBL_MONEY + ": ");
-			setKeys(Variables.EN_LBL_KEYS + ": ");
+			steps = Variables.EN_LBL_STEPS + ": ";
+			swords = Variables.EN_LBL_SWORDS + ": ";
+			money = Variables.EN_LBL_MONEY + ": ";
+			keys = Variables.EN_LBL_KEYS + ": ";
 		}
-		setMasterkeys(Variables.LBL_MKEYS + ": ");
-		
+		masterKeys = Variables.LBL_MKEYS + ": ";
+
+		lblSteps = new Etikett(600, 575, 100, 50, steps);
+		lblSwords = new Etikett(600, 590, 100, 50, swords);
+		lblMoney = new Etikett(600, 605, 400, 50, money);
+		lblKeys = new Etikett(600, 620, 100, 50, keys);
+		lblMasterKeys = new Etikett(600, 635, 100, 50, masterKeys);
+		lblText = new Etikett(300, 580, 250, 50, null);
 	}
-	
-	/** clear text */
-	public void clearText() {
-		getLblText().setzeInhalt("");
+
+	/**
+	 * Listens to Changes of Player Values, to refresh Menu Values.
+	 * @param player
+	 */
+	public void listenTo(Player player) {
+		player.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("steps"))
+					lblSteps.setzeInhalt(steps + evt.getNewValue());
+				else if (evt.getPropertyName().equals("swords"))
+					lblSwords.setzeInhalt(swords + evt.getNewValue());
+				else if (evt.getPropertyName().equals("money"))
+					lblMoney.setzeInhalt(money + evt.getNewValue());
+				else if (evt.getPropertyName().equals("keys"))
+					lblKeys.setzeInhalt(keys + evt.getNewValue());
+				else if (evt.getPropertyName().equals("masterKeys"))
+					lblMasterKeys.setzeInhalt(masterKeys + evt.getNewValue());
+			}
+		});
+	}
+	/** input (int) */
+	public int inputInt(String t) {
+		return Integer.parseInt(JOptionPane.showInputDialog(t));
 	}
 
 	public void output(String t) {
@@ -95,11 +128,6 @@ public class Menu implements Serializable {
 			return Variables.EN_TXT_CMD_KEYS;
 	}
 
-	/** input (int) */
-	public int inputInt(String t) {
-		return Integer.parseInt(JOptionPane.showInputDialog(t));
-	}
-
 	public void info() {
 		if (gameLang.equals("de"))
 			output(Variables.DE_CONTROLLS);
@@ -115,56 +143,10 @@ public class Menu implements Serializable {
 	}
 
 	/**
-	 * Refresh Steps Counter from Menu.
-	 * @param player
-	 */
-	public void refreshSteps(Player player) {
-		if (player.getCheatc() < 1) {
-			player.setSteps(player.getSteps() + 1);
-			lblSteps.setzeInhalt(steps + player.getSteps());
-		} else {
-			player.setSteps(-1);
-			lblSteps.setzeInhalt("");
-		}
-	}
-
-	/**
-	 * Refresh Keys Counter from Menu.
-	 * @param player
-	 */
-	public void refreshKeys(Player player) {
-		lblKeys.setzeInhalt(keys + player.getKeys());
-	}
-
-	/**
-	 * Refresh Swords Counter from Menu.
-	 * @param player
-	 */
-	public void refreshSwords(Player player) {
-		lblSwords.setzeInhalt(swords + player.getSwords());
-	}
-
-	/**
-	 * Refresh Money Counter from Menu.
-	 * @param player
-	 */
-	public void refreshMoney(Player player) {
-		lblMoney.setzeInhalt(money + player.getMoney());
-	}
-
-	/**
-	 * Refresh MasterKeys Counter from Menu.
-	 * @param player
-	 */
-	public void refreshMasterKeys(Player player) {
-		lblMasterkeys.setzeInhalt(masterkeys + player.getMasterkeys());
-	}
-
-	/**
 	 * Output Text from People, Villains
 	 * @param text
 	 */
-	public void talking(String text) {
+	public void text(String text) {
 		lblText.setzeInhalt(text);
 	}
 }

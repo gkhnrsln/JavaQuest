@@ -20,34 +20,37 @@ import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class Player extends Objekte {
 	private static final long serialVersionUID = -4986780372336177606L;
 	@Getter @Setter
 	private boolean isCheat = false;
 	@Getter @Setter
-	private int cheatc = 0;
-	@Getter @Setter
-	private int keys = 0;
-	@Getter @Setter
-	private int masterkeys = 0;
-	@Getter @Setter
-	private int money = 0;
-	@Getter @Setter
-	private int steps = 0;
-	@Getter @Setter
-	private int swords = 0;
-
+	private static int cheatc = 0;
+	@Getter
+	private static int keys = 0;
+	@Getter
+	private static int masterKeys = 0;
+	@Getter
+	private static int money = 0;
+	@Getter
+	private static int steps = 0;
+	@Getter
+	private static int swords = 0;
 	@Getter @Setter
 	private static int posX = Variables.PLAYER_POS_X; // X Position from Player on GameField.
-
 	@Getter @Setter
 	private static int posY = Variables.PLAYER_POS_Y; // Y Position from Player on GameField.
+
+	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
 	public Player() {
 		super(posX, posY, Variables.IMG_PLAYER_DOWN);
 	}
 
-	public void cheatmode() {
+	public void cheatMode() {
 		if (!isCheat) {
 			setCheat(true);
 			ladeBild(Variables.IMG_PLAYER_CHEAT);
@@ -56,5 +59,43 @@ public class Player extends Objekte {
 			setCheat(false);
 			ladeBild(Variables.IMG_PLAYER_DOWN);
 		}
+	}
+
+	public void setSwords(int swords) {
+		int oldValue = this.swords;
+		this.swords = swords;
+		changes.firePropertyChange("swords", oldValue, swords);
+	}
+
+	public void setKeys(int keys) {
+		int oldValue = this.keys;
+		this.keys = keys;
+		changes.firePropertyChange("keys", oldValue, keys);
+	}
+
+	public void setSteps(int steps) {
+		int oldValue = this.steps;
+		this.steps = steps;
+		changes.firePropertyChange("steps", oldValue, steps);
+	}
+
+	public void setMoney(int money) {
+		int oldValue = this.money;
+		this.money = money;
+		changes.firePropertyChange("money", oldValue, money);
+	}
+
+	public void setMasterKeys(int masterKeys) {
+		int oldValue = this.money;
+		this.masterKeys = masterKeys;
+		changes.firePropertyChange("masterKeys", oldValue, masterKeys);
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener l) {
+		changes.addPropertyChangeListener(l);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener l) {
+		changes.removePropertyChangeListener(l);
 	}
 }
