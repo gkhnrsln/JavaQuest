@@ -26,35 +26,44 @@ import java.beans.PropertyChangeSupport;
 public class Player extends Objekte {
 	private static final long serialVersionUID = -4986780372336177606L;
 	@Getter @Setter
-	private boolean isCheat = false;
-	@Getter @Setter
-	private static int cheatc = 0;
+	private boolean isCheat;
 	@Getter
-	private static int keys = 0;
+	private Integer cheatCnt;
 	@Getter
-	private static int masterKeys = 0;
+	private int keys;
 	@Getter
-	private static int money = 0;
+	private int masterKeys;
 	@Getter
-	private static int steps = 0;
+	private int money;
 	@Getter
-	private static int swords = 0;
+	private int steps;
+	@Getter
+	private int swords;
 	@Getter @Setter
 	private static int posX = Variables.PLAYER_POS_X; // X Position from Player on GameField.
 	@Getter @Setter
 	private static int posY = Variables.PLAYER_POS_Y; // Y Position from Player on GameField.
 
-	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
+	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
 	public Player() {
 		super(posX, posY, Variables.IMG_PLAYER_DOWN);
+		this.keys = 0;
+		this.masterKeys = 0;
+		this.money = 0;
+		this.steps = 0;
+		this.swords = 0;
+		this.cheatCnt = 0;
 	}
 
+	/**
+	 * Enables or Disables the Cheat Mode, where you can bypass some obstacles.
+	 */
 	public void cheatMode() {
-		if (!isCheat) {
+		if (this.cheatCnt < 1) {
 			setCheat(true);
 			ladeBild(Variables.IMG_PLAYER_CHEAT);
-			setCheatc(+1);
+			this.cheatCnt = 1;
 		} else {
 			setCheat(false);
 			ladeBild(Variables.IMG_PLAYER_DOWN);
@@ -91,10 +100,12 @@ public class Player extends Objekte {
 		changes.firePropertyChange("masterKeys", oldValue, masterKeys);
 	}
 
+	@Override
 	public void addPropertyChangeListener(PropertyChangeListener l) {
 		changes.addPropertyChangeListener(l);
 	}
 
+	@Override
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		changes.removePropertyChangeListener(l);
 	}

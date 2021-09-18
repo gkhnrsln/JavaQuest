@@ -25,6 +25,19 @@ public class Variables {
 	public static final int PLAYER_POS_X = 2;
 	/** {@value #PLAYER_POS_Y} */
 	public static final int PLAYER_POS_Y = 15;
+	public static final String BUTTON = "Button";
+	public static final String BOX = "Box";
+	public static final String MONEY = "Money";
+	public static final String MASTERKEY = "MasterKey";
+	public static final String PRINCESS = "Princess";
+	public static final String LOCK = "Lock";
+	public static final String OBSTACLE = "Obstacle";
+	public static final String OPA = "Opa";
+	public static final String NPC = "NPC";
+	public static final String KEY = "Key";
+	public static final String STAIRS = "Stairs";
+	public static final String SWORD = "Sword";
+	public static final String VILLAIN = "Villain";
 	// ------------------------SIZE-------------------------------------------
 	/** {@value #WINDOW_WIDTH} */
 	public static final int WINDOW_WIDTH = 780;

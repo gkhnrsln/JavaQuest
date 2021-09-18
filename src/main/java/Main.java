@@ -54,11 +54,9 @@ public class Main extends EBAnwendung {
 		super(Variables.WINDOW_WIDTH, Variables.WINDOW_HEIGHT, true);
 		Bild bg = new Bild(0, 0, 0, 0, Variables.IMG_BG); //Background image of map
 		player = new Player();
-
 		m = new Menu();
 		m.listenTo(player);
-
-		lvl.setFeld(lvl.ladeL(lvl.getLvl()));
+		lvl.setField(lvl.loadLvl(lvl.getLvl()));
 		fuehreAus();
 	}
 	
@@ -80,10 +78,10 @@ public class Main extends EBAnwendung {
 		}
 		//add new visited field to list
 		lvl.getList().add(new Visited(Player.getPosX() + x, Player.getPosY() + y, lvl.getLvl()));
-		//hide image from gamefield
-		lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y].verstecke();
-		//remove object from gamefield
-		lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] = null;
+		//hide image from gameField
+		lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].verstecke();
+		//remove object from gameField
+		lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] = null;
 	}
 
 	public void move(char c) {
@@ -106,7 +104,7 @@ public class Main extends EBAnwendung {
 				y++;
 				y2 = y + 1;
 				//no weapon, no fight
-				if (isPlayerInFrontOf("Villain") && player.getSwords() < 1) {
+				if (isPlayerInFrontOf(Variables.VILLAIN) && player.getSwords() < 1) {
 					m.text(Variables.DE_TXT_GEGNER_001);
 				}
 				checkBoxObstacle('y', 1);
@@ -134,10 +132,10 @@ public class Main extends EBAnwendung {
 						player.cheatMode();
 						break;
 					case "swords":
-						player.setSwords(m.inputInt(m.cmdSwords()));
+						player.setSwords(Integer.parseInt(JOptionPane.showInputDialog(m.cmdSwords())));
 						break;
 					case "keys":
-						player.setKeys(m.inputInt(m.cmdKeys()));
+						player.setKeys(Integer.parseInt(JOptionPane.showInputDialog(m.cmdKeys())));
 						break;
 					default:
 						break;
@@ -154,74 +152,74 @@ public class Main extends EBAnwendung {
 	 */
 	private boolean isPlayerInFrontOf(String object) {
 		switch (object) {
-			case "Button":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Button;
-			case "Box":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Box;
-			case "Sword":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Sword;
-			case "Money":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Money;
-			case "Princess":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Princess;
-			case "Lock":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Lock;
-			case "Opa":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Opa;
-			case "NPC":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof NPC;
-			case "Key":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Key;
-			case "Masterkey":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof MasterKey;
-			case "Villain":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Villain;
-			case "Obstacle":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Obstacle && !player.isCheat();
-			case "Stairs":
-				return lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] instanceof Stairs;
+			case Variables.BUTTON:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Button;
+			case Variables.BOX:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Box;
+			case Variables.SWORD:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Sword;
+			case Variables.MONEY:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Money;
+			case Variables.PRINCESS:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Princess;
+			case Variables.LOCK:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Lock;
+			case Variables.OPA:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Opa;
+			case Variables.NPC:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof NPC;
+			case Variables.KEY:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Key;
+			case Variables.MASTERKEY:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof MasterKey;
+			case Variables.VILLAIN:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Villain;
+			case Variables.OBSTACLE:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Obstacle && !player.isCheat();
+			case Variables.STAIRS:
+				return lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Stairs;
 			default:
 				return false;
 		}
 	}
 
 	public void playerInFrontOfPerson() {
-		if (isPlayerInFrontOf("Princess")) {
+		if (isPlayerInFrontOf(Variables.PRINCESS)) {
 			Sound.playSound(Variables.SND_PRINCESS);
 			m.text(Variables.DE_TXT_PRINCESS_001);
-		} else if (isPlayerInFrontOf("Opa")) {
+		} else if (isPlayerInFrontOf(Variables.OPA)) {
 			Sound.playSound(Variables.SND_PRINCESS);
 			m.text(Variables.DE_TXT_OPA_004);
 		}
 	}
 
 	private void isPlayerOnStairs() {
-		if (isPlayerInFrontOf("Stairs")) {
+		if (isPlayerInFrontOf(Variables.STAIRS)) {
 			//set lvl destination
-			int newLvl = ((Stairs) lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y]).getLvl();
-			//clear gamefield
+			int newLvl = ((Stairs) lvl.getField()[Player.getPosX() + x][Player.getPosY() + y]).getLvl();
+			//clear gameField
 			for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
 				for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
-					if (lvl.getFeld()[i][j] != null) {
-						//hide image of object from gamefield
-						lvl.getFeld()[i][j].verstecke();
+					if (lvl.getField()[i][j] != null) {
+						//hide image of object from gameField
+						lvl.getField()[i][j].verstecke();
 					}
-					//remove object from gamefield
-					lvl.getFeld()[i][j] = null;
+					//remove object from gameField
+					lvl.getField()[i][j] = null;
 				}
 			}
-			//load new gamefield from another level
-			lvl.setFeld(lvl.ladeL(newLvl));
+			//load new gameField from another level
+			lvl.setField(lvl.loadLvl(newLvl));
 		}
 	}
 
 	private void isPlayerOnPortal() {
-		if (lvl.getFeld()[Player.getPosX()][Player.getPosY()] instanceof Portal) {
+		if (lvl.getField()[Player.getPosX()][Player.getPosY()] instanceof Portal) {
 			//teleport player to another position
-			player.go(((Portal) lvl.getFeld()[Player.getPosX()][Player.getPosY()]).getPosX(),
-					((Portal) lvl.getFeld()[Player.getPosX()][Player.getPosY()]).getPosY());
-			int xt = ((Portal) lvl.getFeld()[Player.getPosX()][Player.getPosY()]).getPosX();
-			int yt = ((Portal) lvl.getFeld()[Player.getPosX()][Player.getPosY()]).getPosY();
+			player.go(((Portal) lvl.getField()[Player.getPosX()][Player.getPosY()]).getPosX(),
+					((Portal) lvl.getField()[Player.getPosX()][Player.getPosY()]).getPosY());
+			int xt = ((Portal) lvl.getField()[Player.getPosX()][Player.getPosY()]).getPosX();
+			int yt = ((Portal) lvl.getField()[Player.getPosX()][Player.getPosY()]).getPosY();
 			Player.setPosX(xt);
 			Player.setPosY(yt);
 		}
@@ -247,31 +245,31 @@ public class Main extends EBAnwendung {
 		}
 
 		//player is in front of box, box is in front of button
-		if (isPlayerInFrontOf("Box") && lvl.getFeld()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Button) {
-			lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
+		if (isPlayerInFrontOf(Variables.BOX) && lvl.getField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Button) {
+			lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
 			//remove block to enter next section in lvl 1
-			lvl.getFeld()[18][14].verstecke();
-			lvl.getFeld()[18][14] = null;
-			lvl.getFeld()[Player.getPosX()][Player.getPosY() + (y * 2)] = lvl.getFeld()[Player.getPosX()][Player.getPosY() + y];
-			lvl.getFeld()[Player.getPosX()][Player.getPosY() + y] = null;
+			lvl.getField()[18][14].verstecke();
+			lvl.getField()[18][14] = null;
+			lvl.getField()[Player.getPosX()][Player.getPosY() + (y * 2)] = lvl.getField()[Player.getPosX()][Player.getPosY() + y];
+			lvl.getField()[Player.getPosX()][Player.getPosY() + y] = null;
 		}
 
-		if (isPlayerInFrontOf("Box") && !(lvl.getFeld()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Objekte)) {
+		if (isPlayerInFrontOf(Variables.BOX) && !(lvl.getField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Objekte)) {
 			if (coord == 'x') {
 				if (r == 1) {
-					lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y].moveRight();
+					lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveRight();
 				} else if (r == -1) {
-					lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y].moveLeft();
+					lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveLeft();
 				}
 			} else {
 				if (r == -1) {
-					lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y].moveUp();
+					lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveUp();
 				} else if (r == 1) {
-					lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
+					lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
 				}
 			}
-			lvl.getFeld()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y];
-			lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y] = null;
+			lvl.getField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = lvl.getField()[Player.getPosX() + x][Player.getPosY() + y];
+			lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] = null;
 		}
 	}
 	
@@ -292,62 +290,62 @@ public class Main extends EBAnwendung {
 		move(c);
 		commands(c);
 
-		if (isPlayerInFrontOf("Button")) {
-			lvl.getFeld()[18][14].zeige();
+		if (isPlayerInFrontOf(Variables.BUTTON)) {
+			lvl.getField()[18][14].zeige();
 		}
 		
-		if (isPlayerInFrontOf("Obstacle")) {
+		if (isPlayerInFrontOf(Variables.OBSTACLE)) {
 			Sound.playSound(Variables.SND_OBSTACLE);
 		}
 		
 		playerInFrontOfPerson();
 
 		if (c == 'w') {
-			if (isPlayerInFrontOf("Opa") && Opa.getMasterkey() == 0) {
+			if (isPlayerInFrontOf(Variables.OPA) && Opa.getMasterKey() == 0) {
 				Sound.playSound(Variables.SND_TEXT);
 				m.text(Variables.DE_TXT_OPA_003);
-			} else if (isPlayerInFrontOf("Opa")) {
+			} else if (isPlayerInFrontOf(Variables.OPA)) {
 				if (player.getMoney() < 450) {
 					Sound.playSound(Variables.SND_TEXT);
 					m.text(Variables.DE_TXT_OPA_001);
 				} else {
 					lvl.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, lvl.getLvl()));
 					player.setMoney(player.getMoney() - 450);
-					Opa.setMasterkey(Opa.getMasterkey() - 1);
+					Opa.setMasterKey(Opa.getMasterKey() - 1);
 					player.setMasterKeys(player.getMasterKeys() + 1);
 					m.text(Variables.DE_TXT_OPA_002);
 				}
 			}
 		}
 
-		if (isPlayerInFrontOf("Lock") && player.getKeys() > 1
-				|| isPlayerInFrontOf("Villain") && player.getSwords() > 0
-				|| isPlayerInFrontOf("Lock") && player.getKeys() > 2
-				|| isPlayerInFrontOf("Lock") && player.getMasterKeys() > 0
-				|| isPlayerInFrontOf("Money") || isPlayerInFrontOf("Sword")
-				|| isPlayerInFrontOf("Key") || isPlayerInFrontOf("Masterkey")
-				|| isPlayerInFrontOf("Lock") && player.getKeys() > 0) {
-			if (isPlayerInFrontOf("Villain")) {
+		if (isPlayerInFrontOf(Variables.LOCK) && player.getKeys() > 1
+				|| isPlayerInFrontOf(Variables.VILLAIN) && player.getSwords() > 0
+				|| isPlayerInFrontOf(Variables.LOCK) && player.getKeys() > 2
+				|| isPlayerInFrontOf(Variables.LOCK) && player.getMasterKeys() > 0
+				|| isPlayerInFrontOf(Variables.MONEY) || isPlayerInFrontOf(Variables.SWORD)
+				|| isPlayerInFrontOf(Variables.KEY) || isPlayerInFrontOf(Variables.MASTERKEY)
+				|| isPlayerInFrontOf(Variables.LOCK) && player.getKeys() > 0) {
+			if (isPlayerInFrontOf(Variables.VILLAIN)) {
 				player.setSwords(player.getSwords() - 1);
-			} else if (isPlayerInFrontOf("Money")) {
+			} else if (isPlayerInFrontOf(Variables.MONEY)) {
 				Sound.playSound(Variables.SND_MONEY);
 				player.ladeBild(Variables.IMG_PLAYER_MONEY);
-				player.setMoney(player.getMoney() + ((Money) lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
-			} else if (isPlayerInFrontOf("Sword")) {
+				player.setMoney(player.getMoney() + ((Money) lvl.getField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
+			} else if (isPlayerInFrontOf(Variables.SWORD)) {
 				//add sword to items
 				player.setSwords(player.getSwords() + 1);
 				//change image from Player
 				player.ladeBild(Variables.IMG_PLAYER_SWORD);
-			} else if (isPlayerInFrontOf("Key")) {
+			} else if (isPlayerInFrontOf(Variables.KEY)) {
 				//add key to items
 				player.setKeys(player.getKeys() + 1);
-			} else if (isPlayerInFrontOf("Lock")) {
+			} else if (isPlayerInFrontOf(Variables.LOCK)) {
 				//remove key from items
 				player.setKeys(player.getKeys() - 1);
-			} else if (isPlayerInFrontOf("Masterkey")) {
+			} else if (isPlayerInFrontOf(Variables.MASTERKEY)) {
 				Sound.playSound(Variables.SND_TEXT);
 				player.setMasterKeys(player.getMasterKeys() + 1);
-			} else if (isPlayerInFrontOf("Lock") && player.getMasterKeys() > 0) {
+			} else if (isPlayerInFrontOf(Variables.LOCK) && player.getMasterKeys() > 0) {
 				player.setMasterKeys(player.getMasterKeys() - 1);
 			}
 
@@ -374,11 +372,11 @@ public class Main extends EBAnwendung {
 		isPlayerOnPortal();
 
 		//move Player image
-		if (player.isCheat() || !(isPlayerInFrontOf("Box")
-				&& (lvl.getFeld()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof Objekte))
-				&& !(isPlayerInFrontOf("NPC"))
-				&& !(isPlayerInFrontOf("Obstacle"))
-				&& !(isPlayerInFrontOf("Villain"))) {
+		if (player.isCheat() || !(isPlayerInFrontOf(Variables.BOX)
+				&& (lvl.getField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof Objekte))
+				&& !(isPlayerInFrontOf(Variables.NPC))
+				&& !(isPlayerInFrontOf(Variables.OBSTACLE))
+				&& !(isPlayerInFrontOf(Variables.VILLAIN))) {
 			switch (c) {
 				case 'w':
 					player.moveUp();
@@ -399,7 +397,7 @@ public class Main extends EBAnwendung {
 				default:
 					break;
 			}
-			player.setSteps(Player.getCheatc() < 1 ? Player.getSteps() + 1: -1);
+			player.setSteps(player.getCheatCnt() < 1 ? player.getSteps() + 1: -1);
 			}
 		}
 }

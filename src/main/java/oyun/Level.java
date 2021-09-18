@@ -36,7 +36,7 @@ public class Level<T> implements Serializable {
 	private static final long serialVersionUID = -5285864879474325429L;
 	// GameField
 	@Getter @Setter
-	private Objekte[][] feld = new Objekte[Variables.FIELD_LENGTH_X][Variables.FIELD_LENGTH_Y];
+	private Objekte[][] field = new Objekte[Variables.FIELD_LENGTH_X][Variables.FIELD_LENGTH_Y];
 	// List of visited fields
 	@Getter @Setter
 	private List<T> list = new ArrayList<>();
@@ -47,70 +47,73 @@ public class Level<T> implements Serializable {
 	private boolean isChecked = false;
 
 	private void button(int x, int y) {
-		feld[x][y] = new Button(x, y);
+		field[x][y] = new Button(x, y);
 	}
 
 	private void wall(int x, int y) {
-		feld[x][y] = new Wall(x, y);
+		field[x][y] = new Wall(x, y);
 	}
 
 	private void box(int x, int y) {
-		feld[x][y] = new Box(x, y);
+		field[x][y] = new Box(x, y);
 	}
 
 	private void stairs(int x, int y, int l) {
-		feld[x][y] = new Stairs(x, y, l);
+		field[x][y] = new Stairs(x, y, l);
 	}
 
 	private void portal(int x, int y, int x2, int y2) {
-		feld[x][y] = new Portal(x, y, x2, y2);
+		field[x][y] = new Portal(x, y, x2, y2);
 	}
 
 	private void opa(int x, int y) {
-		feld[x][y] = new Opa(x, y);
+		//TODO: if you get a MasterKey from Opa, he should left the game after visiting the level again
+		Opa opa = new Opa(x, y);
+		field[x][y] = opa;
+
 	}
 
 	private void wand(int x, int y) {
-		feld[x][y] = new Wand(x, y);
+		field[x][y] = new Wand(x, y);
 	}
 
 	private void princess(int x, int y) {
-		feld[x][y] = new Princess(x, y);
+		field[x][y] = new Princess(x, y);
 	}
 
 	private void villain(int x, int y, String img) {
 		checker(x, y);
-		if (!isChecked) feld[x][y] = new Gegner(x, y, img);
+		if (!isChecked) field[x][y] = new Gegner(x, y, img);
 	}
 
 	private void sword(int x, int y) {
 		checker(x, y);
-		if (!isChecked) feld[x][y] = new Sword(x, y);
+		if (!isChecked) field[x][y] = new Sword(x, y);
 	}
 
 	private void key(int x, int y) {
 		checker(x, y);
-		if (!isChecked)	feld[x][y] = new Key(x, y);
+		if (!isChecked)	field[x][y] = new Key(x, y);
 	}
 
 	private void lock(int x, int y) {
 		checker(x, y);
-		if (!isChecked)	feld[x][y] = new Lock(x, y);
+		if (!isChecked)	field[x][y] = new Lock(x, y);
 	}
 
 	private void lock2(int x, int y, int z) {
 		checker(x, y);
-		if (!isChecked)	feld[x][y] = new Lock(x, y, z);
+		if (!isChecked)	field[x][y] = new Lock(x, y, z);
 	}
 
 	private void money(int x, int y, int z) {
 		checker(x, y);
-		if (!isChecked)	feld[x][y] = new Money(x, y, z);
+		if (!isChecked)	field[x][y] = new Money(x, y, z);
 	}
 
 	private void masterKey(int x, int y) {
 		checker(x, y);
-		if (!isChecked) feld[x][y] = new MasterKey(x, y);
+		if (!isChecked) field[x][y] = new MasterKey(x, y);
 	}
 
 	/* checks if player visited a field before */
@@ -237,29 +240,29 @@ public class Level<T> implements Serializable {
 	private void generateLvl(int lvl) {
 		switch (lvl) {
 			case 1:
-				load1();
+				objects1();
 				break;
 			case 2:
-				load2();
+				objects2();
 				break;
 			case 3:
-				load3();
+				objects3();
 				break;
 			case 4:
-				load4();
+				objects4();
 				break;
 			case 5:
-				load5();
+				objects5();
 				break;
 			default:
 				break;
 		}
 	}
 
-	private void buildField(int[][] sfeld) {
+	private void buildField(int[][] sField) {
 		for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
 			for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
-				switch (sfeld[j][i]) {
+				switch (sField[j][i]) {
 					case 1:
 						wall(i, j);
 						break;
@@ -280,6 +283,7 @@ public class Level<T> implements Serializable {
 						break;
 					case 7:
 						wand(i, j);
+						break;
 					default:
 						break;
 				}
@@ -287,7 +291,7 @@ public class Level<T> implements Serializable {
 		}
 	}
 
-	private void load1() {
+	private void objects1() {
 		buildField(level1());
 		stairs(20, 1, 2);
 		money(5, 4, 85);
@@ -298,7 +302,7 @@ public class Level<T> implements Serializable {
 		villain(20, 3, Variables.IMG_MON_3);
 	}
 
-	private void load2() {
+	private void objects2() {
 		buildField(level2());
 
 		checker(5, 1);
@@ -316,14 +320,14 @@ public class Level<T> implements Serializable {
 		lock2(11, 12, 3);
 	}
 
-	private void load3() {
+	private void objects3() {
 		buildField(level3());
 		opa(6,1);
 		masterKey(9, 8);
 		stairs(9, 7, 2);
 	}
 
-	private void load4() {
+	private void objects4() {
 		buildField(level4());
 		masterKey(14, 14);
 		stairs(3, 13, 2);
@@ -378,7 +382,7 @@ public class Level<T> implements Serializable {
 		portal(21, 15, 14, 13);
 	}
 
-	private void load5() {
+	private void objects5() {
 		buildField(level5());
 		princess(12, 1);
 	}
@@ -386,7 +390,7 @@ public class Level<T> implements Serializable {
 	 * Loads Level.
 	 * @param lvl Level 1 to 5
 	 */
-	public Objekte[][] ladeL(int lvl) {
+	public Objekte[][] loadLvl(int lvl) {
 		switch (lvl) {
 			case 1:
 				generateLvl(1);
@@ -406,6 +410,8 @@ public class Level<T> implements Serializable {
 			default:
 				break;
 		}
-		return feld;
+		return field;
 	}
+
+
 }

@@ -24,7 +24,7 @@ import main.java.objects.NPC;
 public class Opa extends NPC {
 	private static final long serialVersionUID = 5642323314026519582L;
 	@Getter @Setter
-	private static int masterkey;
+	private static int masterKey = 1;
 	/**
 	 * Constructor of opa.
 	 * @param x Position (x coordinate).
@@ -32,6 +32,5 @@ public class Opa extends NPC {
 	 */
 	public Opa(int x, int y) {
 		super(x, y, Variables.IMG_OPA);
-		masterkey = 1;
 	}
 }

@@ -16,8 +16,6 @@
 
 package main.java.gui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
 import javax.swing.JOptionPane;
@@ -89,25 +87,18 @@ public class Menu implements Serializable {
 	 * @param player
 	 */
 	public void listenTo(Player player) {
-		player.addPropertyChangeListener(new PropertyChangeListener() {
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName().equals("steps"))
-					lblSteps.setzeInhalt(steps + evt.getNewValue());
-				else if (evt.getPropertyName().equals("swords"))
-					lblSwords.setzeInhalt(swords + evt.getNewValue());
-				else if (evt.getPropertyName().equals("money"))
-					lblMoney.setzeInhalt(money + evt.getNewValue());
-				else if (evt.getPropertyName().equals("keys"))
-					lblKeys.setzeInhalt(keys + evt.getNewValue());
-				else if (evt.getPropertyName().equals("masterKeys"))
-					lblMasterKeys.setzeInhalt(masterKeys + evt.getNewValue());
-			}
+		player.addPropertyChangeListener(evt -> {
+			if (evt.getPropertyName().equals("steps"))
+				lblSteps.setzeInhalt(steps + evt.getNewValue());
+			else if (evt.getPropertyName().equals("swords"))
+				lblSwords.setzeInhalt(swords + evt.getNewValue());
+			else if (evt.getPropertyName().equals("money"))
+				lblMoney.setzeInhalt(money + evt.getNewValue());
+			else if (evt.getPropertyName().equals("keys"))
+				lblKeys.setzeInhalt(keys + evt.getNewValue());
+			else if (evt.getPropertyName().equals("masterKeys"))
+				lblMasterKeys.setzeInhalt(masterKeys + evt.getNewValue());
 		});
-	}
-	/** input (int) */
-	public int inputInt(String t) {
-		return Integer.parseInt(JOptionPane.showInputDialog(t));
 	}
 
 	public void output(String t) {
