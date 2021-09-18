@@ -104,7 +104,7 @@ public class Main extends EBAnwendung {
 				y2 = y + 1;
 				//no weapon, no fight
 				if (isPlayerInFrontOf("Villain") && player.getSwords() < 1) {
-					m.getLblText().setzeInhalt(Variables.DE_TXT_GEGNER_001);
+					m.talking(Variables.DE_TXT_GEGNER_001);
 				}
 				checkBoxObstacle('y', 1);
 				break;
@@ -187,10 +187,10 @@ public class Main extends EBAnwendung {
 	public void playerInFrontOfPerson() {
 		if (isPlayerInFrontOf("Princess")) {
 			Sound.playSound(Variables.SND_PRINCESS);
-			m.getLblText().setzeInhalt(Variables.DE_TXT_PRINCESS_001);
+			m.talking(Variables.DE_TXT_PRINCESS_001);
 		} else if (isPlayerInFrontOf("Opa")) {
 			Sound.playSound(Variables.SND_PRINCESS);
-			m.getLblText().setzeInhalt(Variables.DE_TXT_OPA_004);
+			m.talking(Variables.DE_TXT_OPA_004);
 		}
 	}
 
@@ -248,8 +248,9 @@ public class Main extends EBAnwendung {
 		//player is in front of box, box is in front of button
 		if (isPlayerInFrontOf("Box") && lvl.getFeld()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Button) {
 			lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
-			//lvl.getFeld()[18][14].verstecke();
-			//lvl.getFeld()[18][14] = null; //TODO: why null?
+			//remove block to enter next section in lvl 1
+			lvl.getFeld()[18][14].verstecke();
+			lvl.getFeld()[18][14] = null;
 			lvl.getFeld()[Player.getPosX()][Player.getPosY() + (y * 2)] = lvl.getFeld()[Player.getPosX()][Player.getPosY() + y];
 			lvl.getFeld()[Player.getPosX()][Player.getPosY() + y] = null;
 		}
@@ -303,19 +304,19 @@ public class Main extends EBAnwendung {
 		if (c == 'w') {
 			if (isPlayerInFrontOf("Opa") && Opa.getMasterkey() == 0) {
 				Sound.playSound(Variables.SND_TEXT);
-				m.getLblText().setzeInhalt(Variables.DE_TXT_OPA_003);
+				m.talking(Variables.DE_TXT_OPA_003);
 			} else if (isPlayerInFrontOf("Opa")) {
 				if (player.getMoney() < 450) {
 					Sound.playSound(Variables.SND_TEXT);
-					m.getLblText().setzeInhalt(Variables.DE_TXT_OPA_001);
+					m.talking(Variables.DE_TXT_OPA_001);
 				} else {
 					lvl.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, lvl.getLvl()));
 					player.setMoney(player.getMoney() - 450);
 					Opa.setMasterkey(Opa.getMasterkey() - 1);
-					m.getLblMoney().setzeInhalt(m.getMoney() + player.getMoney());
+					m.refreshMoney(player);
 					player.setMasterkeys(player.getMasterkeys() + 1);
-					m.getLblMasterkeys().setzeInhalt(m.getMasterkeys() + player.getMasterkeys());
-					m.getLblText().setzeInhalt(Variables.DE_TXT_OPA_002);
+					m.refreshMasterKeys(player);
+					m.talking(Variables.DE_TXT_OPA_002);
 				}
 			}
 		}
@@ -329,35 +330,33 @@ public class Main extends EBAnwendung {
 				|| isPlayerInFrontOf("Lock") && player.getKeys() > 0) {
 			if (isPlayerInFrontOf("Villain")) {
 				player.setSwords(player.getSwords() - 1);
-				m.getLblSwords().setzeInhalt(m.getSwords() + player.getSwords());
+				m.refreshSwords(player);
 			} else if (isPlayerInFrontOf("Money")) {
 				Sound.playSound(Variables.SND_MONEY);
 				player.ladeBild(Variables.IMG_PLAYER_MONEY);
 				player.setMoney(player.getMoney() + ((Money) lvl.getFeld()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
-				m.getLblMoney().setzeInhalt(m.getMoney() + player.getMoney());
+				m.refreshMoney(player);
 			} else if (isPlayerInFrontOf("Sword")) {
 				//add sword to items
 				player.setSwords(player.getSwords() + 1);
 				//change image from Player
 				player.ladeBild(Variables.IMG_PLAYER_SWORD);
-				//refresh menue
-				m.getLblSwords().setzeInhalt(m.getSwords() + player.getSwords());
+				m.refreshSwords(player);
 			} else if (isPlayerInFrontOf("Key")) {
 				//add key to items
 				player.setKeys(player.getKeys() + 1);
-				//refresh menue
-				m.getLblKeys().setzeInhalt(m.getKeys() + player.getKeys());
+				m.refreshKeys(player);
 			} else if (isPlayerInFrontOf("Lock")) {
 				//remove key from items
 				player.setKeys(player.getKeys() - 1);
-				m.getLblKeys().setzeInhalt(m.getKeys() + player.getKeys());
+				m.refreshKeys(player);
 			} else if (isPlayerInFrontOf("Masterkey")) {
 				Sound.playSound(Variables.SND_TEXT);
 				player.setMasterkeys(player.getMasterkeys() + 1);
-				m.getLblMasterkeys().setzeInhalt(m.getMasterkeys() + player.getMasterkeys());
+				m.refreshMasterKeys(player);
 			} else if (isPlayerInFrontOf("Lock") && player.getMasterkeys() > 0) {
 				player.setMasterkeys(player.getMasterkeys() - 1);
-				m.getLblMasterkeys().setzeInhalt(m.getMasterkeys() + player.getMasterkeys());
+				m.refreshMasterKeys(player);
 			}
 
 			switch (c) {
@@ -408,13 +407,8 @@ public class Main extends EBAnwendung {
 				default:
 					break;
 			}
-			if (player.getCheatc() < 1) {
-				player.setSteps(player.getSteps() + 1);
-				m.getLblSteps().setzeInhalt(m.getSteps() + player.getSteps());
-			} else {
-				player.setSteps(0);
-				m.getLblSteps().setzeInhalt("");
-			}
+			
+			m.refreshSteps(player);
 		}
 	}
 }

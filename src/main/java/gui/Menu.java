@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
+import main.java.objects.Player;
 import sum.komponenten.Etikett;
 
 public class Menu implements Serializable {
@@ -111,5 +112,59 @@ public class Menu implements Serializable {
 			return Variables.DE_TXT_COMMAND;
 		else
 			return Variables.EN_TXT_COMMAND;
+	}
+
+	/**
+	 * Refresh Steps Counter from Menu.
+	 * @param player
+	 */
+	public void refreshSteps(Player player) {
+		if (player.getCheatc() < 1) {
+			player.setSteps(player.getSteps() + 1);
+			lblSteps.setzeInhalt(steps + player.getSteps());
+		} else {
+			player.setSteps(-1);
+			lblSteps.setzeInhalt("");
+		}
+	}
+
+	/**
+	 * Refresh Keys Counter from Menu.
+	 * @param player
+	 */
+	public void refreshKeys(Player player) {
+		lblKeys.setzeInhalt(keys + player.getKeys());
+	}
+
+	/**
+	 * Refresh Swords Counter from Menu.
+	 * @param player
+	 */
+	public void refreshSwords(Player player) {
+		lblSwords.setzeInhalt(swords + player.getSwords());
+	}
+
+	/**
+	 * Refresh Money Counter from Menu.
+	 * @param player
+	 */
+	public void refreshMoney(Player player) {
+		lblMoney.setzeInhalt(money + player.getMoney());
+	}
+
+	/**
+	 * Refresh MasterKeys Counter from Menu.
+	 * @param player
+	 */
+	public void refreshMasterKeys(Player player) {
+		lblMasterkeys.setzeInhalt(masterkeys + player.getMasterkeys());
+	}
+
+	/**
+	 * Output Text from People, Villains
+	 * @param text
+	 */
+	public void talking(String text) {
+		lblText.setzeInhalt(text);
 	}
 }
