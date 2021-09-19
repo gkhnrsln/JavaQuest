@@ -17,7 +17,7 @@
 package main.java.enums;
 
 public class Variables {
-	// Private Constructor
+    // Private Constructor
 	private Variables() {
 	}
 
@@ -101,15 +101,18 @@ public class Variables {
 	// ------------------------SOUNDFILES--------------------------------------
 	/** {@value #SND_PRINCESS} */
 	public static final String SND_PRINCESS = "src/main/resources/wav/princess.wav";
-	/** {@value #SND_MASTERKEY} */
-	public static final String SND_MASTERKEY = "src/main/resources/wav/masterkey.wav";
 	/** {@value #SND_OBSTACLE} */
 	public static final String SND_OBSTACLE = "src/main/resources/wav/obstacle.wav";
 	/** {@value #SND_MONEY} */
 	public static final String SND_MONEY = "src/main/resources/wav/money.wav";
 	/** {@value #SND_TEXT} */
 	public static final String SND_TEXT = "src/main/resources/wav/text.wav";
-	// ------------------------MENUE-------------------------------------------
+	public static final String SFX_MENU_SELECT1 = "src/main/resources/wav/sfx_menu_select1.wav";
+	public static final String SFX_MENU_MOVE1 = "src/main/resources/wav/sfx_menu_move1.wav";
+	public static final String SFX_SOUNDS_INTERACTION26 = "src/main/resources/wav/sfx_sounds_interaction26.wav";
+	public static final String SFX_WPN_SWORD1 = "src/main/resources/wav/sfx_wpn_sword1.wav";
+
+	// ------------------------MENU-------------------------------------------
 	/** {@value #LBL_MKEYS} */
 	public static final String LBL_MKEYS = "MASTERKEYS";
 	/** {@value #DE_LBL_STEPS} */
@@ -149,11 +152,11 @@ public class Variables {
 	public static final String DE_TXT_GEGNER_001 = "Ha ha! Du willst ohne Waffen k\u00e4mpfen?";
 	/** {@value #DE_TXT_OPA_001} */
 	public static final String DE_TXT_OPA_001 = "<html>Hey, kleiner! Wenn du mehr als 450<p/>\""
-			+ "Euro hast, sprich mich nochmal an!<p/>" + "Ich gib dir dann einen Masterkey!</html>";
+			+ "Euro hast, sprich mich nochmal an!<p/>" + "Ich gib dir dann einen MasterKey!</html>";
 	/** {@value #DE_TXT_OPA_002} */
-	public static final String DE_TXT_OPA_002 = "Hier hast du deinen Masterkey!";
+	public static final String DE_TXT_OPA_002 = "Hier hast du deinen MasterKey!";
 	/** {@value #DE_TXT_OPA_003} */
-	public static final String DE_TXT_OPA_003 = "Hab keinen Masterkey mehr. Hau ab!";
+	public static final String DE_TXT_OPA_003 = "Hab keinen MasterKey mehr. Hau ab!";
 	/** {@value #DE_TXT_OPA_004} */
 	public static final String DE_TXT_OPA_004 = "<html>Hey! Dieser Ort ist komisch. Als<p/>"
 			+ "ob es hier unsichtbare W\u00e4nde gibt.</html>";

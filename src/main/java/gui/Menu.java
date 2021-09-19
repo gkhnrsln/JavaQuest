@@ -24,6 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
 import main.java.objects.Player;
+import main.java.oyun.Sound;
 import sum.komponenten.Etikett;
 
 public class Menu implements Serializable {
@@ -57,6 +58,7 @@ public class Menu implements Serializable {
 	public Menu() {
 		initializeMenu();
 	}
+
 	private void initializeMenu() {
 		gameLang = System.getProperty("user.language");
 
@@ -101,8 +103,17 @@ public class Menu implements Serializable {
 		});
 	}
 
-	public void output(String t) {
+	private void output(String t) {
+		Sound.playSound(Variables.SFX_MENU_MOVE1);
 		JOptionPane.showMessageDialog(null, t);
+		Sound.playSound(Variables.SFX_MENU_SELECT1);
+	}
+
+	private String input(String text){
+		Sound.playSound(Variables.SFX_MENU_MOVE1);
+		String s = JOptionPane.showInputDialog(text);
+		Sound.playSound(Variables.SFX_MENU_SELECT1);
+		return s;
 	}
 
 	public String cmdSwords() {
@@ -119,22 +130,22 @@ public class Menu implements Serializable {
 			return Variables.EN_TXT_CMD_KEYS;
 	}
 
+	/**
+	 * Display the control of the game in a Messagebox.
+	 */
 	public void info() {
-		if (gameLang.equals("de"))
-			output(Variables.DE_CONTROLLS);
-		else
-			output(Variables.EN_CONTROLLS);
+		output(gameLang.equals("de") ? Variables.DE_CONTROLLS : Variables.EN_CONTROLLS);
 	}
 	
 	public String cmd() {
 		if (gameLang.equals("de"))
-			return Variables.DE_TXT_COMMAND;
+			return input(Variables.DE_TXT_COMMAND);
 		else
-			return Variables.EN_TXT_COMMAND;
+			return input(Variables.EN_TXT_COMMAND);
 	}
 
 	/**
-	 * Output Text from People, Villains
+	 * Output Text from People, Villains, ...
 	 * @param text
 	 */
 	public void text(String text) {

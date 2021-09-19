@@ -29,4 +29,6 @@ public class Money extends Items {
 		super(x, y, Variables.IMG_MONEY);
 		setValue(value);
 	}
+
+
 }

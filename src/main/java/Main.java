@@ -1,16 +1,16 @@
 package main.java;
 /*
  * Copyright (C) 2020  G. Arslan
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
  * version 2, as published by the Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,7 +49,7 @@ public class Main extends EBAnwendung {
 	public static void main(String[] args) {
 		new Main();
 	}
-	
+
 	public Main() {
 		super(Variables.WINDOW_WIDTH, Variables.WINDOW_HEIGHT, true);
 		Bild bg = new Bild(0, 0, 0, 0, Variables.IMG_BG); //Background image of map
@@ -59,7 +59,7 @@ public class Main extends EBAnwendung {
 		lvl.setField(lvl.loadLvl(lvl.getLvl()));
 		fuehreAus();
 	}
-	
+
 	/*
 	 * Hide an object from the world.
 	 * @param t must be 'x' or 'y'
@@ -126,8 +126,7 @@ public class Main extends EBAnwendung {
 				m.info();
 				break;
 			case 'c':
-				String strCmd = JOptionPane.showInputDialog(m.cmd());
-				switch (strCmd) {
+				switch (m.cmd()) {
 					case "glitch":
 						player.cheatMode();
 						break;
@@ -201,14 +200,11 @@ public class Main extends EBAnwendung {
 			for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
 				for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
 					if (lvl.getField()[i][j] != null) {
-						//hide image of object from gameField
 						lvl.getField()[i][j].verstecke();
 					}
-					//remove object from gameField
 					lvl.getField()[i][j] = null;
 				}
 			}
-			//load new gameField from another level
 			lvl.setField(lvl.loadLvl(newLvl));
 		}
 	}
@@ -224,15 +220,15 @@ public class Main extends EBAnwendung {
 			Player.setPosY(yt);
 		}
 	}
-	
+
 	/**
 	 * Check, if box can be moved further (i.e. if there are no obstacles).
-	 * 
+	 *
 	 * @param coord, Either the X or Y coordinate.
 	 * @param r, ??
 	 */
 	public void checkBoxObstacle(char coord, int r) {
-		
+
 		switch (coord) {
 			case 'y':
 				y = r;
@@ -256,12 +252,14 @@ public class Main extends EBAnwendung {
 
 		if (isPlayerInFrontOf(Variables.BOX) && !(lvl.getField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Objekte)) {
 			if (coord == 'x') {
+				Sound.playSound(Variables.SFX_SOUNDS_INTERACTION26);
 				if (r == 1) {
 					lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveRight();
 				} else if (r == -1) {
 					lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveLeft();
 				}
 			} else {
+				Sound.playSound(Variables.SFX_SOUNDS_INTERACTION26);
 				if (r == -1) {
 					lvl.getField()[Player.getPosX() + x][Player.getPosY() + y].moveUp();
 				} else if (r == 1) {
@@ -270,9 +268,11 @@ public class Main extends EBAnwendung {
 			}
 			lvl.getField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = lvl.getField()[Player.getPosX() + x][Player.getPosY() + y];
 			lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] = null;
+		} else if (isPlayerInFrontOf(Variables.BOX) && lvl.getField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Objekte) {
+			Sound.playSound(Variables.SND_OBSTACLE);
 		}
 	}
-	
+
 	/**
 	 * Handle Movement of player
 	 * @param c Which key is pressed?
@@ -293,11 +293,11 @@ public class Main extends EBAnwendung {
 		if (isPlayerInFrontOf(Variables.BUTTON)) {
 			lvl.getField()[18][14].zeige();
 		}
-		
+
 		if (isPlayerInFrontOf(Variables.OBSTACLE)) {
 			Sound.playSound(Variables.SND_OBSTACLE);
 		}
-		
+
 		playerInFrontOfPerson();
 
 		if (c == 'w') {
@@ -326,24 +326,21 @@ public class Main extends EBAnwendung {
 				|| isPlayerInFrontOf(Variables.KEY) || isPlayerInFrontOf(Variables.MASTERKEY)
 				|| isPlayerInFrontOf(Variables.LOCK) && player.getKeys() > 0) {
 			if (isPlayerInFrontOf(Variables.VILLAIN)) {
+				Sound.playSound(Variables.SFX_WPN_SWORD1);
 				player.setSwords(player.getSwords() - 1);
 			} else if (isPlayerInFrontOf(Variables.MONEY)) {
 				Sound.playSound(Variables.SND_MONEY);
 				player.ladeBild(Variables.IMG_PLAYER_MONEY);
 				player.setMoney(player.getMoney() + ((Money) lvl.getField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
 			} else if (isPlayerInFrontOf(Variables.SWORD)) {
-				//add sword to items
 				player.setSwords(player.getSwords() + 1);
-				//change image from Player
 				player.ladeBild(Variables.IMG_PLAYER_SWORD);
 			} else if (isPlayerInFrontOf(Variables.KEY)) {
-				//add key to items
 				player.setKeys(player.getKeys() + 1);
 			} else if (isPlayerInFrontOf(Variables.LOCK)) {
-				//remove key from items
 				player.setKeys(player.getKeys() - 1);
 			} else if (isPlayerInFrontOf(Variables.MASTERKEY)) {
-				Sound.playSound(Variables.SND_TEXT);
+				Sound.playSound(Variables.SND_TEXT); //TODO use another sound
 				player.setMasterKeys(player.getMasterKeys() + 1);
 			} else if (isPlayerInFrontOf(Variables.LOCK) && player.getMasterKeys() > 0) {
 				player.setMasterKeys(player.getMasterKeys() - 1);
@@ -365,9 +362,8 @@ public class Main extends EBAnwendung {
 				default:
 					break;
 			}
-
 		}
-		
+
 		isPlayerOnStairs();
 		isPlayerOnPortal();
 

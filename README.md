@@ -58,3 +58,6 @@ Code licensed under the MIT License: http://opensource.org/licenses/MIT
 
 Graphics licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
 
+### SFX
+The Essential Retro Video Game Sound Effects Collection:
+https://opengameart.org/content/512-sound-effects-8-bit-style
