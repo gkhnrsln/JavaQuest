@@ -109,6 +109,7 @@ public class Variables {
 	public static final String SND_TEXT = "src/main/resources/wav/text.wav";
 	public static final String SFX_MENU_SELECT1 = "src/main/resources/wav/sfx_menu_select1.wav";
 	public static final String SFX_MENU_MOVE1 = "src/main/resources/wav/sfx_menu_move1.wav";
+	public static final String SFX_MOVEMENT_STAIRS4LOOP = "src/main/resources/wav/sfx_movement_stairs4loop.wav";
 	public static final String SFX_SOUNDS_INTERACTION26 = "src/main/resources/wav/sfx_sounds_interaction26.wav";
 	public static final String SFX_WPN_SWORD1 = "src/main/resources/wav/sfx_wpn_sword1.wav";
 

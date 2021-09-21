@@ -113,7 +113,7 @@ public class Menu implements Serializable {
 		Sound.playSound(Variables.SFX_MENU_MOVE1);
 		String s = JOptionPane.showInputDialog(text);
 		Sound.playSound(Variables.SFX_MENU_SELECT1);
-		return s;
+		return (s != null && ! s.isEmpty()) ? s : "";
 	}
 
 	public String cmdSwords() {

@@ -194,6 +194,7 @@ public class Main extends EBAnwendung {
 
 	private void isPlayerOnStairs() {
 		if (isPlayerInFrontOf(Variables.STAIRS)) {
+			Sound.playSound(Variables.SFX_MOVEMENT_STAIRS4LOOP);
 			//set lvl destination
 			int newLvl = ((Stairs) lvl.getField()[Player.getPosX() + x][Player.getPosY() + y]).getLvl();
 			//clear gameField
@@ -370,9 +371,7 @@ public class Main extends EBAnwendung {
 		//move Player image
 		if (player.isCheat() || !(isPlayerInFrontOf(Variables.BOX)
 				&& (lvl.getField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof Objekte))
-				&& !(isPlayerInFrontOf(Variables.NPC))
-				&& !(isPlayerInFrontOf(Variables.OBSTACLE))
-				&& !(isPlayerInFrontOf(Variables.VILLAIN))) {
+				&& !(isPlayerInFrontOf(Variables.OBSTACLE))) {
 			switch (c) {
 				case 'w':
 					player.moveUp();
@@ -394,6 +393,6 @@ public class Main extends EBAnwendung {
 					break;
 			}
 			player.setSteps(player.getCheatCnt() < 1 ? player.getSteps() + 1: -1);
-			}
 		}
+	}
 }

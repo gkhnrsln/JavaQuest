@@ -16,7 +16,7 @@
 
 package main.java.objects;
 
-public abstract class NPC extends Objekte {
+public abstract class NPC extends Obstacle {
 	private static final long serialVersionUID = -3241207664661298332L;
 
 	protected NPC(int x, int y, String file) {
