@@ -113,14 +113,16 @@ public class Menu implements Serializable {
 		Sound.playSound(Variables.SFX_MENU_MOVE1);
 		String s = JOptionPane.showInputDialog(text);
 		Sound.playSound(Variables.SFX_MENU_SELECT1);
-		return (s != null && ! s.isEmpty()) ? s : "";
+		return (s != null && ! s.isEmpty()) ? s : "0";
 	}
 
-	public String cmdSwords() {
+	public Integer cmdSwords() {
+		String s;
 		if (gameLang.equals("de"))
-			return Variables.DE_TXT_CMD_SWORDS;
+			s = input(Variables.DE_TXT_CMD_SWORDS);
 		else
-			return Variables.EN_TXT_CMD_SWORDS;
+			s = input(Variables.EN_TXT_CMD_SWORDS);
+		return Integer.parseInt(s);
 	}
 	
 	public String cmdKeys() {

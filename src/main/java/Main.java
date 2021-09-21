@@ -84,42 +84,6 @@ public class Main extends EBAnwendung {
 		lvl.getField()[Player.getPosX() + x][Player.getPosY() + y] = null;
 	}
 
-	public void move(char c) {
-		switch (c) {
-			case 'w':
-				//load img, player shows up
-				player.ladeBild(Variables.IMG_PLAYER_UP);
-				y--;
-				y2 = y - 1;
-				checkBoxObstacle('y', -1);
-				break;
-			case 'a':
-				player.ladeBild(Variables.IMG_PLAYER_LEFT);
-				x--;
-				x2 = x - 1;
-				checkBoxObstacle('x', -1);
-				break;
-			case 's':
-				player.ladeBild(Variables.IMG_PLAYER_DOWN);
-				y++;
-				y2 = y + 1;
-				//no weapon, no fight
-				if (isPlayerInFrontOf(Variables.VILLAIN) && player.getSwords() < 1) {
-					m.text(Variables.DE_TXT_GEGNER_001);
-				}
-				checkBoxObstacle('y', 1);
-				break;
-			case 'd':
-				player.ladeBild(Variables.IMG_PLAYER_RIGHT);
-				x++;
-				x2 = x + 1;
-				checkBoxObstacle('x', 1);
-				break;
-			default:
-				break;
-		}
-	}
-
 	public void commands(char c) {
 		switch (c) {
 			case 'i':
@@ -131,7 +95,7 @@ public class Main extends EBAnwendung {
 						player.cheatMode();
 						break;
 					case "swords":
-						player.setSwords(Integer.parseInt(JOptionPane.showInputDialog(m.cmdSwords())));
+						player.setSwords(m.cmdSwords());
 						break;
 					case "keys":
 						player.setKeys(Integer.parseInt(JOptionPane.showInputDialog(m.cmdKeys())));
@@ -292,6 +256,8 @@ public class Main extends EBAnwendung {
 		commands(c);
 
 		if (isPlayerInFrontOf(Variables.BUTTON)) {
+			lvl.getField()[18][14].verstecke();
+		} else {
 			lvl.getField()[18][14].zeige();
 		}
 
@@ -369,6 +335,46 @@ public class Main extends EBAnwendung {
 		isPlayerOnPortal();
 
 		//move Player image
+		movePlayerOnField(c);
+	}
+
+	public void move(char c) {
+		switch (c) {
+			case 'w':
+				//load img, player shows up
+				player.ladeBild(Variables.IMG_PLAYER_UP);
+				y--;
+				y2 = y - 1;
+				checkBoxObstacle('y', -1);
+				break;
+			case 'a':
+				player.ladeBild(Variables.IMG_PLAYER_LEFT);
+				x--;
+				x2 = x - 1;
+				checkBoxObstacle('x', -1);
+				break;
+			case 's':
+				player.ladeBild(Variables.IMG_PLAYER_DOWN);
+				y++;
+				y2 = y + 1;
+				//no weapon, no fight
+				if (isPlayerInFrontOf(Variables.VILLAIN) && player.getSwords() < 1) {
+					m.text(Variables.DE_TXT_GEGNER_001);
+				}
+				checkBoxObstacle('y', 1);
+				break;
+			case 'd':
+				player.ladeBild(Variables.IMG_PLAYER_RIGHT);
+				x++;
+				x2 = x + 1;
+				checkBoxObstacle('x', 1);
+				break;
+			default:
+				break;
+		}
+	}
+
+	private void movePlayerOnField(char c) {
 		if (player.isCheat() || !(isPlayerInFrontOf(Variables.BOX)
 				&& (lvl.getField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof Objekte))
 				&& !(isPlayerInFrontOf(Variables.OBSTACLE))) {
@@ -376,23 +382,26 @@ public class Main extends EBAnwendung {
 				case 'w':
 					player.moveUp();
 					Player.setPosY(Player.getPosY() + y);
+					player.setSteps(player.getCheatCnt() < 1 ? player.getSteps() + 1: -1);
 					break;
 				case 'a':
 					player.moveLeft();
 					Player.setPosX(Player.getPosX() + x);
+					player.setSteps(player.getCheatCnt() < 1 ? player.getSteps() + 1: -1);
 					break;
 				case 's':
 					player.moveDown();
 					Player.setPosY(Player.getPosY() + y);
+					player.setSteps(player.getCheatCnt() < 1 ? player.getSteps() + 1: -1);
 					break;
 				case 'd':
 					player.moveRight();
 					Player.setPosX(Player.getPosX() + x);
+					player.setSteps(player.getCheatCnt() < 1 ? player.getSteps() + 1: -1);
 					break;
 				default:
 					break;
 			}
-			player.setSteps(player.getCheatCnt() < 1 ? player.getSteps() + 1: -1);
 		}
 	}
 }
