@@ -24,6 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class Player extends Objekte {
+	private static Player instance;
 	private static final long serialVersionUID = -4986780372336177606L;
 	@Getter @Setter
 	private boolean isCheat;
@@ -46,7 +47,7 @@ public class Player extends Objekte {
 
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
-	public Player() {
+	private Player() {
 		super(posX, posY, Variables.IMG_PLAYER_DOWN);
 		this.keys = 0;
 		this.masterKeys = 0;
@@ -54,6 +55,13 @@ public class Player extends Objekte {
 		this.steps = 0;
 		this.swords = 0;
 		this.cheatCnt = 0;
+	}
+
+	public static Player getInstance() {
+		if (instance == null) {
+			instance = new Player();
+		}
+		return instance;
 	}
 
 	/**

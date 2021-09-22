@@ -24,10 +24,11 @@ import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
 import main.java.objects.Player;
-import main.java.oyun.Sound;
+import main.java.engine.Sound;
 import sum.komponenten.Etikett;
 
 public class Menu implements Serializable {
+	private static Menu instance;
 	private static final long serialVersionUID = 2357879403419817644L;
 	@Getter @Setter
 	private String gameLang;
@@ -55,8 +56,15 @@ public class Menu implements Serializable {
 	@Getter @Setter
 	private Etikett lblText;
 
-	public Menu() {
+	private Menu() {
 		initializeMenu();
+	}
+
+	public static Menu getInstance() {
+		if (instance == null) {
+			instance = new Menu();
+		}
+		return instance;
 	}
 
 	private void initializeMenu() {

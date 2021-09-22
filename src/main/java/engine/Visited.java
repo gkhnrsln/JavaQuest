@@ -14,12 +14,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects;
+package main.java.engine;
 
-public abstract class Villain extends Obstacle {
-	private static final long serialVersionUID = 5415563097971413891L;
+public class Visited {
+	/** Level */
+	protected int lvl;
+	/** Position X */
+	protected int x;
+	/** Position Y */
+	protected int y;
 
-	public Villain(int x, int y, String file) {
-		super(x, y, file);
+	/**
+	 *
+	 * @param x, x coordinate
+	 * @param y, y coordinate
+	 * @param lvl, Level
+	 */
+	public Visited(int x, int y, int lvl) {
+		this.x = x;
+		this.y = y;
+		this.lvl = lvl;
 	}
 }

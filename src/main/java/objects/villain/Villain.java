@@ -14,25 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.oyun;
+package main.java.objects.villain;
 
-public class Visited {
-	/** Level */
-	protected int lvl;
-	/** Position X */
-	protected int x;
-	/** Position Y */
-	protected int y;
+import main.java.objects.Obstacle;
 
-	/**
-	 *
-	 * @param x, x coordinate
-	 * @param y, y coordinate
-	 * @param lvl, Level
-	 */
-	public Visited(int x, int y, int lvl) {
-		this.x = x;
-		this.y = y;
-		this.lvl = lvl;
+public abstract class Villain extends Obstacle {
+	private static final long serialVersionUID = 5415563097971413891L;
+
+	protected Villain(int x, int y, String file) {
+		super(x, y, file);
 	}
 }
+
+
