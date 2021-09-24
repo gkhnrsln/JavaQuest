@@ -26,10 +26,6 @@ import java.beans.PropertyChangeSupport;
 public class Player extends Objekte {
 	private static Player instance;
 	private static final long serialVersionUID = -4986780372336177606L;
-	@Getter @Setter
-	private boolean isCheat;
-	@Getter
-	private Integer cheatCnt;
 	@Getter
 	private int keys;
 	@Getter
@@ -54,7 +50,6 @@ public class Player extends Objekte {
 		this.money = 0;
 		this.steps = 0;
 		this.swords = 0;
-		this.cheatCnt = 0;
 	}
 
 	public static Player getInstance() {
@@ -62,20 +57,6 @@ public class Player extends Objekte {
 			instance = new Player();
 		}
 		return instance;
-	}
-
-	/**
-	 * Enables or Disables the Cheat Mode, where you can bypass some obstacles.
-	 */
-	public void cheatMode() {
-		if (this.cheatCnt < 1) {
-			setCheat(true);
-			ladeBild(Variables.IMG_PLAYER_CHEAT);
-			this.cheatCnt = 1;
-		} else {
-			setCheat(false);
-			ladeBild(Variables.IMG_PLAYER_DOWN);
-		}
 	}
 
 	public void setSwords(int swords) {
