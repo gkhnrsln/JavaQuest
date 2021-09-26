@@ -18,6 +18,7 @@ package main.java.engine;
 
 import lombok.Getter;
 import lombok.Setter;
+import main.java.enums.PropertiesLoader;
 import main.java.enums.Variables;
 import main.java.gui.Menu;
 import main.java.gameobject.*;
@@ -34,11 +35,14 @@ import main.java.gameobject.switches.Portal;
 import main.java.gameobject.villain.Villain;
 
 import javax.swing.*;
+import java.util.Properties;
 
 /**
  * This is where the GamePlay is set.
  */
 public class GamePlay {
+    @Getter
+    private static String gameLang = System.getProperty("user.language").equals("de") ? "de" : "en";
     @Getter @Setter
     private static boolean isCheat;
     @Getter @Setter
@@ -50,6 +54,8 @@ public class GamePlay {
     private static int y = 0; // y-axis distance from player
     private static int x2 = 0; // x-axis distance from player +1
     private static int y2 = 0; // y-axis distance from player +1
+
+    private static Properties properties = PropertiesLoader.getInstance().getProperties();
 
     private GamePlay() {
         throw new IllegalStateException("Utility class");
@@ -101,19 +107,19 @@ public class GamePlay {
         switch (c) {
             case 'w':
                 //load img, player shows up
-                Player.getInstance().ladeBild(Variables.IMG_PLAYER_UP);
+                Player.getInstance().ladeBild(properties.getProperty("img.player.up"));
                 y--;
                 y2 = y - 1;
                 checkBoxObstacle('y', -1);
                 break;
             case 'a':
-                Player.getInstance().ladeBild(Variables.IMG_PLAYER_LEFT);
+                Player.getInstance().ladeBild(properties.getProperty("img.player.left"));
                 x--;
                 x2 = x - 1;
                 checkBoxObstacle('x', -1);
                 break;
             case 's':
-                Player.getInstance().ladeBild(Variables.IMG_PLAYER_DOWN);
+                Player.getInstance().ladeBild(properties.getProperty("img.player.down"));
                 y++;
                 y2 = y + 1;
                 //no weapon, no fight
@@ -123,7 +129,7 @@ public class GamePlay {
                 checkBoxObstacle('y', 1);
                 break;
             case 'd':
-                Player.getInstance().ladeBild(Variables.IMG_PLAYER_RIGHT);
+                Player.getInstance().ladeBild(properties.getProperty("img.player.right"));
                 x++;
                 x2 = x + 1;
                 checkBoxObstacle('x', 1);
@@ -133,18 +139,18 @@ public class GamePlay {
         }
 
         if (isPlayerInFrontOf(Variables.OBSTACLE)) {
-            Sound.playSound(Variables.SND_OBSTACLE);
+            Sound.playSound(properties.getProperty("sfx.obstacle"));
         }
 
         playerInFrontOfPerson();
 
         if (c == 'w') {
             if (isPlayerInFrontOf(Variables.OPA) && Opa.getMasterKey() == 0) {
-                Sound.playSound(Variables.SND_TEXT);
+                Sound.playSound(properties.getProperty("sfx.txt"));
                 Menu.getInstance().text(Variables.DE_TXT_OPA_003);
             } else if (isPlayerInFrontOf(Variables.OPA)) {
                 if (Player.getInstance().getMoney() < 450) {
-                    Sound.playSound(Variables.SND_TEXT);
+                    Sound.playSound(properties.getProperty("sfx.txt"));
                     Menu.getInstance().text(Variables.DE_TXT_OPA_001);
                 } else {
                     lvl.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, lvl.getLvl()));
@@ -164,10 +170,10 @@ public class GamePlay {
                 || isPlayerInFrontOf(Variables.KEY) || isPlayerInFrontOf(Variables.MASTERKEY)
                 || isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getKeys() > 0) {
             if (isPlayerInFrontOf(Variables.VILLAIN)) {
-                Sound.playSound(Variables.SFX_WPN_SWORD1);
+                Sound.playSound(properties.getProperty("sfx.wpn.sword"));
                 Player.getInstance().setSwords(Player.getInstance().getSwords() - 1);
             } else if (isPlayerInFrontOf(Variables.MONEY)) {
-                Sound.playSound(Variables.SND_MONEY);
+                Sound.playSound(properties.getProperty("sfx.money"));
                 Player.getInstance().ladeBild(Variables.IMG_PLAYER_MONEY);
                 Player.getInstance().setMoney(Player.getInstance().getMoney() + ((Money) lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
             } else if (isPlayerInFrontOf(Variables.SWORD)) {
@@ -178,7 +184,7 @@ public class GamePlay {
             } else if (isPlayerInFrontOf(Variables.LOCK)) {
                 Player.getInstance().setKeys(Player.getInstance().getKeys() - 1);
             } else if (isPlayerInFrontOf(Variables.MASTERKEY)) {
-                Sound.playSound(Variables.SND_TEXT);
+                Sound.playSound(properties.getProperty("sfx.txt"));
                 Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
             } else if (isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getMasterKeys() > 0) {
                 Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() - 1);
@@ -238,14 +244,14 @@ public class GamePlay {
 
         if (isPlayerInFrontOf(Variables.BOX) && !(lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject)) {
             if (coord == 'x') {
-                Sound.playSound(Variables.SFX_SOUNDS_INTERACTION26);
+                Sound.playSound(properties.getProperty("sfx.interaction"));
                 if (r == 1) {
                     lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveRight();
                 } else if (r == -1) {
                     lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveLeft();
                 }
             } else {
-                Sound.playSound(Variables.SFX_SOUNDS_INTERACTION26);
+                Sound.playSound(properties.getProperty("sfx.interaction"));
                 if (r == -1) {
                     lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveUp();
                 } else if (r == 1) {
@@ -255,7 +261,7 @@ public class GamePlay {
             lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y];
             lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y] = null;
         } else if (isPlayerInFrontOf(Variables.BOX) && lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject) {
-            Sound.playSound(Variables.SND_OBSTACLE);
+            Sound.playSound(properties.getProperty("sfx.obstacle"));
         }
     }
     /*
@@ -298,17 +304,17 @@ public class GamePlay {
 
     public static void playerInFrontOfPerson() {
         if (isPlayerInFrontOf(Variables.PRINCESS)) {
-            Sound.playSound(Variables.SND_PRINCESS);
+            Sound.playSound(properties.getProperty("sfx.princess"));
             Menu.getInstance().text(Variables.DE_TXT_PRINCESS_001);
         } else if (isPlayerInFrontOf(Variables.OPA)) {
-            Sound.playSound(Variables.SND_PRINCESS);
+            Sound.playSound(properties.getProperty("sfx.opa"));
             Menu.getInstance().text(Variables.DE_TXT_OPA_004);
         }
     }
 
     private static void isPlayerOnStairs() {
         if (isPlayerInFrontOf(Variables.STAIRS)) {
-            Sound.playSound(Variables.SFX_MOVEMENT_STAIRS4LOOP);
+            Sound.playSound(properties.getProperty("sfx.stairs"));
             //set lvl destination
             int newLvl = ((Stairs) lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getLvl();
             //clear gameField
@@ -395,11 +401,11 @@ public class GamePlay {
     private static void cheatMode() {
         if (!isBeenCheating()) {
             isCheat = true;
-            Player.getInstance().ladeBild(Variables.IMG_PLAYER_CHEAT);
+            Player.getInstance().ladeBild(properties.getProperty("img.player.cheat"));
             setBeenCheating(true);
         } else {
             isCheat = false;
-            Player.getInstance().ladeBild(Variables.IMG_PLAYER_DOWN);
+            Player.getInstance().ladeBild(properties.getProperty("img.player.down"));
         }
     }
 }

@@ -48,22 +48,10 @@ public class Variables {
 	/** {@value #FIELD_LENGTH_Y} */
 	public static final int FIELD_LENGTH_Y = 17;
 	// ------------------------IMAGES-------------------------------------------
-	/** {@value #IMG_BG} */
-	public static final String IMG_BG = "src/main/resources/img/bg.gif";
-	/** {@value #IMG_PLAYER_UP} */
-	public static final String IMG_PLAYER_UP = "src/main/resources/img/spieler_up.png";
-	/** {@value #IMG_PLAYER_LEFT} */
-	public static final String IMG_PLAYER_LEFT = "src/main/resources/img/spieler_left.png";
-	/** {@value #IMG_PLAYER_DOWN} */
-	public static final String IMG_PLAYER_DOWN = "src/main/resources/img/spieler_down.png";
-	/** {@value #IMG_PLAYER_RIGHT} */
-	public static final String IMG_PLAYER_RIGHT = "src/main/resources/img/spieler_right.png";
 	/** {@value #IMG_PLAYER_SWORD} */
-	public static final String IMG_PLAYER_SWORD = "src/main/resources/img/spieler_sword.png";
+	public static final String IMG_PLAYER_SWORD = "src/main/resources/img/player_sword.png";
 	/** {@value #IMG_PLAYER_MONEY} */
-	public static final String IMG_PLAYER_MONEY = "src/main/resources/img/spieler_money.png";
-	/** {@value #IMG_PLAYER_CHEAT} */
-	public static final String IMG_PLAYER_CHEAT = "src/main/resources/img/spieler_cheat.png";
+	public static final String IMG_PLAYER_MONEY = "src/main/resources/img/player_money.png";
 	/** {@value #IMG_PRINCESS} */
 	public static final String IMG_PRINCESS = "src/main/resources/img/princess.png";
 	/** {@value #IMG_MON_1} */
@@ -98,59 +86,6 @@ public class Variables {
 	public static final String IMG_KEY = "src/main/resources/img/key.png";
 	/** {@value #IMG_MKEY} */
 	public static final String IMG_MKEY = "src/main/resources/img/masterkey.png";
-	// ------------------------SOUNDFILES--------------------------------------
-	/** {@value #SND_PRINCESS} */
-	public static final String SND_PRINCESS = "src/main/resources/wav/princess.wav";
-	/** {@value #SND_OBSTACLE} */
-	public static final String SND_OBSTACLE = "src/main/resources/wav/obstacle.wav";
-	/** {@value #SND_MONEY} */
-	public static final String SND_MONEY = "src/main/resources/wav/money.wav";
-	/** {@value #SND_TEXT} */
-	public static final String SND_TEXT = "src/main/resources/wav/text.wav";
-	public static final String SFX_MENU_SELECT1 = "src/main/resources/wav/sfx_menu_select1.wav";
-	public static final String SFX_MENU_MOVE1 = "src/main/resources/wav/sfx_menu_move1.wav";
-	public static final String SFX_MOVEMENT_STAIRS4LOOP = "src/main/resources/wav/sfx_movement_stairs4loop.wav";
-	public static final String SFX_SOUNDS_INTERACTION26 = "src/main/resources/wav/sfx_sounds_interaction26.wav";
-	public static final String SFX_WPN_SWORD1 = "src/main/resources/wav/sfx_wpn_sword1.wav";
-
-	// ------------------------MENU-------------------------------------------
-	/** {@value #LBL_MKEYS} */
-	public static final String LBL_MKEYS = "MASTERKEYS";
-	/** {@value #DE_LBL_STEPS} */
-	public static final String DE_LBL_STEPS = "SCHRITTE";
-	/** {@value #DE_LBL_SWORDS} */
-	public static final String DE_LBL_SWORDS = "SCHWERTER";
-	/** {@value #DE_LBL_MONEY} */
-	public static final String DE_LBL_MONEY = "GELD";
-	/** {@value #DE_LBL_KEYS} */
-	public static final String DE_LBL_KEYS = "SCHL\u00dcSSEL";
-	/** {@value #DE_CONTROLLS} */
-	public static final String DE_CONTROLLS = "Steuerung:\n[W] = Oben\n[A] = Links\n[S] = Unten\n[D] = Rechts\n[C] = Befehl";
-	/** {@value #EN_LBL_STEPS} */
-	public static final String EN_LBL_STEPS = "STEPS";
-	/** {@value #EN_LBL_SWORDS} */
-	public static final String EN_LBL_SWORDS = "SWORDS";
-	/** {@value #EN_LBL_MONEY} */
-	public static final String EN_LBL_MONEY = "MONEY";
-	/** {@value #EN_LBL_KEYS} */
-	public static final String EN_LBL_KEYS = "KEYS";
-	/** {@value #EN_CONTROLLS} */
-	public static final String EN_CONTROLLS = "Control:\n[W] = Up\n[A] = Left\n[S] = Down\n[D] = Right\n[C] = Command";
-	/** {@value #DE_TXT_COMMAND} */
-	public static final String DE_TXT_COMMAND = "Gib den Befehl ein.";
-	/** {@value #EN_TXT_COMMAND} */
-	public static final String EN_TXT_COMMAND = "Enter the command.";
-	/** {@value #DE_TXT_CMD_SWORDS} */
-	public static final String DE_TXT_CMD_SWORDS = "Gib die Anzahl an Schwertern an, die du willst.";
-	/** {@value #EN_TXT_CMD_SWORDS} */
-	public static final String EN_TXT_CMD_SWORDS = "Specify the number of swords you want.";
-	/** {@value #DE_TXT_CMD_KEYS} */
-	public static final String DE_TXT_CMD_KEYS = "Gib die Anzahl an Schl\u00fcssel an, die du willst.";
-	/** {@value #EN_TXT_CMD_KEYS} */
-	public static final String EN_TXT_CMD_KEYS = "Specify the number of keys you want.";
-
-	public static final String DE_TXT_ERROR_NFE = "Bitte gib eine g\u00fcltige Zahl (>0) ein.";
-	public static final String EN_TXT_ERROR_NFE = "Please enter a valid number (>0).";
 	// ------------------------TEXT-------------------------------------------
 	/** {@value #DE_TXT_GEGNER_001} */
 	public static final String DE_TXT_GEGNER_001 = "Ha ha! Du willst ohne Waffen k\u00e4mpfen?";

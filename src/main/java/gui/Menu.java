@@ -17,21 +17,22 @@
 package main.java.gui;
 
 import java.io.Serializable;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
+import main.java.engine.GamePlay;
+import main.java.enums.PropertiesLoader;
 import main.java.gameobject.Player;
 import main.java.engine.Sound;
+import org.apache.commons.lang3.Validate;
 import sum.komponenten.Etikett;
 
 public class Menu implements Serializable {
 	private static Menu instance;
 	private static final long serialVersionUID = 2357879403419817644L;
-	@Getter @Setter
-	private String gameLang;
 	@Getter @Setter
 	private String steps;
 	@Getter @Setter
@@ -56,6 +57,8 @@ public class Menu implements Serializable {
 	@Getter @Setter
 	private Etikett lblText;
 
+	private Properties properties = PropertiesLoader.getInstance().getProperties();
+
 	private Menu() {
 		initializeMenu();
 	}
@@ -68,26 +71,18 @@ public class Menu implements Serializable {
 	}
 
 	private void initializeMenu() {
-		gameLang = System.getProperty("user.language");
+		String code = GamePlay.getGameLang();
 
-		if (gameLang.equals("de")) {
-			steps = Variables.DE_LBL_STEPS + ": ";
-			swords = Variables.DE_LBL_SWORDS + ": " ;
-			money = Variables.DE_LBL_MONEY + ": ";
-			keys = Variables.DE_LBL_KEYS + ": ";
-		}
-		else {
-			steps = Variables.EN_LBL_STEPS + ": ";
-			swords = Variables.EN_LBL_SWORDS + ": ";
-			money = Variables.EN_LBL_MONEY + ": ";
-			keys = Variables.EN_LBL_KEYS + ": ";
-		}
-		masterKeys = Variables.LBL_MKEYS + ": ";
+		steps = properties.getProperty("txt.menu.steps." + code) + ": ";
+		swords = properties.getProperty("txt.menu.swords." + code) + ": ";
+		money = properties.getProperty("txt.menu.money." + code) + ": ";
+		keys = properties.getProperty("txt.menu.keys." + code) + ": ";
+		masterKeys = properties.getProperty("txt.menu.masterKeys") + ": ";
 
 		lblSteps = new Etikett(600, 575, 100, 50, steps + Player.getInstance().getSteps());
 		lblSwords = new Etikett(600, 590, 100, 50, swords + Player.getInstance().getSwords());
 		lblMoney = new Etikett(600, 605, 400, 50, money + Player.getInstance().getMoney());
-		lblKeys = new Etikett(600, 620, 100, 50, keys + Player.getInstance().getKeys());
+		lblKeys = new Etikett(600, 620, 100, 50, keys + Player.getInstance().getMasterKeys());
 		lblMasterKeys = new Etikett(600, 635, 100, 50, masterKeys + Player.getInstance().getMasterKeys());
 		lblText = new Etikett(300, 580, 250, 50, null);
 	}
@@ -112,60 +107,44 @@ public class Menu implements Serializable {
 	}
 
 	private void output(String t) {
-		Sound.playSound(Variables.SFX_MENU_MOVE1);
+		Sound.playSound(properties.getProperty("sfx.menu.move1"));
 		JOptionPane.showMessageDialog(null, t);
-		Sound.playSound(Variables.SFX_MENU_SELECT1);
+		Sound.playSound(properties.getProperty("sfx.menu.select1"));
 	}
 
 	private String input(String text){
-		Sound.playSound(Variables.SFX_MENU_MOVE1);
+		Sound.playSound(properties.getProperty("sfx.menu.move1"));
 		String s = JOptionPane.showInputDialog(text);
-		Sound.playSound(Variables.SFX_MENU_SELECT1);
+		Sound.playSound(properties.getProperty("sfx.menu.select1"));
 		return (s != null && ! s.isEmpty()) ? s : "0";
 	}
 
 	public Integer cmdSwords() {
 		while (true) {
 			try {
-				String s;
-				if (gameLang.equals("de"))
-					s = input(Variables.DE_TXT_CMD_SWORDS);
-				else
-					s = input(Variables.EN_TXT_CMD_SWORDS);
-
+				String s = input(properties.getProperty("txt.cmd.swords." + GamePlay.getGameLang()));
 				int i = Integer.parseInt(s);
-
-				if (i < 0) throw new NumberFormatException();
-
+				Validate.inclusiveBetween(0, Integer.MAX_VALUE, i);
 				return i;
-			} catch (NumberFormatException nfe) {
-				if (gameLang.equals("de"))
-					output(Variables.DE_TXT_ERROR_NFE);
-				else
-					output(Variables.EN_TXT_ERROR_NFE);
+			} catch (IllegalArgumentException iae) {
+				output(properties.getProperty("txt.err.nfe." + GamePlay.getGameLang()));
 			}
 		}
 	}
 	
 	public String cmdKeys() {
-		if (gameLang.equals("de"))
-			return Variables.DE_TXT_CMD_KEYS;
-		else
-			return Variables.EN_TXT_CMD_KEYS;
+		return properties.getProperty("txt.cmd.keys." + GamePlay.getGameLang());
 	}
 
 	/**
 	 * Display the control of the game in a Messagebox.
 	 */
 	public void info() {
-		output(gameLang.equals("de") ? Variables.DE_CONTROLLS : Variables.EN_CONTROLLS);
+		output(properties.getProperty("txt.controls." + GamePlay.getGameLang()));
 	}
 	
 	public String cmd() {
-		if (gameLang.equals("de"))
-			return input(Variables.DE_TXT_COMMAND);
-		else
-			return input(Variables.EN_TXT_COMMAND);
+		return input(properties.getProperty("txt.cmd." + GamePlay.getGameLang()));
 	}
 
 	/**

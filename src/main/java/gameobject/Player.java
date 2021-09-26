@@ -18,7 +18,9 @@ package main.java.gameobject;
 
 import lombok.Getter;
 import lombok.Setter;
+import main.java.enums.PropertiesLoader;
 import main.java.enums.Variables;
+import org.apache.commons.lang3.Validate;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -44,7 +46,7 @@ public class Player extends GameObject {
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
 	private Player() {
-		super(posX, posY, Variables.IMG_PLAYER_DOWN);
+		super(posX, posY, PropertiesLoader.getInstance().getProperties().getProperty("img.player.down"));
 		this.keys = 0;
 		this.masterKeys = 0;
 		this.money = 0;
@@ -60,35 +62,35 @@ public class Player extends GameObject {
 	}
 
 	public void setSwords(int swords) {
-		if (swords < 0) throw new IllegalArgumentException("No swords < 0 allowed");
+		Validate.inclusiveBetween(0, Integer.MAX_VALUE, swords);
 		int oldValue = this.swords;
 		this.swords = swords;
 		changes.firePropertyChange("swords", oldValue, swords);
 	}
 
 	public void setKeys(int keys) {
-		if (keys < 0) throw new IllegalArgumentException("No keys < 0 allowed");
+		Validate.inclusiveBetween(0, Integer.MAX_VALUE, keys);
 		int oldValue = this.keys;
 		this.keys = keys;
 		changes.firePropertyChange("keys", oldValue, keys);
 	}
 
 	public void setSteps(int steps) {
-		if (steps < -1) throw new IllegalArgumentException("No steps < -1 allowed");
+		Validate.inclusiveBetween(-1, Integer.MAX_VALUE, steps);
 		int oldValue = this.steps;
 		this.steps = steps;
 		changes.firePropertyChange("steps", oldValue, steps);
 	}
 
 	public void setMoney(int money) {
-		if (money < 0) throw new IllegalArgumentException("No money < 0 allowed");
+		Validate.inclusiveBetween(0, Integer.MAX_VALUE, money);
 		int oldValue = this.money;
 		this.money = money;
 		changes.firePropertyChange("money", oldValue, money);
 	}
 
 	public void setMasterKeys(int masterKeys) {
-		if (masterKeys < 0) throw new IllegalArgumentException("No masterKeys < 0 allowed");
+		Validate.inclusiveBetween(0, Integer.MAX_VALUE, masterKeys);
 		int oldValue = this.money;
 		this.masterKeys = masterKeys;
 		changes.firePropertyChange("masterKeys", oldValue, masterKeys);
