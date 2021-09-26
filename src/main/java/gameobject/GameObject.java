@@ -14,23 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects;
+package main.java.gameobject;
 
 import sum.multimedia.Bild;
 
-public abstract class Objekte extends Bild {
+@java.lang.SuppressWarnings("java:S2184")
+public abstract class GameObject extends Bild {
 	/**
-	 * Constructor for new objects.
-	 * 
+	 * Constructor for new game object.
 	 * @param x    Position (x coordinate).
 	 * @param y    Position (y coordinate).
 	 * @param file Filename of the image.
 	 */
-	protected Objekte(int x, int y, String file) {
+	protected GameObject(int x, int y, String file) {
 		super(x * 34, y * 34, 34, 34, file);
 	}
 	/**
-	 * Changes position of object.
+	 * Changes position of game object.
 	 * @param x new Position (x coordinate).
 	 * @param y new Position (y coordinate).
 	 */
@@ -38,19 +38,19 @@ public abstract class Objekte extends Bild {
 		setzePosition(x * 34, y * 34);
 	}
 
-	/** Moves the object 34px up. */
+	/** Moves the game object 34px up. */
 	public void moveUp() {
 		setzePosition(links(), oben() - 34);
 	}
-	/** Moves the object 34px left. */
+	/** Moves the game object 34px left. */
 	public void moveLeft() {
 		setzePosition(links() - 34, oben());
 	}
-	/** Moves the object 34px right. */
+	/** Moves the game object 34px right. */
 	public void moveRight() {
 		setzePosition(links() + 34, oben());
 	}
-	/** Moves the object 34px down. */
+	/** Moves the game object 34px down. */
 	public void moveDown() {
 		setzePosition(links(), oben() + 34);
 	}

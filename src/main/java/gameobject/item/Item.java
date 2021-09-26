@@ -14,15 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.items;
+package main.java.gameobject.item;
 
-import main.java.enums.Variables;
-import main.java.objects.Objekte;
+import main.java.gameobject.GameObject;
 
-public class MasterKey extends Objekte {
-	private static final long serialVersionUID = -8619428589097136287L;
+public class Item extends GameObject {
+	private static final long serialVersionUID = -7883735804633227127L;
 
-	public MasterKey(int x, int y) {
-		super(x, y, Variables.IMG_MKEY);
+	public Item(int x, int y, String file) {
+		super(x, y, file);
 	}
 }

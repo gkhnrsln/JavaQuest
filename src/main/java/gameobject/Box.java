@@ -14,21 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.npc;
+package main.java.gameobject;
 
 import main.java.enums.Variables;
-import main.java.objects.NPC;
 
-public class Princess extends NPC {
-	private static final long serialVersionUID = 5550205420365493945L;
+public class Box extends GameObject {
+	private static final long serialVersionUID = 5171228689047749319L;
 
-	/**
-	 * Constructor of princess.
-	 * 
-	 * @param x Position (x coordinate).
-	 * @param y Position (y coordinate).
-	 */
-	public Princess(int x, int y) {
-		super(x, y, Variables.IMG_PRINCESS);
+	public Box(int x, int y) {
+		super(x, y, Variables.IMG_BOX);
 	}
 }

@@ -14,23 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.npc;
+package main.java.gameobject;
 
-import lombok.Getter;
-import lombok.Setter;
-import main.java.enums.Variables;
-import main.java.objects.NPC;
+public abstract class NPC extends Obstacle {
+	private static final long serialVersionUID = -3241207664661298332L;
 
-public class Opa extends NPC {
-	private static final long serialVersionUID = 5642323314026519582L;
-	@Getter @Setter
-	private static int masterKey = 1;
-	/**
-	 * Constructor of opa.
-	 * @param x Position (x coordinate).
-	 * @param y Position (y coordinate).
-	 */
-	public Opa(int x, int y) {
-		super(x, y, Variables.IMG_OPA);
+	protected NPC(int x, int y, String file) {
+		super(x, y, file);
 	}
 }

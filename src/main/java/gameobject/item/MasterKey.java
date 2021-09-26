@@ -14,21 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.items;
+package main.java.gameobject.item;
 
-import lombok.Getter;
-import lombok.Setter;
 import main.java.enums.Variables;
+import main.java.gameobject.GameObject;
 
-public class Money extends Items {
-	private static final long serialVersionUID = 43776595159763730L;
-	@Getter @Setter
-	private int value = 0;
+public class MasterKey extends GameObject {
+	private static final long serialVersionUID = -8619428589097136287L;
 
-	public Money(int x, int y, int value) {
-		super(x, y, Variables.IMG_MONEY);
-		setValue(value);
+	public MasterKey(int x, int y) {
+		super(x, y, Variables.IMG_MKEY);
 	}
-
-
 }

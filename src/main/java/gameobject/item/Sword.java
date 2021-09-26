@@ -14,12 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects;
+package main.java.gameobject.item;
 
-public abstract class Switch extends Objekte {
-	private static final long serialVersionUID = 1154643866894496254L;
+import main.java.enums.Variables;
 
-	public Switch(int x, int y, String file) {
-		super(x, y, file);
+public class Sword extends Item {
+	private static final long serialVersionUID = 6078587262493481794L;
+
+	public Sword(int x, int y) {
+		super(x, y, Variables.IMG_SWORD);
 	}
 }

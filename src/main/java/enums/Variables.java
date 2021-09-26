@@ -148,6 +148,9 @@ public class Variables {
 	public static final String DE_TXT_CMD_KEYS = "Gib die Anzahl an Schl\u00fcssel an, die du willst.";
 	/** {@value #EN_TXT_CMD_KEYS} */
 	public static final String EN_TXT_CMD_KEYS = "Specify the number of keys you want.";
+
+	public static final String DE_TXT_ERROR_NFE = "Bitte gib eine g\u00fcltige Zahl (>0) ein.";
+	public static final String EN_TXT_ERROR_NFE = "Please enter a valid number (>0).";
 	// ------------------------TEXT-------------------------------------------
 	/** {@value #DE_TXT_GEGNER_001} */
 	public static final String DE_TXT_GEGNER_001 = "Ha ha! Du willst ohne Waffen k\u00e4mpfen?";

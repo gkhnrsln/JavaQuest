@@ -14,14 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.items;
+package main.java.gameobject.item;
 
 import main.java.enums.Variables;
 
-public class Sword extends Items {
-	private static final long serialVersionUID = 6078587262493481794L;
+public class Key extends Item {
+	private static final long serialVersionUID = 5699761459489435344L;
 
-	public Sword(int x, int y) {
-		super(x, y, Variables.IMG_SWORD);
+	public Key(int x, int y) {
+		super(x, y, Variables.IMG_KEY);
 	}
 }

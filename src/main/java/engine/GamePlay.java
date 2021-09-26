@@ -20,22 +20,20 @@ import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
 import main.java.gui.Menu;
-import main.java.objects.*;
-import main.java.objects.Box;
-import main.java.objects.items.Key;
-import main.java.objects.items.MasterKey;
-import main.java.objects.items.Money;
-import main.java.objects.items.Sword;
-import main.java.objects.npc.Opa;
-import main.java.objects.npc.Princess;
-import main.java.objects.obstacles.Lock;
-import main.java.objects.switches.Button;
-import main.java.objects.switches.Portal;
-import main.java.objects.villain.Villain;
+import main.java.gameobject.*;
+import main.java.gameobject.Box;
+import main.java.gameobject.item.Key;
+import main.java.gameobject.item.MasterKey;
+import main.java.gameobject.item.Money;
+import main.java.gameobject.item.Sword;
+import main.java.gameobject.npc.Opa;
+import main.java.gameobject.npc.Princess;
+import main.java.gameobject.obstacles.Lock;
+import main.java.gameobject.switches.Button;
+import main.java.gameobject.switches.Portal;
+import main.java.gameobject.villain.Villain;
 
 import javax.swing.*;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 /**
  * This is where the GamePlay is set.
@@ -57,31 +55,35 @@ public class GamePlay {
         throw new IllegalStateException("Utility class");
     }
 
-    public static void commands(char c) {
+    public static void control(char c) {
         switch (c) {
             case 'i':
                 Menu.getInstance().info();
                 break;
             case 'c':
-                switch (Menu.getInstance().cmd()) {
-                    case "glitch":
-                        GamePlay.cheatMode();
-                        break;
-                    case "swords":
-                        Player.getInstance().setSwords(Menu.getInstance().cmdSwords());
-                        break;
-                    case "keys":
-                        Player.getInstance().setKeys(Integer.parseInt(JOptionPane.showInputDialog(Menu.getInstance().cmdKeys())));
-                        break;
-                    default:
-                        break;
-                }
+                commands();
                 break;
             case 'w':
             case 'a':
             case 's':
             case 'd':
                 movement(c);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static void commands() {
+        switch (Menu.getInstance().cmd()) {
+            case "glitch":
+                GamePlay.cheatMode();
+                break;
+            case "swords":
+                Player.getInstance().setSwords(Menu.getInstance().cmdSwords());
+                break;
+            case "keys":
+                Player.getInstance().setKeys(Integer.parseInt(JOptionPane.showInputDialog(Menu.getInstance().cmdKeys())));
                 break;
             default:
                 break;
@@ -224,15 +226,17 @@ public class GamePlay {
 
         //player is in front of box, box is in front of button
         if (isPlayerInFrontOf(Variables.BOX) && lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Button) {
+            //move Box on Button
             lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
             //remove block to enter next section in lvl 1
             lvl.getGameField()[18][14].verstecke();
             lvl.getGameField()[18][14] = null;
+            //
             lvl.getGameField()[Player.getPosX()][Player.getPosY() + (y * 2)] = lvl.getGameField()[Player.getPosX()][Player.getPosY() + y];
             lvl.getGameField()[Player.getPosX()][Player.getPosY() + y] = null;
         }
 
-        if (isPlayerInFrontOf(Variables.BOX) && !(lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Objekte)) {
+        if (isPlayerInFrontOf(Variables.BOX) && !(lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject)) {
             if (coord == 'x') {
                 Sound.playSound(Variables.SFX_SOUNDS_INTERACTION26);
                 if (r == 1) {
@@ -250,7 +254,7 @@ public class GamePlay {
             }
             lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y];
             lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y] = null;
-        } else if (isPlayerInFrontOf(Variables.BOX) && lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Objekte) {
+        } else if (isPlayerInFrontOf(Variables.BOX) && lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject) {
             Sound.playSound(Variables.SND_OBSTACLE);
         }
     }
@@ -334,7 +338,7 @@ public class GamePlay {
 
     private static void movePlayerOnField(char c) {
         if (GamePlay.isCheat() || !(isPlayerInFrontOf(Variables.BOX)
-                && (lvl.getGameField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof Objekte))
+                && (lvl.getGameField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof GameObject))
                 && !(isPlayerInFrontOf(Variables.OBSTACLE))) {
             switch (c) {
                 case 'w':

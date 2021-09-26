@@ -23,20 +23,20 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
-import main.java.objects.Box;
-import main.java.objects.villain.*;
-import main.java.objects.Objekte;
-import main.java.objects.npc.*;
-import main.java.objects.Stairs;
-import main.java.objects.obstacles.*;
-import main.java.objects.items.*;
-import main.java.objects.switches.*;
+import main.java.gameobject.Box;
+import main.java.gameobject.villain.*;
+import main.java.gameobject.GameObject;
+import main.java.gameobject.npc.*;
+import main.java.gameobject.Stairs;
+import main.java.gameobject.obstacles.*;
+import main.java.gameobject.item.*;
+import main.java.gameobject.switches.*;
 
 public class Level<T> implements Serializable {
 	private static final long serialVersionUID = -5285864879474325429L;
 	// GameField
 	@Getter @Setter
-	private Objekte[][] gameField = new Objekte[Variables.FIELD_LENGTH_X][Variables.FIELD_LENGTH_Y];
+	private GameObject[][] gameField = new GameObject[Variables.FIELD_LENGTH_X][Variables.FIELD_LENGTH_Y];
 	// List of visited fields
 	@Getter @Setter
 	private List<T> list = new ArrayList<>();
@@ -211,7 +211,7 @@ public class Level<T> implements Serializable {
 	 * Loads Level.
 	 * @param lvl Level 1 to 5
 	 */
-	public Objekte[][] loadLvl(int lvl) {
+	public GameObject[][] loadLvl(int lvl) {
 		switch (lvl) {
 			case 1:
 				generateLvl(1);
@@ -257,7 +257,6 @@ public class Level<T> implements Serializable {
 	private void opa(int x, int y) {
 		Opa opa = new Opa(x, y);
 		gameField[x][y] = opa;
-
 	}
 
 	private void wand(int x, int y) {

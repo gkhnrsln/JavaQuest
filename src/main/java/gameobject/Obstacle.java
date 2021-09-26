@@ -14,14 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects;
+package main.java.gameobject;
 
-import main.java.enums.Variables;
+public abstract class Obstacle extends GameObject {
+	private static final long serialVersionUID = -8809059823025203794L;
 
-public class Box extends Objekte {
-	private static final long serialVersionUID = 5171228689047749319L;
-
-	public Box(int x, int y) {
-		super(x, y, Variables.IMG_BOX);
+	protected Obstacle(int x, int y, String file) {
+		super(x, y, file);
 	}
+
 }

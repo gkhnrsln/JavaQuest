@@ -14,15 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.switches;
+package main.java.gameobject.item;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.enums.Variables;
-import main.java.objects.Switch;
 
-public class Button extends Switch {
-	private static final long serialVersionUID = 7278643581587835211L;
+public class Money extends Item {
+	private static final long serialVersionUID = 43776595159763730L;
+	@Getter @Setter
+	private int value = 0;
 
-	public Button(int x, int y) {
-		super(x, y, Variables.IMG_BUTTON);
+	public Money(int x, int y, int value) {
+		super(x, y, Variables.IMG_MONEY);
+		setValue(value);
 	}
+
+
 }

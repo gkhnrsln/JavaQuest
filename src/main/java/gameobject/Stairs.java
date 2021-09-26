@@ -14,12 +14,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects;
+package main.java.gameobject;
 
-public abstract class NPC extends Obstacle {
-	private static final long serialVersionUID = -3241207664661298332L;
+import lombok.Getter;
+import lombok.Setter;
+import main.java.enums.Variables;
 
-	protected NPC(int x, int y, String file) {
-		super(x, y, file);
+public class Stairs extends GameObject {
+	private static final long serialVersionUID = 6695837635306162543L;
+	@Getter @Setter
+	private int lvl;
+
+	/**
+	 * 
+	 * @param x Position X, from Level lvl
+	 * @param y Position Y, from Level lvl
+	 * @param lvl Sets Destination Level
+	 */
+	public Stairs(int x, int y, int lvl) {
+		super(x, y, Variables.IMG_STAIRS);
+		setLvl(lvl);
 	}
 }

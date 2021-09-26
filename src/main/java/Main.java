@@ -17,7 +17,7 @@ package main.java;
 import main.java.engine.GamePlay;
 import main.java.enums.Variables;
 import main.java.gui.Menu;
-import main.java.objects.Player;
+import main.java.gameobject.Player;
 import main.java.engine.Level;
 import main.java.engine.Visited;
 
@@ -47,6 +47,6 @@ public class Main extends EBAnwendung {
 	@Override
 	public void bearbeiteTaste(char c) {
 		Menu.getInstance().text("");
-		GamePlay.commands(c);
+		GamePlay.control(c);
 	}
 }

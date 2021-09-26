@@ -14,16 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.villain;
+package main.java.gameobject.npc;
 
-import main.java.objects.Obstacle;
+import lombok.Getter;
+import lombok.Setter;
+import main.java.enums.Variables;
+import main.java.gameobject.NPC;
 
-public abstract class Villain extends Obstacle {
-	private static final long serialVersionUID = 5415563097971413891L;
-
-	protected Villain(int x, int y, String file) {
-		super(x, y, file);
+public class Opa extends NPC {
+	private static final long serialVersionUID = 5642323314026519582L;
+	@Getter @Setter
+	private static int masterKey = 1;
+	/**
+	 * Constructor of opa.
+	 * @param x Position (x coordinate).
+	 * @param y Position (y coordinate).
+	 */
+	public Opa(int x, int y) {
+		super(x, y, Variables.IMG_OPA);
 	}
 }
-
-

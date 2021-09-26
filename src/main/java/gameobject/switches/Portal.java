@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.switches;
+package main.java.gameobject.switches;
 
 import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
-import main.java.objects.Switch;
+import main.java.gameobject.Switch;
 
 public class Portal extends Switch {
 	private static final long serialVersionUID = 1865564520296574785L;

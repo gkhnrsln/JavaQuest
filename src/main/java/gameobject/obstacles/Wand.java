@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.obstacles;
+package main.java.gameobject.obstacles;
 
 import main.java.enums.Variables;
-import main.java.objects.Obstacle;
+import main.java.gameobject.Obstacle;
 
 public class Wand extends Obstacle {
 	private static final long serialVersionUID = 888267692395594759L;

@@ -14,25 +14,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects;
+package main.java.gameobject.obstacles;
 
 import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
+import main.java.gameobject.Obstacle;
 
-public class Stairs extends Objekte {
-	private static final long serialVersionUID = 6695837635306162543L;
+/**
+ * A lock must first be opened by a player to enter the area behind it.
+ */
+public class Lock extends Obstacle {
+	private static final long serialVersionUID = 7550701273363704195L;
 	@Getter @Setter
-	private int lvl;
+	private int id;
 
 	/**
-	 * 
-	 * @param x Position X, from Level lvl
-	 * @param y Position Y, from Level lvl
-	 * @param lvl Sets Destination Level
+	 * Constructor for new Lock (Var. 1).
+	 *
+	 * @param x    Position (x coordinate).
+	 * @param y    Position (y coordinate).
 	 */
-	public Stairs(int x, int y, int lvl) {
-		super(x, y, Variables.IMG_STAIRS);
-		setLvl(lvl);
+	public Lock(int x, int y) {
+		super(x, y, Variables.IMG_LOCK_1);
+	}
+
+	/**
+	 * Constructor for new Lock (Var. 2).
+	 *
+	 * @param x    Position (x coordinate).
+	 * @param y    Position (y coordinate).
+	 * @param id   ID
+	 */
+	public Lock(int x, int y, int id) {
+		super(x, y, Variables.IMG_LOCK_2);
+		this.id = id;
 	}
 }

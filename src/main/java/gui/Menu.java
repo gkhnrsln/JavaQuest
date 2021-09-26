@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 import lombok.Getter;
 import lombok.Setter;
 import main.java.enums.Variables;
-import main.java.objects.Player;
+import main.java.gameobject.Player;
 import main.java.engine.Sound;
 import sum.komponenten.Etikett;
 
@@ -84,11 +84,11 @@ public class Menu implements Serializable {
 		}
 		masterKeys = Variables.LBL_MKEYS + ": ";
 
-		lblSteps = new Etikett(600, 575, 100, 50, steps);
-		lblSwords = new Etikett(600, 590, 100, 50, swords);
-		lblMoney = new Etikett(600, 605, 400, 50, money);
-		lblKeys = new Etikett(600, 620, 100, 50, keys);
-		lblMasterKeys = new Etikett(600, 635, 100, 50, masterKeys);
+		lblSteps = new Etikett(600, 575, 100, 50, steps + Player.getInstance().getSteps());
+		lblSwords = new Etikett(600, 590, 100, 50, swords + Player.getInstance().getSwords());
+		lblMoney = new Etikett(600, 605, 400, 50, money + Player.getInstance().getMoney());
+		lblKeys = new Etikett(600, 620, 100, 50, keys + Player.getInstance().getKeys());
+		lblMasterKeys = new Etikett(600, 635, 100, 50, masterKeys + Player.getInstance().getMasterKeys());
 		lblText = new Etikett(300, 580, 250, 50, null);
 	}
 
@@ -125,12 +125,26 @@ public class Menu implements Serializable {
 	}
 
 	public Integer cmdSwords() {
-		String s;
-		if (gameLang.equals("de"))
-			s = input(Variables.DE_TXT_CMD_SWORDS);
-		else
-			s = input(Variables.EN_TXT_CMD_SWORDS);
-		return Integer.parseInt(s);
+		while (true) {
+			try {
+				String s;
+				if (gameLang.equals("de"))
+					s = input(Variables.DE_TXT_CMD_SWORDS);
+				else
+					s = input(Variables.EN_TXT_CMD_SWORDS);
+
+				int i = Integer.parseInt(s);
+
+				if (i < 0) throw new NumberFormatException();
+
+				return i;
+			} catch (NumberFormatException nfe) {
+				if (gameLang.equals("de"))
+					output(Variables.DE_TXT_ERROR_NFE);
+				else
+					output(Variables.EN_TXT_ERROR_NFE);
+			}
+		}
 	}
 	
 	public String cmdKeys() {

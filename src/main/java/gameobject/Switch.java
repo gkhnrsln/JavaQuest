@@ -14,15 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.obstacles;
+package main.java.gameobject;
 
-import main.java.enums.Variables;
-import main.java.objects.Obstacle;
+public class Switch extends GameObject {
+	private static final long serialVersionUID = 1154643866894496254L;
 
-public class Wall extends Obstacle {
-	private static final long serialVersionUID = 5510186950072515228L;
-
-	public Wall(int x, int y) {
-		super(x, y, Variables.IMG_WALL);
+	/**
+	 *
+	 * @param x
+	 * @param y
+	 * @param file
+	 */
+	public Switch(int x, int y, String file) {
+		super(x, y, file);
 	}
 }

@@ -14,19 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects.obstacles;
+package main.java.gameobject.switches;
 
 import main.java.enums.Variables;
-import main.java.objects.Obstacle;
+import main.java.gameobject.Switch;
 
-public class Lock extends Obstacle {
-	private static final long serialVersionUID = 7550701273363704195L;
+public class Button extends Switch {
+	private static final long serialVersionUID = 7278643581587835211L;
 
-	public Lock(int x, int y) {
-		super(x, y, Variables.IMG_LOCK_1);
-	}
-
-	public Lock(int x, int y, int z) {
-		super(x, y, Variables.IMG_LOCK_2);
+	public Button(int x, int y) {
+		super(x, y, Variables.IMG_BUTTON);
 	}
 }

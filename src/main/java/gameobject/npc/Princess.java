@@ -14,13 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package main.java.objects;
+package main.java.gameobject.npc;
 
-public abstract class Obstacle extends Objekte {
-	private static final long serialVersionUID = -8809059823025203794L;
+import main.java.enums.Variables;
+import main.java.gameobject.NPC;
 
-	protected Obstacle(int x, int y, String file) {
-		super(x, y, file);
+public class Princess extends NPC {
+	private static final long serialVersionUID = 5550205420365493945L;
+
+	/**
+	 * Constructor of princess.
+	 * 
+	 * @param x Position (x coordinate).
+	 * @param y Position (y coordinate).
+	 */
+	public Princess(int x, int y) {
+		super(x, y, Variables.IMG_PRINCESS);
 	}
-
 }
