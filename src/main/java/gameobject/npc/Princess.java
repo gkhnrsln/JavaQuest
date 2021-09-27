@@ -16,7 +16,6 @@
 
 package main.java.gameobject.npc;
 
-import main.java.enums.Variables;
 import main.java.gameobject.NPC;
 
 public class Princess extends NPC {
@@ -29,6 +28,6 @@ public class Princess extends NPC {
 	 * @param y Position (y coordinate).
 	 */
 	public Princess(int x, int y) {
-		super(x, y, Variables.IMG_PRINCESS);
+		super(x, y, "img.princess");
 	}
 }

@@ -16,12 +16,10 @@
 
 package main.java.gameobject.item;
 
-import main.java.enums.Variables;
-
 public class Key extends Item {
 	private static final long serialVersionUID = 5699761459489435344L;
 
 	public Key(int x, int y) {
-		super(x, y, Variables.IMG_KEY);
+		super(x, y, "img.key");
 	}
 }

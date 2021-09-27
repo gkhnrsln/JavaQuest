@@ -16,6 +16,7 @@
 
 package main.java.gameobject;
 
+import main.java.enums.PropertiesLoader;
 import sum.multimedia.Bild;
 
 @java.lang.SuppressWarnings("java:S2184")
@@ -24,10 +25,10 @@ public abstract class GameObject extends Bild {
 	 * Constructor for new game object.
 	 * @param x    Position (x coordinate).
 	 * @param y    Position (y coordinate).
-	 * @param file Filename of the image.
+	 * @param prop Property of the image.
 	 */
-	protected GameObject(int x, int y, String file) {
-		super(x * 34, y * 34, 34, 34, file);
+	protected GameObject(int x, int y, String prop) {
+		super(x * 34, y * 34, 34, 34, PropertiesLoader.getInstance().getProperties().getProperty(prop));
 	}
 	/**
 	 * Changes position of game object.

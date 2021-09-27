@@ -18,7 +18,6 @@ package main.java.gameobject.switches;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
 import main.java.gameobject.Switch;
 
 public class Portal extends Switch {
@@ -36,7 +35,7 @@ public class Portal extends Switch {
 	 * @param y2 Position to teleport (y coordinate).
 	 */
 	public Portal(int x, int y, int x2, int y2) {
-		super(x, y, Variables.IMG_PORTAL);
+		super(x, y, "img.portal");
 		setPosX(x2);
 		setPosY(y2);
 	}

@@ -18,7 +18,6 @@ package main.java.gameobject.npc;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
 import main.java.gameobject.NPC;
 
 public class Opa extends NPC {
@@ -31,6 +30,6 @@ public class Opa extends NPC {
 	 * @param y Position (y coordinate).
 	 */
 	public Opa(int x, int y) {
-		super(x, y, Variables.IMG_OPA);
+		super(x, y, "img.opa");
 	}
 }

@@ -21,7 +21,7 @@ import main.java.gameobject.GameObject;
 public class Item extends GameObject {
 	private static final long serialVersionUID = -7883735804633227127L;
 
-	public Item(int x, int y, String file) {
-		super(x, y, file);
+	public Item(int x, int y, String prop) {
+		super(x, y, prop);
 	}
 }

@@ -37,6 +37,8 @@ import main.java.gameobject.villain.Villain;
 import javax.swing.*;
 import java.util.Properties;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * This is where the GamePlay is set.
  */
@@ -89,7 +91,7 @@ public class GamePlay {
                 Player.getInstance().setSwords(Menu.getInstance().cmdSwords());
                 break;
             case "keys":
-                Player.getInstance().setKeys(Integer.parseInt(JOptionPane.showInputDialog(Menu.getInstance().cmdKeys())));
+                Player.getInstance().setKeys(parseInt(JOptionPane.showInputDialog(Menu.getInstance().cmdKeys())));
                 break;
             default:
                 break;
@@ -124,7 +126,7 @@ public class GamePlay {
                 y2 = y + 1;
                 //no weapon, no fight
                 if (isPlayerInFrontOf(Variables.VILLAIN) && Player.getInstance().getSwords() < 1) {
-                    Menu.getInstance().text(Variables.DE_TXT_GEGNER_001);
+                    Menu.getInstance().text(properties.getProperty("txt.villain.001.de"));
                 }
                 checkBoxObstacle('y', 1);
                 break;
@@ -147,17 +149,17 @@ public class GamePlay {
         if (c == 'w') {
             if (isPlayerInFrontOf(Variables.OPA) && Opa.getMasterKey() == 0) {
                 Sound.playSound(properties.getProperty("sfx.txt"));
-                Menu.getInstance().text(Variables.DE_TXT_OPA_003);
+                Menu.getInstance().text(properties.getProperty("txt.opa.003.de"));
             } else if (isPlayerInFrontOf(Variables.OPA)) {
                 if (Player.getInstance().getMoney() < 450) {
                     Sound.playSound(properties.getProperty("sfx.txt"));
-                    Menu.getInstance().text(Variables.DE_TXT_OPA_001);
+                    Menu.getInstance().text(properties.getProperty("txt.opa.001.de"));
                 } else {
                     lvl.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, lvl.getLvl()));
                     Player.getInstance().setMoney(Player.getInstance().getMoney() - 450);
                     Opa.setMasterKey(Opa.getMasterKey() - 1);
                     Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
-                    Menu.getInstance().text(Variables.DE_TXT_OPA_002);
+                    Menu.getInstance().text(properties.getProperty("txt.opa.002.de"));
                 }
             }
         }
@@ -174,11 +176,11 @@ public class GamePlay {
                 Player.getInstance().setSwords(Player.getInstance().getSwords() - 1);
             } else if (isPlayerInFrontOf(Variables.MONEY)) {
                 Sound.playSound(properties.getProperty("sfx.money"));
-                Player.getInstance().ladeBild(Variables.IMG_PLAYER_MONEY);
+                Player.getInstance().ladeBild(properties.getProperty("img.player.money"));
                 Player.getInstance().setMoney(Player.getInstance().getMoney() + ((Money) lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
             } else if (isPlayerInFrontOf(Variables.SWORD)) {
                 Player.getInstance().setSwords(Player.getInstance().getSwords() + 1);
-                Player.getInstance().ladeBild(Variables.IMG_PLAYER_SWORD);
+                Player.getInstance().ladeBild(properties.getProperty("img.player.sword"));
             } else if (isPlayerInFrontOf(Variables.KEY)) {
                 Player.getInstance().setKeys(Player.getInstance().getKeys() + 1);
             } else if (isPlayerInFrontOf(Variables.LOCK)) {
@@ -305,10 +307,10 @@ public class GamePlay {
     public static void playerInFrontOfPerson() {
         if (isPlayerInFrontOf(Variables.PRINCESS)) {
             Sound.playSound(properties.getProperty("sfx.princess"));
-            Menu.getInstance().text(Variables.DE_TXT_PRINCESS_001);
+            Menu.getInstance().text(properties.getProperty("txt.princess.001.de"));
         } else if (isPlayerInFrontOf(Variables.OPA)) {
             Sound.playSound(properties.getProperty("sfx.opa"));
-            Menu.getInstance().text(Variables.DE_TXT_OPA_004);
+            Menu.getInstance().text(properties.getProperty("txt.opa.004.de"));
         }
     }
 
@@ -318,8 +320,8 @@ public class GamePlay {
             //set lvl destination
             int newLvl = ((Stairs) lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getLvl();
             //clear gameField
-            for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
-                for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
+            for (int i = 0; i < parseInt(properties.getProperty("field.length.x")); i++) {
+                for (int j = 0; j < parseInt(properties.getProperty("field.length.y")); j++) {
                     if (lvl.getGameField()[i][j] != null) {
                         lvl.getGameField()[i][j].verstecke();
                     }

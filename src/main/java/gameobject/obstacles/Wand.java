@@ -16,13 +16,12 @@
 
 package main.java.gameobject.obstacles;
 
-import main.java.enums.Variables;
 import main.java.gameobject.Obstacle;
 
 public class Wand extends Obstacle {
 	private static final long serialVersionUID = 888267692395594759L;
 
 	public Wand(int x, int y) {
-		super(x, y, Variables.IMG_INV_WALL);
+		super(x, y, "img.invisibleWall");
 	}
 }

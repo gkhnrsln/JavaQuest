@@ -16,12 +16,10 @@
 
 package main.java.gameobject;
 
-import main.java.enums.Variables;
-
 public class Box extends GameObject {
 	private static final long serialVersionUID = 5171228689047749319L;
 
 	public Box(int x, int y) {
-		super(x, y, Variables.IMG_BOX);
+		super(x, y, "img.box");
 	}
 }

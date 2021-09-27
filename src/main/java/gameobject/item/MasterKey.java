@@ -16,13 +16,12 @@
 
 package main.java.gameobject.item;
 
-import main.java.enums.Variables;
 import main.java.gameobject.GameObject;
 
 public class MasterKey extends GameObject {
 	private static final long serialVersionUID = -8619428589097136287L;
 
 	public MasterKey(int x, int y) {
-		super(x, y, Variables.IMG_MKEY);
+		super(x, y, "img.masterkey");
 	}
 }

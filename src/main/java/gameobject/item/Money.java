@@ -18,7 +18,6 @@ package main.java.gameobject.item;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
 
 public class Money extends Item {
 	private static final long serialVersionUID = 43776595159763730L;
@@ -26,7 +25,7 @@ public class Money extends Item {
 	private int value = 0;
 
 	public Money(int x, int y, int value) {
-		super(x, y, Variables.IMG_MONEY);
+		super(x, y, "img.money");
 		setValue(value);
 	}
 

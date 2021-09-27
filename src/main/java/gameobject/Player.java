@@ -18,7 +18,6 @@ package main.java.gameobject;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.PropertiesLoader;
 import main.java.enums.Variables;
 import org.apache.commons.lang3.Validate;
 
@@ -46,7 +45,7 @@ public class Player extends GameObject {
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
 	private Player() {
-		super(posX, posY, PropertiesLoader.getInstance().getProperties().getProperty("img.player.down"));
+		super(posX, posY, "img.player.down");
 		this.keys = 0;
 		this.masterKeys = 0;
 		this.money = 0;

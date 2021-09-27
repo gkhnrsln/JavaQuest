@@ -19,7 +19,7 @@ package main.java.gameobject;
 public abstract class NPC extends Obstacle {
 	private static final long serialVersionUID = -3241207664661298332L;
 
-	protected NPC(int x, int y, String file) {
-		super(x, y, file);
+	protected NPC(int x, int y, String prop) {
+		super(x, y, prop);
 	}
 }

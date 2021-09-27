@@ -19,10 +19,11 @@ package main.java.engine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
+import main.java.enums.PropertiesLoader;
 import main.java.gameobject.Box;
 import main.java.gameobject.villain.*;
 import main.java.gameobject.GameObject;
@@ -36,14 +37,14 @@ public class Level<T> implements Serializable {
 	private static final long serialVersionUID = -5285864879474325429L;
 	// GameField
 	@Getter @Setter
-	private GameObject[][] gameField = new GameObject[Variables.FIELD_LENGTH_X][Variables.FIELD_LENGTH_Y];
+	private GameObject[][] gameField = new GameObject[Integer.parseInt(properties.getProperty("field.length.x"))][Integer.parseInt(properties.getProperty("field.length.y"))];
 	// List of visited fields
 	@Getter @Setter
 	private List<T> list = new ArrayList<>();
 	//first level
 	@Getter @Setter
 	private int lvl = 1;
-	
+	private static Properties properties = PropertiesLoader.getInstance().getProperties();
 	private boolean isChecked = false;
 
 	/* checks if player visited a field before */
@@ -81,8 +82,8 @@ public class Level<T> implements Serializable {
 	}
 
 	private void buildField(int[][] sField) {
-		for (int i = 0; i < Variables.FIELD_LENGTH_X; i++) {
-			for (int j = 0; j < Variables.FIELD_LENGTH_Y; j++) {
+		for (int i = 0; i < gameField.length; i++) {
+			for (int j = 0; j < gameField[0].length; j++) {
 				switch (sField[j][i]) {
 					case 1:
 						wall(i, j);
@@ -118,9 +119,9 @@ public class Level<T> implements Serializable {
 		money(5, 4, 85);
 		money(12, 1, 135);
 		money(15, 1, 200);
-		villain(2, 4, Variables.IMG_MON_1);
-		villain(10, 3, Variables.IMG_MON_2);
-		villain(20, 3, Variables.IMG_MON_3);
+		villain(2, 4, "img.mon1");
+		villain(10, 3, "img.mon2");
+		villain(20, 3, "img.mon3");
 	}
 
 	private void objects2() {
@@ -267,9 +268,9 @@ public class Level<T> implements Serializable {
 		gameField[x][y] = new Princess(x, y);
 	}
 
-	private void villain(int x, int y, String img) {
+	private void villain(int x, int y, String prop) {
 		checker(x, y);
-		if (!isChecked) gameField[x][y] = new Gegner(x, y, img);
+		if (!isChecked) gameField[x][y] = new Gegner(x, y, prop);
 	}
 
 	private void sword(int x, int y) {

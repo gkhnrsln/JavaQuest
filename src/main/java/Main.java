@@ -16,7 +16,6 @@ package main.java;
  */
 import main.java.engine.GamePlay;
 import main.java.enums.PropertiesLoader;
-import main.java.enums.Variables;
 import main.java.gui.Menu;
 import main.java.gameobject.Player;
 import main.java.engine.Level;
@@ -27,6 +26,8 @@ import sum.multimedia.Bild;
 
 import java.util.Properties;
 
+import static java.lang.Integer.parseInt;
+
 public class Main extends EBAnwendung {
 	private static Properties properties = PropertiesLoader.getInstance().getProperties();
 
@@ -36,12 +37,18 @@ public class Main extends EBAnwendung {
 
 	@java.lang.SuppressWarnings("squid:S1481")
 	public Main() {
-		super(Variables.WINDOW_WIDTH, Variables.WINDOW_HEIGHT, true);
+		super(parseInt(properties.getProperty("window.width")),
+				parseInt(properties.getProperty("window.height")),
+				true);
+
 		//Background image of map
 		Bild bg = new Bild(0, 0, 0, 0, properties.getProperty("img.bg"));
 		Menu.getInstance().listenTo(Player.getInstance());
 		Level<Visited> lvl = GamePlay.getLvl();
-		lvl.setGameField(lvl.loadLvl(lvl.getLvl()));
+		lvl.setGameField(
+				lvl.loadLvl(lvl.getLvl())
+		);
+
 		fuehreAus();
 	}
 

@@ -19,7 +19,7 @@ package main.java.gameobject.villain;
 public class Gegner extends Villain {
     private static final long serialVersionUID = 4520669837808280437L;
 
-    public Gegner(int x, int y, String bild) {
-        super(x, y, bild);
+    public Gegner(int x, int y, String prop) {
+        super(x, y, prop);
     }
 }

@@ -21,8 +21,8 @@ import main.java.gameobject.Obstacle;
 public abstract class Villain extends Obstacle {
 	private static final long serialVersionUID = 5415563097971413891L;
 
-	protected Villain(int x, int y, String file) {
-		super(x, y, file);
+	protected Villain(int x, int y, String prop) {
+		super(x, y, prop);
 	}
 }
 

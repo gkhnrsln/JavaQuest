@@ -16,12 +16,10 @@
 
 package main.java.gameobject.item;
 
-import main.java.enums.Variables;
-
 public class Sword extends Item {
 	private static final long serialVersionUID = 6078587262493481794L;
 
 	public Sword(int x, int y) {
-		super(x, y, Variables.IMG_SWORD);
+		super(x, y, "img.sword");
 	}
 }

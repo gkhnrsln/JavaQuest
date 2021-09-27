@@ -16,13 +16,12 @@
 
 package main.java.gameobject.switches;
 
-import main.java.enums.Variables;
 import main.java.gameobject.Switch;
 
 public class Button extends Switch {
 	private static final long serialVersionUID = 7278643581587835211L;
 
 	public Button(int x, int y) {
-		super(x, y, Variables.IMG_BUTTON);
+		super(x, y, "img.button");
 	}
 }

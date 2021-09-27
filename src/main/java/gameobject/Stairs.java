@@ -18,7 +18,6 @@ package main.java.gameobject;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
 
 public class Stairs extends GameObject {
 	private static final long serialVersionUID = 6695837635306162543L;
@@ -32,7 +31,7 @@ public class Stairs extends GameObject {
 	 * @param lvl Sets Destination Level
 	 */
 	public Stairs(int x, int y, int lvl) {
-		super(x, y, Variables.IMG_STAIRS);
+		super(x, y, "img.stairs");
 		setLvl(lvl);
 	}
 }

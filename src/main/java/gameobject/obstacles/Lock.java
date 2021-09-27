@@ -18,7 +18,6 @@ package main.java.gameobject.obstacles;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
 import main.java.gameobject.Obstacle;
 
 /**
@@ -36,9 +35,8 @@ public class Lock extends Obstacle {
 	 * @param y    Position (y coordinate).
 	 */
 	public Lock(int x, int y) {
-		super(x, y, Variables.IMG_LOCK_1);
+		super(x, y, "img.lock1");
 	}
-
 	/**
 	 * Constructor for new Lock (Var. 2).
 	 *
@@ -47,7 +45,7 @@ public class Lock extends Obstacle {
 	 * @param id   ID
 	 */
 	public Lock(int x, int y, int id) {
-		super(x, y, Variables.IMG_LOCK_2);
+		super(x, y, "img.lock2");
 		this.id = id;
 	}
 }
