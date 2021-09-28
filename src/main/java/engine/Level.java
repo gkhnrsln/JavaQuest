@@ -19,6 +19,7 @@ package main.java.engine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,10 +35,11 @@ import main.java.gameobject.switches.*;
 
 public class Level<T> implements Serializable {
 	private static final long serialVersionUID = -5285864879474325429L;
+	private Properties prop = new PropertiesLoader("config", false).getProperties();
 	@java.lang.SuppressWarnings("java:S116")
-	private final int SIZE_X = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.length.x"));
+	private final int SIZE_X = Integer.parseInt(prop.getProperty("field.length.x"));
 	@java.lang.SuppressWarnings("java:S116")
-	private final int SIZE_Y = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.length.y"));
+	private final int SIZE_Y = Integer.parseInt(prop.getProperty("field.length.y"));
 	// GameField
 	@Getter @Setter
 	private GameObject[][] gameField = new GameObject[SIZE_X][SIZE_Y];

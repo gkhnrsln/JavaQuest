@@ -23,7 +23,7 @@ import java.util.Properties;
 
 @java.lang.SuppressWarnings("java:S2184")
 public abstract class GameObject extends Bild {
-	private static Properties properties = new PropertiesLoader().getProperties();
+	private static Properties properties = new PropertiesLoader("config", false).getProperties();
 	/**
 	 * Constructor for new game object.
 	 * @param x    Position (x coordinate).

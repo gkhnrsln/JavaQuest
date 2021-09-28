@@ -23,10 +23,12 @@ import org.apache.commons.lang3.Validate;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Properties;
 
 public class Player extends GameObject {
 	private static Player instance;
 	private static final long serialVersionUID = -4986780372336177606L;
+	private static Properties prop = new PropertiesLoader("config", false).getProperties();
 	@Getter
 	private int keys;
 	@Getter
@@ -39,10 +41,10 @@ public class Player extends GameObject {
 	private int swords;
 	// X Position from Player on GameField.
 	@Getter @Setter
-	private static int posX = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.player.x"));
+	private static int posX = Integer.parseInt(prop.getProperty("field.player.x"));
 	// Y Position from Player on GameField.
 	@Getter @Setter
-	private static int posY = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.player.y"));
+	private static int posY = Integer.parseInt(prop.getProperty("field.player.y"));
 
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 

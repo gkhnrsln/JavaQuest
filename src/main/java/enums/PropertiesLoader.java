@@ -26,25 +26,17 @@ import java.util.Properties;
 public class PropertiesLoader {
     @Getter
     private Properties properties = new Properties();
+    private String path = "src/main/resources/";
 
     /**
-     * PropertiesLoader for config.properties.
+     * PropertiesLoader for *.properties-Files
+     * @param isWithLangCode,
      */
-    public PropertiesLoader() {
-        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
-            properties.load(input);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+    public PropertiesLoader(String file, boolean isWithLangCode) {
+        String gameLang = "";
+        if (isWithLangCode) gameLang = System.getProperty("user.language").equals("de") ? ".de" : ".en";
 
-    /**
-     * PropertiesLoader for text.properties.
-     * @param filePath, Filepath of properties file.
-     */
-    public PropertiesLoader(String filePath) {
-        String gameLang = System.getProperty("user.language").equals("de") ? "de" : "en";
-        try (InputStream input = new FileInputStream(filePath + "." + gameLang)) {
+        try (InputStream input = new FileInputStream(path + file + gameLang + ".properties")) {
             properties.load(input);
         } catch (IOException ex) {
             ex.printStackTrace();

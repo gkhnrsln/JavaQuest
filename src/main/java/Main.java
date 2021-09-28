@@ -27,7 +27,7 @@ import sum.multimedia.Bild;
 import java.util.Properties;
 
 public class Main extends EBAnwendung {
-	private static Properties properties = new PropertiesLoader().getProperties();
+	private static Properties properties = new PropertiesLoader("config", false).getProperties();
 	private static final int WIDTH = Integer.parseInt(properties.getProperty("window.width"));
 	private static final int HEIGHT = Integer.parseInt(properties.getProperty("window.height"));
 
@@ -37,7 +37,7 @@ public class Main extends EBAnwendung {
 
 	@java.lang.SuppressWarnings("squid:S1481")
 	public Main() {
-		super(WIDTH, HEIGHT,true);
+		super(WIDTH, HEIGHT,false);
 
 		//Background image of map
 		Bild bg = new Bild(0, 0, 0, 0, properties.getProperty("img.bg"));

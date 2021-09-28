@@ -54,8 +54,8 @@ public class GamePlay {
     private static int y = 0; // y-axis distance from player
     private static int x2 = 0; // x-axis distance from player +1
     private static int y2 = 0; // y-axis distance from player +1
-    private static Properties properties = new PropertiesLoader().getProperties();
-    private static Properties langProperties = new PropertiesLoader("src/main/resources/text.properties").getProperties();
+    private static Properties configProp = new PropertiesLoader("config", false).getProperties();
+    private static Properties txtProp = new PropertiesLoader("text", true).getProperties();
 
     private GamePlay() {
         throw new IllegalStateException("Utility class");
@@ -107,29 +107,29 @@ public class GamePlay {
         switch (c) {
             case 'w':
                 //load img, player shows up
-                Player.getInstance().ladeBild(properties.getProperty("img.player.up"));
+                Player.getInstance().ladeBild(configProp.getProperty("img.player.up"));
                 y--;
                 y2 = y - 1;
                 checkBoxObstacle('y', -1);
                 break;
             case 'a':
-                Player.getInstance().ladeBild(properties.getProperty("img.player.left"));
+                Player.getInstance().ladeBild(configProp.getProperty("img.player.left"));
                 x--;
                 x2 = x - 1;
                 checkBoxObstacle('x', -1);
                 break;
             case 's':
-                Player.getInstance().ladeBild(properties.getProperty("img.player.down"));
+                Player.getInstance().ladeBild(configProp.getProperty("img.player.down"));
                 y++;
                 y2 = y + 1;
                 //no weapon, no fight
                 if (isPlayerInFrontOf(Variables.VILLAIN) && Player.getInstance().getSwords() < 1) {
-                    Menu.getInstance().text(langProperties.getProperty("txt.villain.001"));
+                    Menu.getInstance().text(txtProp.getProperty("txt.villain.001"));
                 }
                 checkBoxObstacle('y', 1);
                 break;
             case 'd':
-                Player.getInstance().ladeBild(properties.getProperty("img.player.right"));
+                Player.getInstance().ladeBild(configProp.getProperty("img.player.right"));
                 x++;
                 x2 = x + 1;
                 checkBoxObstacle('x', 1);
@@ -139,25 +139,25 @@ public class GamePlay {
         }
 
         if (isPlayerInFrontOf(Variables.OBSTACLE)) {
-            Sound.playSound(properties.getProperty("sfx.obstacle"));
+            Sound.playSound(configProp.getProperty("sfx.obstacle"));
         }
 
         playerInFrontOfPerson();
 
         if (c == 'w') {
             if (isPlayerInFrontOf(Variables.OPA) && Opa.getMasterKey() == 0) {
-                Sound.playSound(properties.getProperty("sfx.txt"));
-                Menu.getInstance().text(langProperties.getProperty("txt.opa.003"));
+                Sound.playSound(configProp.getProperty("sfx.txt"));
+                Menu.getInstance().text(txtProp.getProperty("txt.opa.003"));
             } else if (isPlayerInFrontOf(Variables.OPA)) {
                 if (Player.getInstance().getMoney() < 450) {
-                    Sound.playSound(properties.getProperty("sfx.txt"));
-                    Menu.getInstance().text(langProperties.getProperty("txt.opa.001"));
+                    Sound.playSound(configProp.getProperty("sfx.txt"));
+                    Menu.getInstance().text(txtProp.getProperty("txt.opa.001"));
                 } else {
                     lvl.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, lvl.getLvl()));
                     Player.getInstance().setMoney(Player.getInstance().getMoney() - 450);
                     Opa.setMasterKey(Opa.getMasterKey() - 1);
                     Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
-                    Menu.getInstance().text(langProperties.getProperty("txt.opa.002"));
+                    Menu.getInstance().text(txtProp.getProperty("txt.opa.002"));
                 }
             }
         }
@@ -170,21 +170,21 @@ public class GamePlay {
                 || isPlayerInFrontOf(Variables.KEY) || isPlayerInFrontOf(Variables.MASTERKEY)
                 || isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getKeys() > 0) {
             if (isPlayerInFrontOf(Variables.VILLAIN)) {
-                Sound.playSound(properties.getProperty("sfx.wpn.sword"));
+                Sound.playSound(configProp.getProperty("sfx.wpn.sword"));
                 Player.getInstance().setSwords(Player.getInstance().getSwords() - 1);
             } else if (isPlayerInFrontOf(Variables.MONEY)) {
-                Sound.playSound(properties.getProperty("sfx.money"));
-                Player.getInstance().ladeBild(properties.getProperty("img.player.money"));
+                Sound.playSound(configProp.getProperty("sfx.money"));
+                Player.getInstance().ladeBild(configProp.getProperty("img.player.money"));
                 Player.getInstance().setMoney(Player.getInstance().getMoney() + ((Money) lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
             } else if (isPlayerInFrontOf(Variables.SWORD)) {
                 Player.getInstance().setSwords(Player.getInstance().getSwords() + 1);
-                Player.getInstance().ladeBild(properties.getProperty("img.player.sword"));
+                Player.getInstance().ladeBild(configProp.getProperty("img.player.sword"));
             } else if (isPlayerInFrontOf(Variables.KEY)) {
                 Player.getInstance().setKeys(Player.getInstance().getKeys() + 1);
             } else if (isPlayerInFrontOf(Variables.LOCK)) {
                 Player.getInstance().setKeys(Player.getInstance().getKeys() - 1);
             } else if (isPlayerInFrontOf(Variables.MASTERKEY)) {
-                Sound.playSound(properties.getProperty("sfx.txt"));
+                Sound.playSound(configProp.getProperty("sfx.txt"));
                 Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
             } else if (isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getMasterKeys() > 0) {
                 Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() - 1);
@@ -244,14 +244,14 @@ public class GamePlay {
 
         if (isPlayerInFrontOf(Variables.BOX) && !(lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject)) {
             if (coord == 'x') {
-                Sound.playSound(properties.getProperty("sfx.interaction"));
+                Sound.playSound(configProp.getProperty("sfx.interaction"));
                 if (r == 1) {
                     lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveRight();
                 } else if (r == -1) {
                     lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveLeft();
                 }
             } else {
-                Sound.playSound(properties.getProperty("sfx.interaction"));
+                Sound.playSound(configProp.getProperty("sfx.interaction"));
                 if (r == -1) {
                     lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveUp();
                 } else if (r == 1) {
@@ -261,7 +261,7 @@ public class GamePlay {
             lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y];
             lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y] = null;
         } else if (isPlayerInFrontOf(Variables.BOX) && lvl.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject) {
-            Sound.playSound(properties.getProperty("sfx.obstacle"));
+            Sound.playSound(configProp.getProperty("sfx.obstacle"));
         }
     }
     /*
@@ -304,22 +304,22 @@ public class GamePlay {
 
     public static void playerInFrontOfPerson() {
         if (isPlayerInFrontOf(Variables.PRINCESS)) {
-            Sound.playSound(properties.getProperty("sfx.princess"));
-            Menu.getInstance().text(langProperties.getProperty("txt.princess.001"));
+            Sound.playSound(configProp.getProperty("sfx.princess"));
+            Menu.getInstance().text(txtProp.getProperty("txt.princess.001"));
         } else if (isPlayerInFrontOf(Variables.OPA)) {
-            Sound.playSound(properties.getProperty("sfx.opa"));
-            Menu.getInstance().text(langProperties.getProperty("txt.opa.004"));
+            Sound.playSound(configProp.getProperty("sfx.opa"));
+            Menu.getInstance().text(txtProp.getProperty("txt.opa.004"));
         }
     }
 
     private static void isPlayerOnStairs() {
         if (isPlayerInFrontOf(Variables.STAIRS)) {
-            Sound.playSound(properties.getProperty("sfx.stairs"));
+            Sound.playSound(configProp.getProperty("sfx.stairs"));
             //set lvl destination
             int newLvl = ((Stairs) lvl.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getLvl();
             //clear gameField
-            for (int i = 0; i < parseInt(properties.getProperty("field.length.x")); i++) {
-                for (int j = 0; j < parseInt(properties.getProperty("field.length.y")); j++) {
+            for (int i = 0; i < parseInt(configProp.getProperty("field.length.x")); i++) {
+                for (int j = 0; j < parseInt(configProp.getProperty("field.length.y")); j++) {
                     if (lvl.getGameField()[i][j] != null) {
                         lvl.getGameField()[i][j].verstecke();
                     }
@@ -401,11 +401,11 @@ public class GamePlay {
     private static void cheatMode() {
         if (!isBeenCheating()) {
             isCheat = true;
-            Player.getInstance().ladeBild(properties.getProperty("img.player.cheat"));
+            Player.getInstance().ladeBild(configProp.getProperty("img.player.cheat"));
             setBeenCheating(true);
         } else {
             isCheat = false;
-            Player.getInstance().ladeBild(properties.getProperty("img.player.down"));
+            Player.getInstance().ladeBild(configProp.getProperty("img.player.down"));
         }
     }
 }
