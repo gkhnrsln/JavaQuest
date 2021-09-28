@@ -21,9 +21,6 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import main.java.enums.PropertiesLoader;
 import main.java.gameobject.Player;
 import main.java.engine.Sound;
@@ -33,32 +30,19 @@ import sum.komponenten.Etikett;
 public class Menu implements Serializable {
 	private static Menu instance;
 	private static final long serialVersionUID = 2357879403419817644L;
-	@Getter @Setter
-	private String steps;
-	@Getter @Setter
-	private String swords;
-	@Getter @Setter
-	private String money;
-	@Getter @Setter
-	private String keys;
-	@Getter @Setter
-	private String masterKeys;
-	/* Labels and their positions */
-	@Getter @Setter
-	private Etikett lblSteps;
-	@Getter @Setter
-	private Etikett lblSwords;
-	@Getter @Setter
-	private Etikett lblMoney;
-	@Getter @Setter
-	private Etikett lblKeys;
-	@Getter @Setter
-	private Etikett lblMasterKeys;
-	@Getter @Setter
-	private Etikett lblText;
-
 	private static Properties properties = new PropertiesLoader().getProperties();
 	private static Properties langProperties = new PropertiesLoader("src/main/resources/text.properties").getProperties();
+	private String steps;
+	private String swords;
+	private String money;
+	private String keys;
+	private String masterKeys;
+	private Etikett lblSteps;
+	private Etikett lblSwords;
+	private Etikett lblMoney;
+	private Etikett lblKeys;
+	private Etikett lblMasterKeys;
+	private Etikett lblText;
 
 	private Menu() {
 		initializeMenu();
@@ -132,7 +116,7 @@ public class Menu implements Serializable {
 	}
 	
 	public String cmdKeys() {
-		return langProperties.getProperty("txt.cmd.keys.");
+		return langProperties.getProperty("txt.cmd.keys");
 	}
 
 	/**
