@@ -2,28 +2,25 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.garslan.javaquest</groupId>
   <artifactId>JavaQuest</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <dependency>
-            <groupId>org.sum</groupId>
+            <groupId>org.werl.sum</groupId>
             <artifactId>SuMEreignis</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/SuMEreignis.jar</systemPath>
+            <version>7.5</version>
         </dependency>
         <dependency>
-            <groupId>org.sum</groupId>
+            <groupId>org.werl.sum</groupId>
             <artifactId>SuMKomponenten</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/SuMKomponenten.jar</systemPath>
+            <version>7.5</version>
         </dependency>
         <dependency>
-            <groupId>org.sum</groupId>
+            <groupId>org.werl.sum</groupId>
             <artifactId>SuMMultimedia</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/SuMMultimedia.jar</systemPath>
+            <version>7.5</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
