@@ -27,9 +27,9 @@ import sum.multimedia.Bild;
 import java.util.Properties;
 
 public class Main extends EBAnwendung {
-	private static Properties properties = new PropertiesLoader("config", false).getProperties();
-	private static final int WIDTH = Integer.parseInt(properties.getProperty("window.width"));
-	private static final int HEIGHT = Integer.parseInt(properties.getProperty("window.height"));
+	private static final Properties PROP = new PropertiesLoader("config", false).getProperties();
+	private static final int WIDTH = Integer.parseInt(PROP.getProperty("window.width"));
+	private static final int HEIGHT = Integer.parseInt(PROP.getProperty("window.height"));
 
 	public static void main(String[] args) {
 		new Main();
@@ -38,15 +38,11 @@ public class Main extends EBAnwendung {
 	@java.lang.SuppressWarnings("squid:S1481")
 	public Main() {
 		super(WIDTH, HEIGHT,false);
-
 		//Background image of map
-		Bild bg = new Bild(0, 0, 0, 0, properties.getProperty("img.bg"));
+		Bild bg = new Bild(0, 0, 0, 0, PROP.getProperty("img.bg"));
 		Menu.getInstance().listenTo(Player.getInstance());
-		Level<Visited> lvl = GamePlay.getLvl();
-		lvl.setGameField(
-				lvl.loadLvl(lvl.getLvl())
-		);
-
+		Level<Visited> lvl = GamePlay.getLVL();
+		lvl.setGameField(lvl.loadLvl(lvl.getLvl()));
 		fuehreAus();
 	}
 

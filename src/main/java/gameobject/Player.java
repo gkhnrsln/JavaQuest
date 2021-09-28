@@ -18,6 +18,7 @@ package main.java.gameobject;
 
 import lombok.Getter;
 import lombok.Setter;
+import main.java.engine.GamePlay;
 import main.java.enums.PropertiesLoader;
 import org.apache.commons.lang3.Validate;
 
@@ -28,7 +29,7 @@ import java.util.Properties;
 public class Player extends GameObject {
 	private static Player instance;
 	private static final long serialVersionUID = -4986780372336177606L;
-	private static Properties prop = new PropertiesLoader("config", false).getProperties();
+	private static final Properties PROP = new PropertiesLoader("config", false).getProperties();
 	@Getter
 	private int keys;
 	@Getter
@@ -41,10 +42,10 @@ public class Player extends GameObject {
 	private int swords;
 	// X Position from Player on GameField.
 	@Getter @Setter
-	private static int posX = Integer.parseInt(prop.getProperty("field.player.x"));
+	private static int posX = Integer.parseInt(PROP.getProperty("field.player.x"));
 	// Y Position from Player on GameField.
 	@Getter @Setter
-	private static int posY = Integer.parseInt(prop.getProperty("field.player.y"));
+	private static int posY = Integer.parseInt(PROP.getProperty("field.player.y"));
 
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
@@ -97,6 +98,34 @@ public class Player extends GameObject {
 		int oldValue = this.money;
 		this.masterKeys = masterKeys;
 		changes.firePropertyChange("masterKeys", oldValue, masterKeys);
+	}
+
+	@Override
+	public void moveUp() {
+		super.moveUp();
+		ladeBild(PROP.getProperty("img.player.up"));
+		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
+	}
+
+	@Override
+	public void moveLeft() {
+		super.moveLeft();
+		ladeBild(PROP.getProperty("img.player.left"));
+		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
+	}
+
+	@Override
+	public void moveDown() {
+		super.moveDown();
+		ladeBild(PROP.getProperty("img.player.down"));
+		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
+	}
+
+	@Override
+	public void moveRight() {
+		super.moveRight();
+		ladeBild(PROP.getProperty("img.player.right"));
+		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
 	}
 
 	@Override
