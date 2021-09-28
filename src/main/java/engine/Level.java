@@ -19,7 +19,6 @@ package main.java.engine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,16 +34,19 @@ import main.java.gameobject.switches.*;
 
 public class Level<T> implements Serializable {
 	private static final long serialVersionUID = -5285864879474325429L;
+	@java.lang.SuppressWarnings("java:S116")
+	private final int SIZE_X = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.length.x"));
+	@java.lang.SuppressWarnings("java:S116")
+	private final int SIZE_Y = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.length.y"));
 	// GameField
 	@Getter @Setter
-	private GameObject[][] gameField = new GameObject[Integer.parseInt(properties.getProperty("field.length.x"))][Integer.parseInt(properties.getProperty("field.length.y"))];
+	private GameObject[][] gameField = new GameObject[SIZE_X][SIZE_Y];
 	// List of visited fields
 	@Getter @Setter
 	private List<T> list = new ArrayList<>();
 	//first level
 	@Getter @Setter
 	private int lvl = 1;
-	private static Properties properties = PropertiesLoader.getInstance().getProperties();
 	private boolean isChecked = false;
 
 	/* checks if player visited a field before */

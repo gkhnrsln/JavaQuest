@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2021  G. Arslan
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms and conditions of the GNU General Public License,
+ * version 2, as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package main.java.enums;
 
 import lombok.Getter;
@@ -8,11 +24,13 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesLoader {
-    private static PropertiesLoader instance;
     @Getter
     private Properties properties = new Properties();
 
-    private PropertiesLoader() {
+    /**
+     * PropertiesLoader for config.properties.
+     */
+    public PropertiesLoader() {
         try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
             properties.load(input);
         } catch (IOException ex) {
@@ -20,10 +38,16 @@ public class PropertiesLoader {
         }
     }
 
-    public static PropertiesLoader getInstance() {
-        if (instance == null) {
-            instance = new PropertiesLoader();
+    /**
+     * PropertiesLoader for text.properties.
+     * @param filePath, Filepath of properties file.
+     */
+    public PropertiesLoader(String filePath) {
+        String gameLang = System.getProperty("user.language").equals("de") ? "de" : "en";
+        try (InputStream input = new FileInputStream(filePath + "." + gameLang)) {
+            properties.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        return instance;
     }
 }

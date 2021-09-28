@@ -22,12 +22,10 @@ import lombok.Setter;
 public class Money extends Item {
 	private static final long serialVersionUID = 43776595159763730L;
 	@Getter @Setter
-	private int value = 0;
+	private int value;
 
 	public Money(int x, int y, int value) {
 		super(x, y, "img.money");
 		setValue(value);
 	}
-
-
 }

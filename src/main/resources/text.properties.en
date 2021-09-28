@@ -1,0 +1,25 @@
+#Controls
+txt.controls.en=Control:\n[W] = Up\n[A] = Left\n[S] = Down\n[D] = Right\n[C] = Command"
+
+#Menu
+txt.menu.steps.en=STEPS
+txt.menu.swords.en=SWORDS
+txt.menu.money.en=MONEY
+txt.menu.keys.en=KEYS
+txt.menu.masterKeys=MASTERKEYS
+
+#Commands
+txt.cmd.en=Enter the command.
+txt.cmd.keys.en=Specify the number of keys you want.
+txt.cmd.swords.en=Specify the number of swords you want.
+
+#Errors
+txt.err.nfe.en=Please enter a valid number (>0).
+
+#TEXT
+txt.villain.001.en=Ha ha! You want to fight without weapons?
+txt.opa.001.en=<html>Hey, little one! If you have more<p/>than 450 dollars, talk to me again!<p/>I'll give you then a MasterKey!</html>
+txt.opa.002.en=Here is your MasterKey!
+txt.opa.003.en=I don't have a MasterKey anymore. Get lost!
+txt.opa.004.en=<html>Hey! This place is weird. As if there<p/>are invisible walls here.</html>
+txt.princess.001.en=<html>Thank you for saving me. Let's<p/>get out of here quickly!</html>

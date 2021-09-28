@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.engine.GamePlay;
+
 import main.java.enums.PropertiesLoader;
 import main.java.gameobject.Player;
 import main.java.engine.Sound;
@@ -57,7 +57,8 @@ public class Menu implements Serializable {
 	@Getter @Setter
 	private Etikett lblText;
 
-	private Properties properties = PropertiesLoader.getInstance().getProperties();
+	private static Properties properties = new PropertiesLoader().getProperties();
+	private static Properties langProperties = new PropertiesLoader("src/main/resources/text.properties").getProperties();
 
 	private Menu() {
 		initializeMenu();
@@ -71,13 +72,11 @@ public class Menu implements Serializable {
 	}
 
 	private void initializeMenu() {
-		String code = GamePlay.getGameLang();
-
-		steps = properties.getProperty("txt.menu.steps." + code) + ": ";
-		swords = properties.getProperty("txt.menu.swords." + code) + ": ";
-		money = properties.getProperty("txt.menu.money." + code) + ": ";
-		keys = properties.getProperty("txt.menu.keys." + code) + ": ";
-		masterKeys = properties.getProperty("txt.menu.masterKeys") + ": ";
+		steps = langProperties.getProperty("txt.menu.steps") + ": ";
+		swords = langProperties.getProperty("txt.menu.swords") + ": ";
+		money = langProperties.getProperty("txt.menu.money") + ": ";
+		keys = langProperties.getProperty("txt.menu.keys") + ": ";
+		masterKeys = langProperties.getProperty("txt.menu.masterKeys") + ": ";
 
 		lblSteps = new Etikett(600, 575, 100, 50, steps + Player.getInstance().getSteps());
 		lblSwords = new Etikett(600, 590, 100, 50, swords + Player.getInstance().getSwords());
@@ -122,29 +121,29 @@ public class Menu implements Serializable {
 	public Integer cmdSwords() {
 		while (true) {
 			try {
-				String s = input(properties.getProperty("txt.cmd.swords." + GamePlay.getGameLang()));
+				String s = input(langProperties.getProperty("txt.cmd.swords"));
 				int i = Integer.parseInt(s);
 				Validate.inclusiveBetween(0, Integer.MAX_VALUE, i);
 				return i;
 			} catch (IllegalArgumentException iae) {
-				output(properties.getProperty("txt.err.nfe." + GamePlay.getGameLang()));
+				output(langProperties.getProperty("txt.err.nfe"));
 			}
 		}
 	}
 	
 	public String cmdKeys() {
-		return properties.getProperty("txt.cmd.keys." + GamePlay.getGameLang());
+		return langProperties.getProperty("txt.cmd.keys.");
 	}
 
 	/**
 	 * Display the control of the game in a Messagebox.
 	 */
 	public void info() {
-		output(properties.getProperty("txt.controls." + GamePlay.getGameLang()));
+		output(langProperties.getProperty("txt.controls"));
 	}
 	
 	public String cmd() {
-		return input(properties.getProperty("txt.cmd." + GamePlay.getGameLang()));
+		return input(langProperties.getProperty("txt.cmd"));
 	}
 
 	/**

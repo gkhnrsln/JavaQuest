@@ -19,8 +19,11 @@ package main.java.gameobject;
 import main.java.enums.PropertiesLoader;
 import sum.multimedia.Bild;
 
+import java.util.Properties;
+
 @java.lang.SuppressWarnings("java:S2184")
 public abstract class GameObject extends Bild {
+	private static Properties properties = new PropertiesLoader().getProperties();
 	/**
 	 * Constructor for new game object.
 	 * @param x    Position (x coordinate).
@@ -28,7 +31,7 @@ public abstract class GameObject extends Bild {
 	 * @param prop Property of the image.
 	 */
 	protected GameObject(int x, int y, String prop) {
-		super(x * 34, y * 34, 34, 34, PropertiesLoader.getInstance().getProperties().getProperty(prop));
+		super(x * 34, y * 34, 34, 34, properties.getProperty(prop));
 	}
 	/**
 	 * Changes position of game object.

@@ -18,7 +18,7 @@ package main.java.gameobject;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.enums.Variables;
+import main.java.enums.PropertiesLoader;
 import org.apache.commons.lang3.Validate;
 
 import java.beans.PropertyChangeListener;
@@ -37,10 +37,12 @@ public class Player extends GameObject {
 	private int steps;
 	@Getter
 	private int swords;
+	// X Position from Player on GameField.
 	@Getter @Setter
-	private static int posX = Variables.PLAYER_POS_X; // X Position from Player on GameField.
+	private static int posX = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.player.x"));
+	// Y Position from Player on GameField.
 	@Getter @Setter
-	private static int posY = Variables.PLAYER_POS_Y; // Y Position from Player on GameField.
+	private static int posY = Integer.parseInt(new PropertiesLoader().getProperties().getProperty("field.player.y"));
 
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 

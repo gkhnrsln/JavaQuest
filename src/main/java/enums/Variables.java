@@ -20,10 +20,6 @@ public class Variables {
     // Private Constructor
 	private Variables() {
 	}
-	/** {@value #PLAYER_POS_X} */
-	public static final int PLAYER_POS_X = 2;
-	/** {@value #PLAYER_POS_Y} */
-	public static final int PLAYER_POS_Y = 15;
 	public static final String BUTTON = "Button";
 	public static final String BOX = "Box";
 	public static final String MONEY = "Money";
