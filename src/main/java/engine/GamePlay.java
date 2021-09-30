@@ -166,7 +166,6 @@ public class GamePlay {
     }
 
 
-
     /*
      * Check, if box can be moved further (i.e. if there are no obstacles).
      * @param coord, Either the X or Y coordinate.
@@ -323,7 +322,7 @@ public class GamePlay {
         return false;
     }
 
-    private static boolean isKeyCollected(){
+    private static boolean isKeyCollected() {
         if (isPlayerInFrontOf(Variables.KEY)) {
             Player.getInstance().setKeys(Player.getInstance().getKeys() + 1);
             return true;
@@ -436,7 +435,7 @@ public class GamePlay {
 
     //Enables or Disables the Cheat Mode, where you can bypass some obstacles.
     private static void cheatMode() {
-        if(!isCheat) {
+        if (!isCheat) {
             isCheat = true;
             Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.cheat"));
             if (isBeenCheating()) return;
@@ -446,5 +445,17 @@ public class GamePlay {
             isCheat = false;
             Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.down"));
         }
+    }
+
+    //TODO: Every level needs own bg music, which should change by level
+    public static void listenTo( Level<Visited> level) {
+        level.addPropertyChangeListener(evt -> {
+            if (evt.getPropertyName().equals("lvl") && (evt.getNewValue().equals(4))) {
+                Sound.playSoundLoop(CONFIG_PROP.getProperty("sfx.music"));
+            } else {
+                //TODO: avoid endless loop when leaving level 4
+                Sound.stopSoundLoop();
+            }
+        });
     }
 }

@@ -16,6 +16,8 @@
 
 package main.java.engine;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +37,58 @@ import main.java.gameobject.switches.*;
 
 public class Level<T> implements Serializable {
 	private static final long serialVersionUID = -5285864879474325429L;
-	private Properties prop = new PropertiesLoader("config", false).getProperties();
 	@java.lang.SuppressWarnings("java:S116")
-	private final int SIZE_X = Integer.parseInt(prop.getProperty("field.length.x"));
+	private final Properties PROP = new PropertiesLoader("config", false).getProperties();
 	@java.lang.SuppressWarnings("java:S116")
-	private final int SIZE_Y = Integer.parseInt(prop.getProperty("field.length.y"));
+	private final int SIZE_X = Integer.parseInt(PROP.getProperty("field.length.x"));
+	@java.lang.SuppressWarnings("java:S116")
+	private final int SIZE_Y = Integer.parseInt(PROP.getProperty("field.length.y"));
 	// GameField
-	@Getter @Setter
+	@Getter
+	@Setter
 	private GameObject[][] gameField = new GameObject[SIZE_X][SIZE_Y];
 	// List of visited fields
-	@Getter @Setter
+	@Getter
+	@Setter
 	private List<T> list = new ArrayList<>();
 	//first level
-	@Getter @Setter
+	@Getter
 	private int lvl = 1;
 	private boolean isChecked = false;
+
+	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
+
+	/**
+	 * Loads Level.
+	 * @param lvl Level 1 to 5
+	 */
+	public GameObject[][] loadLvl(int lvl) {
+		switch (lvl) {
+			case 1:
+				objects1();
+				setLvl(1);
+				break;
+			case 2:
+				objects2();
+				setLvl(2);
+				break;
+			case 3:
+				objects3();
+				setLvl(3);
+				break;
+			case 4:
+				objects4();
+				setLvl(4);
+				break;
+			case 5:
+				objects5();
+				setLvl(5);
+				break;
+			default:
+				break;
+		}
+		return gameField;
+	}
 
 	/* checks if player visited a field before */
 	private void checker(int posX, int posY) {
@@ -59,29 +98,6 @@ public class Level<T> implements Serializable {
 				isChecked = true;
 				break;
 			}
-		}
-	}
-
-	/* generates the level structure */
-	private void generateLvl(int lvl) {
-		switch (lvl) {
-			case 1:
-				objects1();
-				break;
-			case 2:
-				objects2();
-				break;
-			case 3:
-				objects3();
-				break;
-			case 4:
-				objects4();
-				break;
-			case 5:
-				objects5();
-				break;
-			default:
-				break;
 		}
 	}
 
@@ -213,32 +229,6 @@ public class Level<T> implements Serializable {
 		buildField(LevelStructure.level5());
 		princess(12, 1);
 	}
-	/**
-	 * Loads Level.
-	 * @param lvl Level 1 to 5
-	 */
-	public GameObject[][] loadLvl(int lvl) {
-		switch (lvl) {
-			case 1:
-				generateLvl(1);
-				break;
-			case 2:
-				generateLvl(2);
-				break;
-			case 3:
-				generateLvl(3);
-				break;
-			case 4:
-				generateLvl(4);
-				break;
-			case 5:
-				generateLvl(5);
-				break;
-			default:
-				break;
-		}
-		return gameField;
-	}
 
 	private void button(int x, int y) {
 		gameField[x][y] = new Button(x, y);
@@ -261,8 +251,7 @@ public class Level<T> implements Serializable {
 	}
 
 	private void opa(int x, int y) {
-		Opa opa = new Opa(x, y);
-		gameField[x][y] = opa;
+		gameField[x][y] = new Opa(x, y);
 	}
 
 	private void wand(int x, int y) {
@@ -306,6 +295,16 @@ public class Level<T> implements Serializable {
 	private void masterKey(int x, int y) {
 		checker(x, y);
 		if (!isChecked) gameField[x][y] = new MasterKey(x, y);
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener l) {
+		changes.addPropertyChangeListener(l);
+	}
+
+	public void setLvl(int lvl) {
+		int oldValue = this.lvl;
+		this.lvl = lvl;
+		changes.firePropertyChange("lvl", oldValue, lvl);
 	}
 }
 

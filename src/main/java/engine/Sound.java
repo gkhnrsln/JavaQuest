@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 public class Sound {
 	private static final Logger LOGGER = Logger.getLogger(Sound.class.getName());
+	private static Clip activeClip;
 
 	private Sound(){
 		throw new IllegalStateException("Utility class");
@@ -41,5 +42,22 @@ public class Sound {
 		} catch (Exception e) {
 			LOGGER.info(".wav File not found." + e.getMessage());
 		}
+	}
+
+	public static void playSoundLoop(String file) {
+		stopSoundLoop();
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(file).getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			activeClip = clip;
+		} catch (Exception e) {
+			LOGGER.info(".wav File not found." + e.getMessage());
+		}
+	}
+
+	public static void stopSoundLoop() {
+		if (activeClip != null) activeClip.stop();
 	}
 }

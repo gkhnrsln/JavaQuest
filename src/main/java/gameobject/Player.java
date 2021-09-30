@@ -40,10 +40,12 @@ public class Player extends GameObject {
 	@Getter
 	private int swords;
 	// X Position from Player on GameField.
-	@Getter @Setter
+	@Getter
+	@Setter
 	private static int posX = Integer.parseInt(PROP.getProperty("field.player.x"));
 	// Y Position from Player on GameField.
-	@Getter @Setter
+	@Getter
+	@Setter
 	private static int posY = Integer.parseInt(PROP.getProperty("field.player.y"));
 
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);

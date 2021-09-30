@@ -42,6 +42,7 @@ public class Main extends EBAnwendung {
 		Bild bg = new Bild(0, 0, 0, 0, PROP.getProperty("img.bg"));
 		Menu.getInstance().listenTo(Player.getInstance());
 		Level<Visited> lvl = GamePlay.getLVL();
+		GamePlay.listenTo(GamePlay.getLVL());
 		lvl.setGameField(lvl.loadLvl(lvl.getLvl()));
 		fuehreAus();
 	}
