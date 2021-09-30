@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  G. Arslan
+ * Copyright (C) 2020-2021  G. Arslan
  * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -113,6 +113,7 @@ public class Player extends GameObject {
 	public void moveUp() {
 		super.moveUp();
 		ladeBild(PROP.getProperty("img.player.up"));
+		setPosY(getPosY() - 1);
 		stepsCnt();
 	}
 
@@ -120,6 +121,7 @@ public class Player extends GameObject {
 	public void moveLeft() {
 		super.moveLeft();
 		ladeBild(PROP.getProperty("img.player.left"));
+		setPosX(getPosX() - 1);
 		stepsCnt();
 	}
 
@@ -127,6 +129,7 @@ public class Player extends GameObject {
 	public void moveDown() {
 		super.moveDown();
 		ladeBild(PROP.getProperty("img.player.down"));
+		setPosY(getPosY() + 1);
 		stepsCnt();
 	}
 
@@ -134,6 +137,7 @@ public class Player extends GameObject {
 	public void moveRight() {
 		super.moveRight();
 		ladeBild(PROP.getProperty("img.player.right"));
+		setPosX(getPosX() + 1);
 		stepsCnt();
 	}
 

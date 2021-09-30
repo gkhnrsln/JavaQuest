@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021  G. Arslan
+ * Copyright (C) 2020-2021  G. Arslan
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -43,9 +43,11 @@ import static java.lang.Integer.parseInt;
  * This is where the GamePlay is set.
  */
 public class GamePlay {
-    @Getter @Setter
+    @Getter
+    @Setter
     private static boolean isCheat;
-    @Getter @Setter
+    @Getter
+    @Setter
     private static boolean isBeenCheating;
     @Getter
     private static final Level<Visited> LVL = new Level<>(); // Level
@@ -129,63 +131,9 @@ public class GamePlay {
                 break;
         }
 
-        //no weapon, no fight
-        if (isPlayerInFrontOf(Variables.VILLAIN) && Player.getInstance().getSwords() < 1) {
-            Menu.getInstance().text(TXT_PROP.getProperty("txt.villain.001"));
-        }
+        if (isPlayerInFrontOfPerson()) return;
 
-        if (isPlayerInFrontOf(Variables.OBSTACLE)) {
-            Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
-        }
-
-        playerInFrontOfPerson();
-
-        if (c == 'w') {
-            if (isPlayerInFrontOf(Variables.OPA) && Opa.getMasterKey() == 0) {
-                Sound.playSound(CONFIG_PROP.getProperty("sfx.txt"));
-                Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.003"));
-            } else if (isPlayerInFrontOf(Variables.OPA)) {
-                if (Player.getInstance().getMoney() < 450) {
-                    Sound.playSound(CONFIG_PROP.getProperty("sfx.txt"));
-                    Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.001"));
-                } else {
-                    LVL.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, LVL.getLvl()));
-                    Player.getInstance().setMoney(Player.getInstance().getMoney() - 450);
-                    Opa.setMasterKey(Opa.getMasterKey() - 1);
-                    Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
-                    Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.002"));
-                }
-            }
-        }
-
-        if (isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getKeys() > 1
-                || isPlayerInFrontOf(Variables.VILLAIN) && Player.getInstance().getSwords() > 0
-                || isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getKeys() > 2
-                || isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getMasterKeys() > 0
-                || isPlayerInFrontOf(Variables.MONEY) || isPlayerInFrontOf(Variables.SWORD)
-                || isPlayerInFrontOf(Variables.KEY) || isPlayerInFrontOf(Variables.MASTERKEY)
-                || isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getKeys() > 0) {
-            if (isPlayerInFrontOf(Variables.VILLAIN)) {
-                Sound.playSound(CONFIG_PROP.getProperty("sfx.wpn.sword"));
-                Player.getInstance().setSwords(Player.getInstance().getSwords() - 1);
-            } else if (isPlayerInFrontOf(Variables.MONEY)) {
-                Sound.playSound(CONFIG_PROP.getProperty("sfx.money"));
-                Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.money"));
-                Player.getInstance().setMoney(Player.getInstance().getMoney() + ((Money) LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
-            } else if (isPlayerInFrontOf(Variables.SWORD)) {
-                Player.getInstance().setSwords(Player.getInstance().getSwords() + 1);
-                Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.sword"));
-            } else if (isPlayerInFrontOf(Variables.KEY)) {
-                Player.getInstance().setKeys(Player.getInstance().getKeys() + 1);
-            } else if (isPlayerInFrontOf(Variables.LOCK)) {
-                Player.getInstance().setKeys(Player.getInstance().getKeys() - 1);
-            } else if (isPlayerInFrontOf(Variables.MASTERKEY)) {
-                Sound.playSound(CONFIG_PROP.getProperty("sfx.txt"));
-                Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
-            } else if (isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getMasterKeys() > 0) {
-                Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() - 1);
-            }
-
+        if (isVillainDefeated() || isLockOpened() || isMoneyCollected() || isSwordCollected() || isKeyCollected() || isMasterKeyCollected()) {
             switch (c) {
                 case 'w':
                     hideObject('y', -1);
@@ -203,11 +151,21 @@ public class GamePlay {
                     break;
             }
         }
-        isPlayerOnStairs();
-        isPlayerOnPortal();
+
+        if (isPlayerInFrontOf(Variables.OBSTACLE)) {
+            Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
+            return;
+        }
+
+        if (isPlayerOnStairs()) return;
+
+        if (isPlayerOnPortal()) return;
+
         //move Player image
         movePlayerOnField(c);
     }
+
+
 
     /*
      * Check, if box can be moved further (i.e. if there are no obstacles).
@@ -260,6 +218,7 @@ public class GamePlay {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
         }
     }
+
     /*
      * If Player is in front of a specified object.
      * @param object specified object
@@ -298,17 +257,8 @@ public class GamePlay {
         }
     }
 
-    private static void playerInFrontOfPerson() {
-        if (isPlayerInFrontOf(Variables.PRINCESS)) {
-            Sound.playSound(CONFIG_PROP.getProperty("sfx.princess"));
-            Menu.getInstance().text(TXT_PROP.getProperty("txt.princess.001"));
-        } else if (isPlayerInFrontOf(Variables.OPA)) {
-            Sound.playSound(CONFIG_PROP.getProperty("sfx.opa"));
-            Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.004"));
-        }
-    }
 
-    private static void isPlayerOnStairs() {
+    private static boolean isPlayerOnStairs() {
         if (isPlayerInFrontOf(Variables.STAIRS)) {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.stairs"));
             //set lvl destination
@@ -323,10 +273,12 @@ public class GamePlay {
                 }
             }
             LVL.setGameField(LVL.loadLvl(newLvl));
+            return true;
         }
+        return false;
     }
 
-    private static void isPlayerOnPortal() {
+    private static boolean isPlayerOnPortal() {
         if (LVL.getGameField()[Player.getPosX()][Player.getPosY()] instanceof Portal) {
             //teleport player to another position
             Player.getInstance().go(((Portal) LVL.getGameField()[Player.getPosX()][Player.getPosY()]).getPosX(),
@@ -335,48 +287,141 @@ public class GamePlay {
             int yt = ((Portal) LVL.getGameField()[Player.getPosX()][Player.getPosY()]).getPosY();
             Player.setPosX(xt);
             Player.setPosY(yt);
+            return true;
         }
+        return false;
+    }
+
+    private static boolean isPlayerInFrontOfPerson() {
+        if (isPlayerInFrontOf(Variables.PRINCESS)) {
+            Sound.playSound(CONFIG_PROP.getProperty("sfx.princess"));
+            Menu.getInstance().text(TXT_PROP.getProperty("txt.princess.001"));
+            return true;
+        } else if (isPlayerInFrontOf(Variables.OPA)) {
+            if (LVL.getLvl() == 3) {
+                Sound.playSound(CONFIG_PROP.getProperty("sfx.opa"));
+                Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.004"));
+                return true;
+            }
+            if (Opa.getMasterKey() == 0) {
+                Sound.playSound(CONFIG_PROP.getProperty("sfx.txt"));
+                Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.003"));
+            } else {
+                if (Player.getInstance().getMoney() < 450) {
+                    Sound.playSound(CONFIG_PROP.getProperty("sfx.txt"));
+                    Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.001"));
+                } else {
+                    LVL.getList().add(new Visited(Player.getPosX(), Player.getPosY() + y, LVL.getLvl()));
+                    Player.getInstance().setMoney(Player.getInstance().getMoney() - 450);
+                    Opa.setMasterKey(Opa.getMasterKey() - 1);
+                    Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
+                    Menu.getInstance().text(TXT_PROP.getProperty("txt.opa.002"));
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isKeyCollected(){
+        if (isPlayerInFrontOf(Variables.KEY)) {
+            Player.getInstance().setKeys(Player.getInstance().getKeys() + 1);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isMasterKeyCollected() {
+        if (isPlayerInFrontOf(Variables.MASTERKEY)) {
+            Sound.playSound(CONFIG_PROP.getProperty("sfx.txt"));
+            Player.getInstance().setMasterKeys(Player.getInstance().getMasterKeys() + 1);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isSwordCollected() {
+        if (isPlayerInFrontOf(Variables.SWORD)) {
+            Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.sword"));
+            Player.getInstance().setSwords(Player.getInstance().getSwords() + 1);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isMoneyCollected() {
+        if (isPlayerInFrontOf(Variables.MONEY)) {
+            Sound.playSound(CONFIG_PROP.getProperty("sfx.money"));
+            Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.money"));
+            Player.getInstance().setMoney(Player.getInstance().getMoney() + ((Money) LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isLockOpened() {
+        if (isPlayerInFrontOf(Variables.LOCK) && Player.getInstance().getKeys() > 0) {
+            Player.getInstance().setKeys(Player.getInstance().getKeys() - 1);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isVillainDefeated() {
+        //no weapong, no fight
+        if (isPlayerInFrontOf(Variables.VILLAIN)) {
+            if (Player.getInstance().getSwords() < 1) {
+                Menu.getInstance().text(TXT_PROP.getProperty("txt.villain.001"));
+            } else {
+                Sound.playSound(CONFIG_PROP.getProperty("sfx.wpn.sword"));
+                Player.getInstance().setSwords(Player.getInstance().getSwords() - 1);
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void movePlayerOnField(char c) {
-        if (GamePlay.isCheat() || !(isPlayerInFrontOf(Variables.BOX)
-                && (LVL.getGameField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof GameObject))
-                && !(isPlayerInFrontOf(Variables.OBSTACLE))) {
-            switch (c) {
-                case 'w':
-                    Player.getInstance().moveUp();
-                    Player.setPosY(Player.getPosY() + y);
-                    break;
-                case 'a':
-                    Player.getInstance().moveLeft();
-                    Player.setPosX(Player.getPosX() + x);
-                    break;
-                case 's':
-                    Player.getInstance().moveDown();
-                    Player.setPosY(Player.getPosY() + y);
-                    break;
-                case 'd':
-                    Player.getInstance().moveRight();
-                    Player.setPosX(Player.getPosX() + x);
-                    break;
-                default:
-                    break;
-            }
+        if (isPlayerInFrontOf(Variables.OBSTACLE)) {
+            return;
+        }
+
+        if (isPlayerInFrontOf(Variables.BOX) && (LVL.getGameField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof GameObject)) {
+            return;
+        }
+
+        switch (c) {
+            case 'w':
+                Player.getInstance().moveUp();
+                break;
+            case 'a':
+                Player.getInstance().moveLeft();
+                break;
+            case 's':
+                Player.getInstance().moveDown();
+                break;
+            case 'd':
+                Player.getInstance().moveRight();
+                break;
+            default:
+                break;
         }
     }
 
     /*
      * Hide an object from the world.
-     * @param t must be 'x' or 'y'
-     * @param r must be '-1' or '1'
+     * @param axis must be 'x' or 'y'
+     * @param distance must be '-1' or '1'
      */
-    private static void hideObject(char t, int r) {
-        switch (t) {
+    private static void hideObject(char axis, int distance) {
+        if (distance != -1 && distance != 1)
+            throw new IllegalArgumentException("Distance should be '-1' or '1'");
+        switch (axis) {
             case 'x':
-                x = r;
+                x = distance;
                 break;
             case 'y':
-                y = r;
+                y = distance;
                 break;
             default:
                 break;
@@ -391,9 +436,10 @@ public class GamePlay {
 
     //Enables or Disables the Cheat Mode, where you can bypass some obstacles.
     private static void cheatMode() {
-        if (!isBeenCheating()) {
+        if(!isCheat) {
             isCheat = true;
             Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.cheat"));
+            if (isBeenCheating()) return;
             setBeenCheating(true);
             Player.getInstance().setSteps(-1);
         } else {

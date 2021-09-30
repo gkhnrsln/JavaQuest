@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  G. Arslan
+ * Copyright (C) 2020-2021  G. Arslan
  * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -133,6 +133,7 @@ public class Level<T> implements Serializable {
 
 		checker(5, 1);
 		if (!isChecked) opa(5, 1);
+
 		stairs(20, 2, 1);
 		stairs(1, 1, 3);
 		stairs(3, 14, 4);

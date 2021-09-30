@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  G. Arslan
+ * Copyright (C) 2020-2021  G. Arslan
  * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -85,15 +85,15 @@ public class Menu implements Serializable {
 	}
 
 	private void output(String t) {
-		Sound.playSound(configProp.getProperty("sfx.menu.move1"));
+		Sound.playSound(configProp.getProperty("sfx.menu.move"));
 		JOptionPane.showMessageDialog(null, t);
-		Sound.playSound(configProp.getProperty("sfx.menu.select1"));
+		Sound.playSound(configProp.getProperty("sfx.menu.select"));
 	}
 
 	private String input(String text){
-		Sound.playSound(configProp.getProperty("sfx.menu.move1"));
+		Sound.playSound(configProp.getProperty("sfx.menu.move"));
 		String s = JOptionPane.showInputDialog(text);
-		Sound.playSound(configProp.getProperty("sfx.menu.select1"));
+		Sound.playSound(configProp.getProperty("sfx.menu.select"));
 		return (s != null && ! s.isEmpty()) ? s : "0";
 	}
 

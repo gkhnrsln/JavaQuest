@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  G. Arslan
+ * Copyright (C) 2020-2021  G. Arslan
  * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
