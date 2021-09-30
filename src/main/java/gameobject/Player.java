@@ -18,7 +18,6 @@ package main.java.gameobject;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.java.engine.GamePlay;
 import main.java.enums.PropertiesLoader;
 import org.apache.commons.lang3.Validate;
 
@@ -100,32 +99,42 @@ public class Player extends GameObject {
 		changes.firePropertyChange("masterKeys", oldValue, masterKeys);
 	}
 
+	/**
+	 * Changes position of Player.
+	 * @param x, new Position (x coordinate).
+	 * @param y, new Position (y coordinate).
+	 */
+	@java.lang.SuppressWarnings("java:S2184")
+	public void go(int x, int y) {
+		setzePosition(x * 34, y * 34);
+	}
+
 	@Override
 	public void moveUp() {
 		super.moveUp();
 		ladeBild(PROP.getProperty("img.player.up"));
-		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
+		stepsCnt();
 	}
 
 	@Override
 	public void moveLeft() {
 		super.moveLeft();
 		ladeBild(PROP.getProperty("img.player.left"));
-		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
+		stepsCnt();
 	}
 
 	@Override
 	public void moveDown() {
 		super.moveDown();
 		ladeBild(PROP.getProperty("img.player.down"));
-		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
+		stepsCnt();
 	}
 
 	@Override
 	public void moveRight() {
 		super.moveRight();
 		ladeBild(PROP.getProperty("img.player.right"));
-		setSteps(GamePlay.isBeenCheating() ? -1 : steps + 1);
+		stepsCnt();
 	}
 
 	@Override
@@ -136,5 +145,9 @@ public class Player extends GameObject {
 	@Override
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		changes.removePropertyChangeListener(l);
+	}
+
+	private void stepsCnt() {
+		if (steps >= 0) setSteps(steps + 1);
 	}
 }

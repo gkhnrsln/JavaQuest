@@ -23,7 +23,7 @@ import java.util.Properties;
 
 @java.lang.SuppressWarnings("java:S2184")
 public abstract class GameObject extends Bild {
-	private static Properties properties = new PropertiesLoader("config", false).getProperties();
+	private static final Properties PROP = new PropertiesLoader("config", false).getProperties();
 	/**
 	 * Constructor for new game object.
 	 * @param x    Position (x coordinate).
@@ -31,15 +31,7 @@ public abstract class GameObject extends Bild {
 	 * @param prop Property of the image.
 	 */
 	protected GameObject(int x, int y, String prop) {
-		super(x * 34, y * 34, 34, 34, properties.getProperty(prop));
-	}
-	/**
-	 * Changes position of game object.
-	 * @param x new Position (x coordinate).
-	 * @param y new Position (y coordinate).
-	 */
-	public void go(int x, int y) {
-		setzePosition(x * 34, y * 34);
+		super(x * 34, y * 34, 34, 34, PROP.getProperty(prop));
 	}
 
 	/** Moves the game object 34px up. */

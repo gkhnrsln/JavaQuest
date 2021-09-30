@@ -395,6 +395,7 @@ public class GamePlay {
             isCheat = true;
             Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.cheat"));
             setBeenCheating(true);
+            Player.getInstance().setSteps(-1);
         } else {
             isCheat = false;
             Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.down"));
