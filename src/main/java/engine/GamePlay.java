@@ -131,37 +131,10 @@ public class GamePlay {
                 break;
         }
 
-        if (isPlayerInFrontOfPerson()) return;
-
-        if (isVillainDefeated() || isLockOpened() || isMoneyCollected() || isSwordCollected() || isKeyCollected() || isMasterKeyCollected()) {
-            switch (c) {
-                case 'w':
-                    hideObject('y', -1);
-                    break;
-                case 'a':
-                    hideObject('x', -1);
-                    break;
-                case 's':
-                    hideObject('y', 1);
-                    break;
-                case 'd':
-                    hideObject('x', 1);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (isPlayerInFrontOf(Variables.OBSTACLE)) {
-            Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
-            return;
-        }
-
         if (isPlayerOnStairs()) return;
 
         if (isPlayerOnPortal()) return;
 
-        //move Player image
         movePlayerOnField(c);
     }
 
@@ -196,15 +169,14 @@ public class GamePlay {
         }
 
         if (isPlayerInFrontOf(Variables.BOX) && !(LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject)) {
+            Sound.playSound(CONFIG_PROP.getProperty("sfx.interaction"));
             if (coord == 'x') {
-                Sound.playSound(CONFIG_PROP.getProperty("sfx.interaction"));
                 if (r == 1) {
                     LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveRight();
                 } else if (r == -1) {
                     LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveLeft();
                 }
             } else {
-                Sound.playSound(CONFIG_PROP.getProperty("sfx.interaction"));
                 if (r == -1) {
                     LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveUp();
                 } else if (r == 1) {
@@ -255,7 +227,6 @@ public class GamePlay {
                 return false;
         }
     }
-
 
     private static boolean isPlayerOnStairs() {
         if (isPlayerInFrontOf(Variables.STAIRS)) {
@@ -381,9 +352,7 @@ public class GamePlay {
     }
 
     private static void movePlayerOnField(char c) {
-        if (isPlayerInFrontOf(Variables.OBSTACLE)) {
-            return;
-        }
+        if (isPlayerInFrontOfPerson()) return;
 
         if (isPlayerInFrontOf(Variables.BOX) && (LVL.getGameField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof GameObject)) {
             return;
@@ -391,20 +360,52 @@ public class GamePlay {
 
         switch (c) {
             case 'w':
+                if (!isNoObstacle(c)) return;
                 Player.getInstance().moveUp();
                 break;
             case 'a':
+                if (!isNoObstacle(c)) return;
                 Player.getInstance().moveLeft();
                 break;
             case 's':
+                if (!isNoObstacle(c)) return;
                 Player.getInstance().moveDown();
                 break;
             case 'd':
+                if (!isNoObstacle(c)) return;
                 Player.getInstance().moveRight();
                 break;
             default:
                 break;
         }
+    }
+
+    private static boolean isNoObstacle(char c) {
+        if (isVillainDefeated() || isLockOpened() || isMoneyCollected() || isSwordCollected() || isKeyCollected() || isMasterKeyCollected()) {
+            switch (c) {
+                case 'w':
+                    hideObject('y', -1);
+                    break;
+                case 'a':
+                    hideObject('x', -1);
+                    break;
+                case 's':
+                    hideObject('y', 1);
+                    break;
+                case 'd':
+                    hideObject('x', 1);
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+
+        if (isPlayerInFrontOf(Variables.OBSTACLE)) {
+            Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
+            return false;
+        }
+        return true;
     }
 
     /*
