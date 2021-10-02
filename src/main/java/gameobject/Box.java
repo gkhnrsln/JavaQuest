@@ -16,7 +16,7 @@
 
 package main.java.gameobject;
 
-public class Box extends GameObject {
+public class Box extends Obstacle {
 	private static final long serialVersionUID = 5171228689047749319L;
 
 	public Box(int x, int y) {

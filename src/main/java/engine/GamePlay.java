@@ -50,14 +50,12 @@ public class GamePlay {
     @Setter
     private static boolean isBeenCheating;
     @Getter
-    private static final Level<Visited> LVL = new Level<>(); // Level
+    private static final Level<Visited> LVL = new Level<>();
     private static final Properties CONFIG_PROP = new PropertiesLoader("config", false).getProperties();
     private static final Properties TXT_PROP = new PropertiesLoader("text", true).getProperties();
 
     private static int x = 0; // x-axis distance from player
     private static int y = 0; // y-axis distance from player
-    private static int x2 = 0; // x-axis distance from player +1
-    private static int y2 = 0; // y-axis distance from player +1
 
     private GamePlay() {
         throw new IllegalStateException("Utility class");
@@ -85,7 +83,7 @@ public class GamePlay {
     private static void commands() {
         switch (Menu.getInstance().cmd()) {
             case "glitch":
-                GamePlay.cheatMode();
+                cheatMode();
                 break;
             case "swords":
                 Player.getInstance().setSwords(Menu.getInstance().cmdSwords());
@@ -99,32 +97,24 @@ public class GamePlay {
     }
 
     private static void movement(char c) {
-        //distance from player
         x = 0;
         y = 0;
-        //distance from player +1
-        x2 = 0;
-        y2 = 0;
 
         switch (c) {
             case 'w':
                 y--;
-                y2 = y - 1;
                 checkBoxObstacle('y', -1);
                 break;
             case 'a':
                 x--;
-                x2 = x - 1;
                 checkBoxObstacle('x', -1);
                 break;
             case 's':
                 y++;
-                y2 = y + 1;
                 checkBoxObstacle('y', 1);
                 break;
             case 'd':
                 x++;
-                x2 = x + 1;
                 checkBoxObstacle('x', 1);
                 break;
             default:
@@ -156,8 +146,7 @@ public class GamePlay {
                 return;
         }
 
-        //player is in front of box, box is in front of button
-        if (isPlayerInFrontOf(Variables.BOX) && LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Button) {
+        if (isPlayerInFrontOf(Variables.BOX) && isBoxInFrontOfButton()) {
             //move Box on Button
             LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
             //remove block to enter next section in lvl 1
@@ -168,7 +157,7 @@ public class GamePlay {
             LVL.getGameField()[Player.getPosX()][Player.getPosY() + y] = null;
         }
 
-        if (isPlayerInFrontOf(Variables.BOX) && !(LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject)) {
+        if (isPlayerInFrontOf(Variables.BOX) && !(isBoxInFrontOfObstacle())) {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.interaction"));
             if (coord == 'x') {
                 if (r == 1) {
@@ -185,7 +174,7 @@ public class GamePlay {
             }
             LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y];
             LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] = null;
-        } else if (isPlayerInFrontOf(Variables.BOX) && LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof GameObject) {
+        } else if (isPlayerInFrontOf(Variables.BOX) && isBoxInFrontOfObstacle()) {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
         }
     }
@@ -293,6 +282,14 @@ public class GamePlay {
         return false;
     }
 
+    private static boolean isBoxInFrontOfButton() {
+        return LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Button;
+    }
+
+    private static boolean isBoxInFrontOfObstacle() {
+        return LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Obstacle;
+    }
+
     private static boolean isKeyCollected() {
         if (isPlayerInFrontOf(Variables.KEY)) {
             Player.getInstance().setKeys(Player.getInstance().getKeys() + 1);
@@ -354,33 +351,32 @@ public class GamePlay {
     private static void movePlayerOnField(char c) {
         if (isPlayerInFrontOfPerson()) return;
 
-        if (isPlayerInFrontOf(Variables.BOX) && (LVL.getGameField()[Player.getPosX() + x2][Player.getPosY() + y2] instanceof GameObject)) {
-            return;
-        }
+        if (isPlayerInFrontOf(Variables.BOX)) return;
 
         switch (c) {
             case 'w':
-                if (!isNoObstacle(c)) return;
+                if (isObstacle(c)) return;
                 Player.getInstance().moveUp();
                 break;
             case 'a':
-                if (!isNoObstacle(c)) return;
+                if (isObstacle(c)) return;
                 Player.getInstance().moveLeft();
                 break;
             case 's':
-                if (!isNoObstacle(c)) return;
+                if (isObstacle(c)) return;
                 Player.getInstance().moveDown();
                 break;
             case 'd':
-                if (!isNoObstacle(c)) return;
+                if (isObstacle(c)) return;
                 Player.getInstance().moveRight();
                 break;
             default:
                 break;
         }
+
     }
 
-    private static boolean isNoObstacle(char c) {
+    private static boolean isObstacle(char c) {
         if (isVillainDefeated() || isLockOpened() || isMoneyCollected() || isSwordCollected() || isKeyCollected() || isMasterKeyCollected()) {
             switch (c) {
                 case 'w':
@@ -398,14 +394,14 @@ public class GamePlay {
                 default:
                     break;
             }
-            return true;
+            return false;
         }
 
         if (isPlayerInFrontOf(Variables.OBSTACLE)) {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /*
