@@ -22,7 +22,7 @@ import sum.multimedia.Bild;
 import java.util.Properties;
 
 @java.lang.SuppressWarnings("java:S2184")
-public abstract class GameObject extends Bild {
+public abstract class GameObject extends Bild implements Moveable {
 	private static final Properties PROP = new PropertiesLoader("config", false).getProperties();
 	/**
 	 * Constructor for new game object.

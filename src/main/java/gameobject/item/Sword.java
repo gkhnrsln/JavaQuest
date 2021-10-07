@@ -19,6 +19,11 @@ package main.java.gameobject.item;
 public class Sword extends Item {
 	private static final long serialVersionUID = 6078587262493481794L;
 
+	/**
+	 * Constructor for Sword object.
+	 * @param x    Position (x coordinate).
+	 * @param y    Position (y coordinate).
+	 */
 	public Sword(int x, int y) {
 		super(x, y, "img.sword");
 	}

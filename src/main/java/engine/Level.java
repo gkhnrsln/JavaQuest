@@ -51,10 +51,9 @@ public class Level<T> implements Serializable {
 	@Getter
 	@Setter
 	private List<T> list = new ArrayList<>();
-	//first level
+
 	@Getter
-	private int lvl = 1;
-	private boolean isChecked = false;
+	private int lvl;
 
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
@@ -91,14 +90,13 @@ public class Level<T> implements Serializable {
 	}
 
 	/* checks if player visited a field before */
-	private void checker(int posX, int posY) {
-		isChecked = false;
-		for (T l : list) {
-			if (((Visited) l).x == posX && ((Visited) l).y == posY && ((Visited) l).lvl == 1) {
-				isChecked = true;
-				break;
+	private boolean isNotChecked(int posX, int posY) {
+		for (T level : list) {
+			if (((Visited) level).x == posX && ((Visited) level).y == posY && ((Visited) level).lvl == 1) {
+				return false;
 			}
 		}
+		return true;
 	}
 
 	private void buildField(int[][] sField) {
@@ -147,8 +145,7 @@ public class Level<T> implements Serializable {
 	private void objects2() {
 		buildField(LevelStructure.level2());
 
-		checker(5, 1);
-		if (!isChecked) opa(5, 1);
+		if (isNotChecked(5, 1)) gameField[5][1] = new Opa(5, 1);
 
 		stairs(20, 2, 1);
 		stairs(1, 1, 3);
@@ -165,7 +162,7 @@ public class Level<T> implements Serializable {
 
 	private void objects3() {
 		buildField(LevelStructure.level3());
-		opa(6,1);
+		gameField[6][1] = new Opa(6, 1);
 		masterKey(9, 8);
 		stairs(9, 7, 2);
 	}
@@ -227,7 +224,7 @@ public class Level<T> implements Serializable {
 
 	private void objects5() {
 		buildField(LevelStructure.level5());
-		princess(12, 1);
+		gameField[12][1] = new Princess(12, 1);
 	}
 
 	private void button(int x, int y) {
@@ -250,51 +247,36 @@ public class Level<T> implements Serializable {
 		gameField[x][y] = new Portal(x, y, x2, y2);
 	}
 
-	private void opa(int x, int y) {
-		gameField[x][y] = new Opa(x, y);
-	}
-
 	private void wand(int x, int y) {
 		gameField[x][y] = new Wand(x, y);
 	}
 
-	private void princess(int x, int y) {
-		gameField[x][y] = new Princess(x, y);
-	}
-
 	private void villain(int x, int y, String prop) {
-		checker(x, y);
-		if (!isChecked) gameField[x][y] = new Gegner(x, y, prop);
+		if (isNotChecked(x, y)) gameField[x][y] = new Gegner(x, y, prop);
 	}
 
 	private void sword(int x, int y) {
-		checker(x, y);
-		if (!isChecked) gameField[x][y] = new Sword(x, y);
+		if (isNotChecked(x, y)) gameField[x][y] = new Sword(x, y);
 	}
 
 	private void key(int x, int y) {
-		checker(x, y);
-		if (!isChecked)	gameField[x][y] = new Key(x, y);
+		if (isNotChecked(x, y))	gameField[x][y] = new Key(x, y);
 	}
 
 	private void lock(int x, int y) {
-		checker(x, y);
-		if (!isChecked)	gameField[x][y] = new Lock(x, y);
+		if (isNotChecked(x, y)) gameField[x][y] = new Lock(x, y);
 	}
 
 	private void lock2(int x, int y, int z) {
-		checker(x, y);
-		if (!isChecked)	gameField[x][y] = new Lock(x, y, z);
+		if (isNotChecked(x, y))	gameField[x][y] = new Lock(x, y, z);
 	}
 
 	private void money(int x, int y, int z) {
-		checker(x, y);
-		if (!isChecked)	gameField[x][y] = new Money(x, y, z);
+		if (isNotChecked(x, y))	gameField[x][y] = new Money(x, y, z);
 	}
 
 	private void masterKey(int x, int y) {
-		checker(x, y);
-		if (!isChecked) gameField[x][y] = new MasterKey(x, y);
+		if (isNotChecked(x, y)) gameField[x][y] = new MasterKey(x, y);
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener l) {

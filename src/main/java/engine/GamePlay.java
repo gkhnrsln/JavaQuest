@@ -125,6 +125,8 @@ public class GamePlay {
 
         if (isPlayerOnPortal()) return;
 
+        if (isPlayerInFrontOfPerson()) return;
+
         movePlayerOnField(c);
     }
 
@@ -148,7 +150,7 @@ public class GamePlay {
 
         if (isPlayerInFrontOf(Variables.BOX) && isBoxInFrontOfButton()) {
             //move Box on Button
-            LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
+            getPlayerPos(x, y).moveDown();
             //remove block to enter next section in lvl 1
             LVL.getGameField()[18][14].verstecke();
             LVL.getGameField()[18][14] = null;
@@ -161,22 +163,26 @@ public class GamePlay {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.interaction"));
             if (coord == 'x') {
                 if (r == 1) {
-                    LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveRight();
+                    getPlayerPos(x, y).moveRight();
                 } else if (r == -1) {
-                    LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveLeft();
+                    getPlayerPos(x, y).moveLeft();
                 }
             } else {
                 if (r == -1) {
-                    LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveUp();
+                    getPlayerPos(x, y).moveUp();
                 } else if (r == 1) {
-                    LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].moveDown();
+                    getPlayerPos(x, y).moveDown();
                 }
             }
-            LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y];
+            LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] = getPlayerPos(x, y);
             LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] = null;
         } else if (isPlayerInFrontOf(Variables.BOX) && isBoxInFrontOfObstacle()) {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.obstacle"));
         }
+    }
+
+    private static GameObject getPlayerPos(int x, int y) {
+        return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y];
     }
 
     /*
@@ -187,31 +193,31 @@ public class GamePlay {
     private static boolean isPlayerInFrontOf(String object) {
         switch (object) {
             case Variables.BUTTON:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Button;
+                return getPlayerPos(x, y) instanceof Button;
             case Variables.BOX:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Box;
+                return getPlayerPos(x, y) instanceof Box;
             case Variables.SWORD:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Sword;
+                return getPlayerPos(x, y) instanceof Sword;
             case Variables.MONEY:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Money;
+                return getPlayerPos(x, y) instanceof Money;
             case Variables.PRINCESS:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Princess;
+                return getPlayerPos(x, y) instanceof Princess;
             case Variables.LOCK:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Lock;
+                return getPlayerPos(x, y) instanceof Lock;
             case Variables.OPA:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Opa;
+                return getPlayerPos(x, y) instanceof Opa;
             case Variables.NPC:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof NPC;
+                return getPlayerPos(x, y) instanceof NPC;
             case Variables.KEY:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Key;
+                return getPlayerPos(x, y) instanceof Key;
             case Variables.MASTERKEY:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof MasterKey;
+                return getPlayerPos(x, y) instanceof MasterKey;
             case Variables.VILLAIN:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Villain;
+                return getPlayerPos(x, y) instanceof Villain;
             case Variables.OBSTACLE:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Obstacle && !GamePlay.isCheat();
+                return getPlayerPos(x, y) instanceof Obstacle && !GamePlay.isCheat();
             case Variables.STAIRS:
-                return LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] instanceof Stairs;
+                return getPlayerPos(x, y) instanceof Stairs;
             default:
                 return false;
         }
@@ -221,14 +227,14 @@ public class GamePlay {
         if (isPlayerInFrontOf(Variables.STAIRS)) {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.stairs"));
             //set lvl destination
-            int newLvl = ((Stairs) LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getLvl();
+            int newLvl = ((Stairs) getPlayerPos(x, y)).getLvl();
             //clear gameField
             for (int i = 0; i < parseInt(CONFIG_PROP.getProperty("field.length.x")); i++) {
                 for (int j = 0; j < parseInt(CONFIG_PROP.getProperty("field.length.y")); j++) {
                     if (LVL.getGameField()[i][j] != null) {
                         LVL.getGameField()[i][j].verstecke();
                     }
-                    LVL.getGameField()[i][j] = null;
+                   LVL.getGameField()[i][j] = null;
                 }
             }
             LVL.setGameField(LVL.loadLvl(newLvl));
@@ -283,11 +289,11 @@ public class GamePlay {
     }
 
     private static boolean isBoxInFrontOfButton() {
-        return LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Button;
+        return getPlayerPos(x * 2, y * 2) instanceof Button;
     }
 
     private static boolean isBoxInFrontOfObstacle() {
-        return LVL.getGameField()[Player.getPosX() + (x * 2)][Player.getPosY() + (y * 2)] instanceof Obstacle;
+        return getPlayerPos(x * 2, y * 2) instanceof Obstacle;
     }
 
     private static boolean isKeyCollected() {
@@ -320,7 +326,7 @@ public class GamePlay {
         if (isPlayerInFrontOf(Variables.MONEY)) {
             Sound.playSound(CONFIG_PROP.getProperty("sfx.money"));
             Player.getInstance().ladeBild(CONFIG_PROP.getProperty("img.player.money"));
-            Player.getInstance().setMoney(Player.getInstance().getMoney() + ((Money) LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y]).getValue());
+            Player.getInstance().setMoney(Player.getInstance().getMoney() + ((Money) getPlayerPos(x, y)).getValue());
             return true;
         }
         return false;
@@ -349,10 +355,6 @@ public class GamePlay {
     }
 
     private static void movePlayerOnField(char c) {
-        if (isPlayerInFrontOfPerson()) return;
-
-        if (isPlayerInFrontOf(Variables.BOX)) return;
-
         switch (c) {
             case 'w':
                 if (isObstacle(c)) return;
@@ -425,7 +427,7 @@ public class GamePlay {
         //add new visited field to list
         LVL.getList().add(new Visited(Player.getPosX() + x, Player.getPosY() + y, LVL.getLvl()));
         //hide image from gameField
-        LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y].verstecke();
+        getPlayerPos(x, y).verstecke();
         //remove object from gameField
         LVL.getGameField()[Player.getPosX() + x][Player.getPosY() + y] = null;
     }
